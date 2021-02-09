@@ -1,0 +1,55 @@
+/* CTRL-F to navigate !!! */
+:root {
+	--gray-50: #faf9f5;
+	--gray-100: #f3f1ed;
+	--gray-200: #e1ddd6;
+	--gray-300: #c5bdb5;
+	--gray-400: #afa397;
+	--gray-500: #8e7d71;
+	--gray-600: #66564d;
+	--gray-700: #51433d;
+	--gray-800: #46332f;
+	--gray-900: #2b1717;
+
+	--sans: 'Merriweather Sans', sans-serif;
+
+	--light: 300;
+	--medium: 400;
+	--semibold: 600;
+}
+
+body {
+	font-family: var(--sans);
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+
+/* LoadingScreen */
+.loading-screen {
+	display: flex;
+	height: 100vh;
+	background-color: var(--gray-100);
+	align-items: center;
+	justify-content: center;
+}
+
+.loading-screen .loading-panel {
+	padding: 1rem;
+}
+
+/* LoadingPanel */
+.loading-panel {
+	background-color: var(--gray-50);
+}
+
+.loading-panel h1 {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+}
+
+.loading-panel p {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	padding-top: 0.5rem;
+	color: var(--gray-500);
+}
