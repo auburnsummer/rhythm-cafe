@@ -8,6 +8,8 @@ import { SortOptions } from "../utils/enums.js";
 
 import { useSelect } from "../hooks/useSelect.js";
 
+import { SearchOptionsBox } from "./SearchOptionsBox.js";
+
 export function Levels({worker}) {
 
 	const [limit, setLimit] = useState(20);
@@ -82,22 +84,10 @@ export function Levels({worker}) {
 
 	return html`
 		<div class="levels">
-			<h1>level page</h1>
-			<form class="levels_search-bar">
-				<input value=${inputContent} onchange=${setThis(setInputContent)} placeholder="What do you feel like playing today?"></input>
-				<button type="button" onclick=${() => setSearch(inputContent)}>Search!!!</button>
-			</form>
-			<br/>
-			<button type="button" onclick=${prevPage}>Prev page</button>
-			<button type="button" onclick=${nextPage}>Next page</button>
-			<br />
-			<label for="sort">Sort by:</label>
-			<select id="sort" value=${sort} onchange=${setThis(setSort)}>
-				${map(makeSortOption, SortOptions.enums)}
-			</select>
-			<ul>
-				${map(makeLevelBox, levels)}
-			</ul>
+			<div>
+
+			</div>
+			<${SearchOptionsBox} _class="levels_search-options" />
 		</div>
 	`
 }
