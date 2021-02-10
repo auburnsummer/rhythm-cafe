@@ -4,6 +4,8 @@ import cn from "https://cdn.skypack.dev/classnames";
 
 export function SearchOptionsBox({_class}) {
 
+
+
 	return html`
 		<div class=${cn("search-options", _class)}>
 			<div class="search-options_search">
@@ -18,25 +20,51 @@ export function SearchOptionsBox({_class}) {
 					<span class="search-options_row-icon">
 						<i class="fad fa-pager"></i>
 					</span>
-					<p>Display 10 levels per page</p>
+					<span>
+						Display
+					</span>
+					<span>
+						<select class="search-options_select" name="cars" id="cars">
+							<option value="volvo">Volvo</option>
+							<option value="saab">Saab</option>
+							<option value="mercedes">Mercedes</option>
+							<option value="audi">Audi</option>
+						</select>
+					</span>
+					<span>
+						levels per page
+					</span>
 				</li>
 				<li class="search-options_row">
 					<span class="search-options_row-icon">
 						<i class="fad fa-sort-shapes-up-alt"></i>
 					</span>
-					<p>Sort by eprhpaowehfpawoef</p>
+					<span>
+						Sort by
+					</span>
+					<span>
+						<select class="search-options_select" name="cars" id="cars">
+							<option value="volvo">Volvo</option>
+							<option value="saab">Saab</option>
+							<option value="mercedes">Mercedes</option>
+							<option value="audi">Audi</option>
+						</select>
+					</span>
+					<span>
+						, a-z
+					</span>
 				</li>
 				<li class="search-options_row">
 					<span class="search-options_row-icon">
 						<i class="fad fa-clipboard-check"></i>
 					</span>
-					<p>Hide unreferred levels</p>
+					<span>Hide unreferred levels</span>
 				</li>
 				<li class="search-options_row">
 					<span class="search-options_row-icon">
 						<i class="fad fa-directions"></i>
 					</span>
-					<p>Show auto-import links</p>
+					<span>Show auto-import links</span>
 				</li>
 			</ul>
 		</div>
