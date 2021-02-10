@@ -1,6 +1,7 @@
 import { html } from "../utils/html.js";
 import { LevelBox } from "./LevelBox.js";
 import { map, max } from 'https://cdn.skypack.dev/ramda';
+import { setThis } from "../utils/functions.js";
 import { useMemo, useState } from "https://cdn.skypack.dev/preact/hooks";
 
 import { SortOptions } from "../utils/enums.js";
@@ -13,6 +14,12 @@ export function Levels({worker}) {
 	const [offset, setOffset] = useState(0);
 	const [sort, setSort] = useState(SortOptions.Newest);
 
+	// bound component.
+	const [inputContent, setInputContent] = useState("");
+
+	// what the current search is
+	const [search, setSearch] = useState("");
+
 	const sql = useMemo(() => {
 
 		const sortStrings = {
@@ -23,6 +30,20 @@ export function Levels({worker}) {
 			[SortOptions.SongAToZ]: "song ASC",
 			[SortOptions.SongZToA]: "song DESC"
 		}
+
+		const innerQuery =
+			search === "" ?
+			`SELECT
+			l.*,
+			ROW_NUMBER() OVER (ORDER BY ${sortStrings[sort]}) AS row_num
+			FROM levels AS l
+			LIMIT ${limit} OFFSET ${offset}
+			` :
+			`
+			
+			`
+
+
 
 		return `
 			SELECT * FROM level
@@ -59,23 +80,19 @@ export function Levels({worker}) {
 	const prevPage = () => setOffset(prev => max(prev - 10, 0));
 	const nextPage = () => setOffset(prev => prev + 10);
 
-	const sortOnChange = evt => {
-		console.log(evt);
-	}
-
 	return html`
-		<div>
+		<div class="levels">
 			<h1>level page</h1>
-			<form>
-				<input placeholder="What do you feel like playing today?">
-				<button type="button">Search</button>
+			<form class="levels_search-bar">
+				<input value=${inputContent} onchange=${setThis(setInputContent)} placeholder="What do you feel like playing today?"></input>
+				<button type="button" onclick=${() => setSearch(inputContent)}>Search!!!</button>
 			</form>
 			<br/>
 			<button type="button" onclick=${prevPage}>Prev page</button>
 			<button type="button" onclick=${nextPage}>Next page</button>
 			<br />
 			<label for="sort">Sort by:</label>
-			<select id="sort" value=${sort} onchange=${evt => setSort(evt.target.value)}>
+			<select id="sort" value=${sort} onchange=${setThis(setSort)}>
 				${map(makeSortOption, SortOptions.enums)}
 			</select>
 			<ul>

@@ -57,6 +57,7 @@ export function useSqlWorker() {
 				worker.onmessage = wrapper.recv;
 				setWorker(wrapper);
 				window.sqlTest = wrapper;
+
 				// setWorker(worker);
 				setWorkerState(LSState.SyncingDatabase);
 			}
@@ -74,13 +75,26 @@ export function useSqlWorker() {
 					return resp.arrayBuffer();
 				})
 				.then(buf => {
+					try {
+						// DEBUGGING CODE for testing
+						function bufferToHex(buffer) {
+							var s = '', h = '0123456789abcdef';
+							(new Uint8Array(buffer)).forEach((v) => { s += h[v >> 4] + h[v & 15]; });
+							return s;
+						}						
+						console.log("SHA1 of current db:");
+						crypto.subtle.digest("SHA-1", buf).then(bufferToHex).then(console.log);
+					} catch (err) {
+						// If crypto.subtle.digest isn't supported, whatever
+					}
 					setCompressedDb(buf);
 					setWorkerState(LSState.DecompressingDatabase);
 				});
 			}
 			// Decompress the database (Brotli).
 			if (workerState === LSState.DecompressingDatabase) {
-				setDBBuffer(decompress(Buffer.from(compressedDb)));
+				const decompressed = decompress(Buffer.from(compressedDb))
+				setDBBuffer(decompressed);
 				setCompressedDb(null); // garbage collect, we don't need this buffer now.
 				// todo: can we decompress in place? right now this takes 2x memory
 				setWorkerState(LSState.InitialisingSqlJs);

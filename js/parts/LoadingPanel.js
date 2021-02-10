@@ -1,22 +1,20 @@
 // The panel that shows the loading status.
 
 import { html } from "../utils/html.js";
-import { cond, constant, T, eq } from "../utils/functions.js";
 import { LSState } from "../utils/enums.js";
 
-const getStateText = cond([
-	[eq(LSState.LoadingWorker), constant("Loading worker...")],
-	[eq(LSState.SyncingDatabase), constant("Syncing database...")],
-	[eq(LSState.DecompressingDatabase), constant("Decompressing database...")],
-	[eq(LSState.InitialisingSqlJs), constant("Initialising sql.js...")],
-	[T, constant("huh how are you reading this")]
-]);
+const stateTexts = {
+	[LSState.LoadingWorker]: "Loading worker...",
+	[LSState.SyncingDatabase]: "Syncing database...",
+	[LSState.DecompressingDatabase]: "Decompressing database...",
+	[LSState.InitialisingSqlJs]: "Initialising sql.js..."
+}
 
-export function LoadingPanel({state, _class}) {
+export function LoadingPanel({state}) {
 	return html`
 		<div class="loading-panel">
 			<h1>Loading...</h1>	
-			<p>${getStateText(state)}</p>
+			<p>${stateTexts[state]}</p>
 		</div>
 	`
 }
