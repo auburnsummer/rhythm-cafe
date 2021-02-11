@@ -2,31 +2,23 @@ import { html } from "../utils/html.js";
 import { LevelBox } from "./LevelBox.js";
 import { map, max } from 'https://cdn.skypack.dev/ramda';
 import { setThis } from "../utils/functions.js";
-import { useMemo, useState } from "https://cdn.skypack.dev/preact/hooks";
+import { useMemo, useState, useEffect } from "https://cdn.skypack.dev/preact/hooks";
 
 import { SortOptions } from "../utils/enums.js";
-
 import { useSelect } from "../hooks/useSelect.js";
-
 import { SearchOptionsBox } from "./SearchOptionsBox.js";
 
 export function Levels({worker}) {
-
 	const [limit, setLimit] = useState(20);
 	const [offset, setOffset] = useState(0);
 	const [sort, setSort] = useState(SortOptions.Newest);
-
-	// bound component.
-	const [inputContent, setInputContent] = useState("");
-
 	const [tags, setTags] = useState([]);
 	const [authors, setAuthors] = useState([]);
-
-	// what the current search is
+	const [showAutoimport, setShowAutoimport] = useState(false);
 	const [search, setSearch] = useState("");
 
 	const sql = useMemo(() => {
-
+		// https://github.com/auburnsummer/rdlevels2/issues/1
 		const sortStrings = {
 			[SortOptions.Newest]: "uploaded DESC, last_updated DESC",
 			[SortOptions.Oldest]: "last_updated ASC, uploaded ASC",
@@ -36,29 +28,55 @@ export function Levels({worker}) {
 			[SortOptions.SongZToA]: "song DESC"
 		}
 
-		const innerQuery =
-			search === "" ?
-			`SELECT
-			l.*,
-			ROW_NUMBER() OVER (ORDER BY ${sortStrings[sort]}) AS row_num
-			FROM levels AS l
-			LIMIT ${limit} OFFSET ${offset}
-			` :
-			`
-			
-			`
+		const tagsWhere = tags.length ? `
+		AND L.id IN (
+			SELECT T.id FROM level_tag AS T
+			WHERE T.tag LIKE ${tags.map(t => `${t}%`).join(' OR T.tag LIKE ')}
+			GROUP BY T.id
+			HAVING count(DISTINCT T.tag) >= ${tags.length}
+		)		
+		` : '';
+		const authorsWhere = authors.length ? `
+		AND L.id IN (
+			SELECT A.id FROM level_author AS A
+			WHERE A.author LIKE ${authors.map(a => `${a}%`).join(' OR A.author LIKE ')}
+			GROUP BY A.id
+			HAVING count(DISTINCT A.author) >= ${authors.length}
+		)
+		` : '';
 
-
+		const subquery = search.length === 0 ? `
+		SELECT L.* FROM levels AS L
+		WHERE True
+		${tagsWhere}
+		${authorsWhere}
+		ORDER BY ${sortStrings[sort]}
+		LIMIT ${limit} OFFSET ${offset}
+		` : `
+		SELECT L.* FROM ft
+		INNER JOIN level AS L ON ft._rowid_ = L._rowid_
+		INNER JOIN status AS S ON S.id = L.id
+		WHERE ft MATCH '${search}'
+			${tagsWhere}
+			${authorsWhere}
+		ORDER BY rank
+		LIMIT ${limit} OFFSET ${offset}
+		`
 
 		return `
-			SELECT * FROM level
-			INNER JOIN status ON level.id = status.id
-			ORDER BY ${sortStrings[sort]}
-			LIMIT ${limit} OFFSET ${offset}
+		SELECT Q.*, T.tag, T.seq AS tag_seq, A.author, A.seq AS author_seq FROM (
+			${subquery}
+		) AS Q
+		LEFT JOIN level_tag AS T ON T.id = Q.id
+		LEFT JOIN level_author AS A ON A.id = Q.id
 		`
-	}, [limit, offset, sort]);
+	}, [tags, authors, search, limit, offset, sort]);
 
 	const [levels, state] = useSelect(worker, sql);
+
+	useEffect(() => {
+		console.log(levels);
+	}, [levels]);
 
 	const makeLevelBox = level => {
 		return html`
@@ -68,19 +86,6 @@ export function Levels({worker}) {
 		`
 	}
 
-	const makeSortOption = op => {
-		const texts = {
-			[SortOptions.Newest]: "Newest",
-			[SortOptions.Oldest]: "Oldest",
-			[SortOptions.ArtistAToZ]: "Artist, a to z",
-			[SortOptions.ArtistZToA]: "Artist, z to a",
-			[SortOptions.SongAToZ]: "Song, a to z",
-			[SortOptions.SongZToA]: "Song, z to a"
-		}
-		return html`
-			<option value=${op}>${texts[op]}</option>
-		`
-	}
 
 	const prevPage = () => setOffset(prev => max(prev - 10, 0));
 	const nextPage = () => setOffset(prev => prev + 10);
@@ -92,7 +97,22 @@ export function Levels({worker}) {
 			</div>
 			<${SearchOptionsBox}
 			  _class="levels_search-options" 
-			  ...${{tags, setTags, authors, setAuthors}}
+			  ...${
+				{
+				tags,
+				setTags,
+				authors,
+				setAuthors,
+				showAutoimport,
+				setShowAutoimport,
+				limit,
+				setLimit,
+				sort,
+				setSort,
+				search,
+				setSearch
+				}
+			}
 			/>
 		</div>
 	`

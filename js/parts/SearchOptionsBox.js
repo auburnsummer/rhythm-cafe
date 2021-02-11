@@ -1,26 +1,50 @@
 import { html } from "../utils/html.js";
 
+import { useState } from "https://cdn.skypack.dev/preact/hooks";
 import cn from "https://cdn.skypack.dev/classnames";
 import TokenInput from 'https://cdn.skypack.dev/preact-token-input';
-import {setThis} from "../utils/functions.js";
+import { map } from "https://cdn.skypack.dev/ramda";
+
+import { setThis } from "../utils/functions.js";
+import { useTwineSwitch } from "../hooks/useTwineSwitch.js";
+import { SortOptions } from "../utils/enums.js";
 
 export function SearchOptionsBox({
 	_class,
 	tags,
 	setTags,
 	authors,
-	setAuthors
+	setAuthors,
+	showAutoimport,
+	setShowAutoimport,
+	limit,
+	setLimit,
+	sort,
+	setSort,
+	search,
+	setSearch
 }) {
+
+	const rotateAutoimport = useTwineSwitch([true, false], showAutoimport, setShowAutoimport);
+
+	const [inputContent, setInputContent] = useState("");
+
+	const handleSubmit = evt => {
+		setSearch(() => inputContent);
+		evt.preventDefault();
+	}
 
 	return html`
 		<div class=${cn("search-options", _class)}>
-			<div class="search-options_search">
-				<input class="search-options_input" type="text" placeholder="Search..." />
+			<form onsubmit=${handleSubmit} class="search-options_search">
+				<input value=${inputContent} onchange=${setThis(setInputContent)} class="search-options_input" type="text" placeholder="Search..." />
 				<div class="search-options_sep"></div>
-				<button class="search-options_button">
+				<!-- onclick=${evt => setSearch(inputContent)} -->
+				<button type="submit" value="Search" class="search-options_button">
+					<!-- <i class="fad fa-search fa-swap-opacity"></i> -->
 					<i class="fad fa-search fa-swap-opacity"></i>
 				</button>
-			</div>
+			</form>
 			<ul class="search-options_twine">
 				<li class="search-options_row">
 					<span class="search-options_row-icon">
@@ -51,11 +75,18 @@ export function SearchOptionsBox({
 						Display
 					</span>
 					<span>
-						<select class="search-options_select" name="cars" id="cars">
-							<option value="volvo">Volvo</option>
-							<option value="saab">Saab</option>
-							<option value="mercedes">Mercedes</option>
-							<option value="audi">Audi</option>
+						<select
+							class="search-options_select"
+							name="limit"
+							id="limit"
+							value=${limit}
+							onchange=${evt => setLimit(parseInt(evt.target.value))}
+						>
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="20">20</option>
+							<option value="50">50</option>
+							<option value="150">150</option>
 						</select>
 					</span>
 					<span>
@@ -70,11 +101,22 @@ export function SearchOptionsBox({
 						Sort by
 					</span>
 					<span>
-						<select class="search-options_select" name="cars" id="cars">
-							<option value="volvo">Volvo</option>
-							<option value="saab">Saab</option>
-							<option value="mercedes">Mercedes</option>
-							<option value="audi">Audi</option>
+						<select
+						value=${search.length === 0 ? sort : "Relevance"}
+						onchange=${setThis(setSort)}
+						class="search-options_select"
+						name="sort"
+						id="sort"
+						disabled=${search.length > 0}>
+							${
+								search.length > 0 ?
+								html`<option value="Relevance">Relevance</option>` :
+								map(
+									en => html`<option value=${en.key}>${en.key}</option>`,
+									SortOptions.enums
+								)
+							}
+
 						</select>
 					</span>
 					<span>
@@ -91,7 +133,8 @@ export function SearchOptionsBox({
 					<span class="search-options_row-icon">
 						<i class="fad fa-directions"></i>
 					</span>
-					<span>Show auto-import links</span>
+					<span>
+					<button class="search-options_toggle" onClick=${rotateAutoimport(1)}>${showAutoimport ? "Show" : "Hide"}</button> auto-import links</span>
 				</li>
 			</ul>
 		</div>
