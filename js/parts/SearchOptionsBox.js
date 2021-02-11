@@ -1,10 +1,16 @@
 import { html } from "../utils/html.js";
 
 import cn from "https://cdn.skypack.dev/classnames";
+import TokenInput from 'https://cdn.skypack.dev/preact-token-input';
+import {setThis} from "../utils/functions.js";
 
-export function SearchOptionsBox({_class}) {
-
-
+export function SearchOptionsBox({
+	_class,
+	tags,
+	setTags,
+	authors,
+	setAuthors
+}) {
 
 	return html`
 		<div class=${cn("search-options", _class)}>
@@ -16,6 +22,27 @@ export function SearchOptionsBox({_class}) {
 				</button>
 			</div>
 			<ul class="search-options_twine">
+				<li class="search-options_row">
+					<span class="search-options_row-icon">
+						<i class="fad fa-tags"></i>
+					</span>
+					<span>
+						Search levels with
+					</span>
+					<${TokenInput} value=${tags} onchange=${setThis(setTags)} />
+					<span>
+						tags
+					</span>
+				</li>
+				<li class="search-options_row">
+					<span class="search-options_row-icon">
+						<i class="fad fa-pencil-alt"></i>
+					</span>
+					<span>
+						Search levels made by
+					</span>
+					<${TokenInput} value=${authors} onchange=${setThis(setAuthors)} />
+				</li>
 				<li class="search-options_row">
 					<span class="search-options_row-icon">
 						<i class="fad fa-pager"></i>

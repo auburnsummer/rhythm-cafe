@@ -19,6 +19,9 @@ export function Levels({worker}) {
 	// bound component.
 	const [inputContent, setInputContent] = useState("");
 
+	const [tags, setTags] = useState([]);
+	const [authors, setAuthors] = useState([]);
+
 	// what the current search is
 	const [search, setSearch] = useState("");
 
@@ -87,7 +90,10 @@ export function Levels({worker}) {
 			<div>
 
 			</div>
-			<${SearchOptionsBox} _class="levels_search-options" />
+			<${SearchOptionsBox}
+			  _class="levels_search-options" 
+			  ...${{tags, setTags, authors, setAuthors}}
+			/>
 		</div>
 	`
 }
