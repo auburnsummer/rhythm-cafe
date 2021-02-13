@@ -119,9 +119,6 @@ export function SearchOptionsBox({
 
 						</select>
 					</span>
-					<span>
-						, a-z
-					</span>
 				</li>
 				<li class="search-options_row">
 					<span class="search-options_row-icon">

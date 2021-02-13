@@ -1,6 +1,6 @@
 import { html } from "../utils/html.js";
 import { LevelBox } from "./LevelBox.js";
-import { map, max } from 'https://cdn.skypack.dev/ramda';
+import { split, max, map } from 'https://cdn.skypack.dev/ramda';
 import { setThis } from "../utils/functions.js";
 import { useMemo, useState, useEffect } from "https://cdn.skypack.dev/preact/hooks";
 
@@ -12,8 +12,8 @@ export function Levels({worker}) {
 	const [limit, setLimit] = useState(20);
 	const [offset, setOffset] = useState(0);
 	const [sort, setSort] = useState(SortOptions.Newest);
-	const [tags, setTags] = useState([]);
-	const [authors, setAuthors] = useState([]);
+	const [tags, setTags] = useState("");
+	const [authors, setAuthors] = useState("");
 	const [showAutoimport, setShowAutoimport] = useState(false);
 	const [search, setSearch] = useState("");
 
@@ -28,38 +28,43 @@ export function Levels({worker}) {
 			[SortOptions.SongZToA]: "song DESC"
 		}
 
+		const tagList = split(",", tags || "");
+		const authorsList = split(",", authors || "");
+
 		const tagsWhere = tags.length ? `
 		AND L.id IN (
 			SELECT T.id FROM level_tag AS T
-			WHERE T.tag LIKE ${tags.map(t => `${t}%`).join(' OR T.tag LIKE ')}
+			WHERE T.tag LIKE ${tagList.map(t => `'${t}%'`).join(' OR T.tag LIKE ')}
 			GROUP BY T.id
-			HAVING count(DISTINCT T.tag) >= ${tags.length}
+			HAVING count(DISTINCT T.tag) >= ${tagList.length}
 		)		
 		` : '';
 		const authorsWhere = authors.length ? `
 		AND L.id IN (
 			SELECT A.id FROM level_author AS A
-			WHERE A.author LIKE ${authors.map(a => `${a}%`).join(' OR A.author LIKE ')}
+			WHERE A.author LIKE ${authorsList.map(a => `${a}%`).join(' OR A.author LIKE ')}
 			GROUP BY A.id
-			HAVING count(DISTINCT A.author) >= ${authors.length}
+			HAVING count(DISTINCT A.author) >= ${authorsList.length}
 		)
 		` : '';
 
 		const subquery = search.length === 0 ? `
-		SELECT L.* FROM levels AS L
+		SELECT L.*, row_number() OVER (
+			ORDER BY ${sortStrings[sort]}
+		) AS rn FROM levels AS L
 		WHERE True
 		${tagsWhere}
 		${authorsWhere}
-		ORDER BY ${sortStrings[sort]}
 		LIMIT ${limit} OFFSET ${offset}
 		` : `
-		SELECT L.* FROM ft
+		SELECT L.*, row_number() OVER (
+			ORDER BY rank
+		) AS rn FROM ft
 		INNER JOIN level AS L ON ft._rowid_ = L._rowid_
 		INNER JOIN status AS S ON S.id = L.id
 		WHERE ft MATCH '${search}'
 			${tagsWhere}
 			${authorsWhere}
-		ORDER BY rank
 		LIMIT ${limit} OFFSET ${offset}
 		`
 
@@ -69,12 +74,14 @@ export function Levels({worker}) {
 		) AS Q
 		LEFT JOIN level_tag AS T ON T.id = Q.id
 		LEFT JOIN level_author AS A ON A.id = Q.id
+		ORDER BY rn
 		`
 	}, [tags, authors, search, limit, offset, sort]);
 
 	const [levels, state] = useSelect(worker, sql);
 
 	useEffect(() => {
+		console.log("levels:")
 		console.log(levels);
 	}, [levels]);
 
@@ -92,8 +99,11 @@ export function Levels({worker}) {
 
 	return html`
 		<div class="levels">
-			<div>
-
+			<div class="levels_level-list">
+				${map(
+					level => html`<${LevelBox} level=${level} />`,
+					levels
+				)}
 			</div>
 			<${SearchOptionsBox}
 			  _class="levels_search-options" 
