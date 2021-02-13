@@ -16,10 +16,6 @@ const DIFFICULTY_CLASSES = [
 
 export function DifficultyDecoration ({difficulty, _class}) {
 
-    console.log("====");
-    console.log(difficulty);
-    console.log(DIFFICULTIES);
-
     const difficultyText = DIFFICULTIES[difficulty];
 
     const colour = DIFFICULTY_CLASSES[difficulty];

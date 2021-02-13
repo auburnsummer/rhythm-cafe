@@ -22,6 +22,15 @@
 	--rose-800: #9F1239;
 	--rose-900: #881337;
 
+	--lime-300: #BEF264;
+	--lime-800: #3F6212;
+
+	--amber-300: #FCD34D;
+	--amber-800: #92400E;
+
+	--violet-300: #C4B5FD;
+	--violet-800: #5B21B6;
+
 	--sans: 'Merriweather Sans', sans-serif;
 
 	--light: 300;
@@ -260,6 +269,7 @@ body {
 }
 
 .level-box_info {
+	position: relative;
 	width: 60%;
 }
 
@@ -278,4 +288,49 @@ body {
 
 .level-box_song {
 	font-weight: var(--semibold);
+}
+
+.level-box_decorator {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.difficulty-decoration {
+	display: flex;
+	justify-content: flex-end;
+	align-items: stretch;
+}
+
+.difficulty-decoration_bg {
+    width: 1.5rem;
+    clip-path: polygon(0% -4%, 104% -4%, 104% 100%, 100% 100%);
+}
+
+.difficulty-decoration_text {
+	font-size: 0.75rem;
+	line-height: 1rem;
+	padding-top: 0.125rem;
+	padding-bottom: 0.125rem;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+	text-transform: lowercase;
+	font-weight: --var(light);
+}
+
+.easy\!difficulty-decoration span {
+	color: var(--lime-300);
+	background-color: var(--lime-800);
+}
+.medium\!difficulty-decoration span {
+	color: var(--amber-800);
+	background-color: var(--amber-300);
+}
+.tough\!difficulty-decoration span {
+	color: var(--rose-300);
+	background-color: var(--rose-800);
+}
+.very-tough\!difficulty-decoration span {
+	color: var(--violet-300);
+	background-color: var(--violet-800);
 }
