@@ -72,11 +72,12 @@ body {
 
 .levels_search-options {
 	width: 33%;
+	padding: 1.25rem;
+	margin-left: 2rem;
 }
 
 .search-options {
 	background-color: var(--gray-50);
-	padding: 1.25rem;
 	display: flex;
 	flex-direction: column;
 }
@@ -218,4 +219,63 @@ body {
 
 .levels {
 	display: flex;
+	justify-content: center;
+}
+
+.levels_level-list {
+	min-width: 67%;
+}
+
+.levels_level-list .level-box {
+	margin-top: 2rem;
+}
+
+
+.level-box {
+	background-color: var(--gray-50);
+	display: flex;
+	flex-direction: row;
+}
+
+.level-box_image-box {
+	width: 40%;
+	max-width: 28rem;
+	background-color: var(--rose-500);
+}
+
+.level-box_image-box_wrapper {
+	position: relative;
+	height: 100%;
+	background-color: var(--gray-200);
+	padding-bottom: 56.25%; /* 9/16 */
+}
+
+.level-box_image-box_image {
+	position: absolute;
+	top: 0;
+	z-index: 10;
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
+
+.level-box_info {
+	width: 60%;
+}
+
+.level-box_info_wrapper {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 1em;
+}
+
+.level-box_artist {
+	font-size: 0.75rem;
+	line-height: 1rem;
+	color: var(--gray-700);
+}
+
+.level-box_song {
+	font-weight: var(--semibold);
 }

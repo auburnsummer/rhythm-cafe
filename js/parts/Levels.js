@@ -100,6 +100,8 @@ export function Levels({worker}) {
 	return html`
 		<div class="levels">
 			<div class="levels_level-list">
+				<button onclick=${prevPage}>previous page</button>
+				<button onclick=${nextPage}>next page</button>
 				${map(
 					level => html`<${LevelBox} level=${level} />`,
 					levels
