@@ -273,7 +273,7 @@ body {
 	width: 60%;
 }
 
-.level-box_info_wrapper {
+.level-box_info_title {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
