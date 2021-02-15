@@ -44,7 +44,7 @@ body {
 	line-height: 1.5rem;
 }
 
-/* LoadingScreen */
+/* LoadingScreen.js */
 .loading-screen {
 	display: flex;
 	height: 100vh;
@@ -74,10 +74,23 @@ body {
 	color: var(--gray-500);
 }
 
+/* Levels.js */
+
 .levels {
 	background-color: var(--gray-100);
 	height: 100vh;
+	display: flex;
+	justify-content: center;
 }
+
+.levels_level-list {
+	min-width: 67%;
+}
+
+.levels_level-list .level-box {
+	margin-top: 2rem;
+}
+
 
 .levels_search-options {
 	width: 33%;
@@ -85,6 +98,7 @@ body {
 	margin-left: 2rem;
 }
 
+/* SearchOptionsBox.js */
 .search-options {
 	background-color: var(--gray-50);
 	display: flex;
@@ -226,20 +240,7 @@ body {
 	outline-offset: 2px;
 }
 
-.levels {
-	display: flex;
-	justify-content: center;
-}
-
-.levels_level-list {
-	min-width: 67%;
-}
-
-.levels_level-list .level-box {
-	margin-top: 2rem;
-}
-
-
+/* LevelBox.js */
 .level-box {
 	background-color: var(--gray-50);
 	display: flex;
@@ -296,6 +297,30 @@ body {
 	right: 0;
 }
 
+.level-box_info-wrapper {
+	display: flow-root;
+	overflow: hidden;
+	margin-top: 0.5rem;
+}
+
+.level-box_info-icons {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -0.75rem;
+}
+
+.level-box_icon {
+	margin-left: 0.75rem;
+	color: var(--gray-700);
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+
+.level-box_icon span {
+	margin-left: 0.25rem;
+}
+
+/* DifficultyDecoration.js */
 .difficulty-decoration {
 	display: flex;
 	justify-content: flex-end;

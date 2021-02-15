@@ -42,7 +42,7 @@ export function Levels({worker}) {
 		const authorsWhere = authors.length ? `
 		AND L.id IN (
 			SELECT A.id FROM level_author AS A
-			WHERE A.author LIKE ${authorsList.map(a => `${a}%`).join(' OR A.author LIKE ')}
+			WHERE A.author LIKE ${authorsList.map(a => `'${a}%'`).join(' OR A.author LIKE ')}
 			GROUP BY A.id
 			HAVING count(DISTINCT A.author) >= ${authorsList.length}
 		)
