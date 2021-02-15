@@ -307,10 +307,12 @@ body {
 	display: flex;
 	flex-wrap: wrap;
 	margin-left: -0.75rem;
+	padding-top: -0.25rem;
 }
 
 .level-box_icon {
 	margin-left: 0.75rem;
+	padding-top: 0.25rem;
 	color: var(--gray-700);
 	font-size: 0.75rem;
 	line-height: 1rem;
@@ -319,6 +321,37 @@ body {
 .level-box_icon span {
 	margin-left: 0.25rem;
 }
+
+.level-horizontal_spacer {
+	flex-grow: 1;
+}
+
+.level-box_tags-wrapper {
+	display: flow-root;
+	overflow: hidden;
+}
+
+.level-box_tags {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -0.25rem;
+	margin-top: -0.125rem;
+}
+
+.level-box_tag {
+	margin-left: 0.25rem;
+	margin-top: 1.25rem;
+	font-size: 0.75rem;
+	line-height: 1rem;
+	font-style: italic;
+	padding-top: 0.125rem;
+	padding-bottom: 0.125rem;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+	color: var(--gray-700);
+	background-color: var(--gray-200);
+}
+
 
 /* DifficultyDecoration.js */
 .difficulty-decoration {

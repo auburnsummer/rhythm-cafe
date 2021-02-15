@@ -1,6 +1,8 @@
 import { html } from "../utils/html.js";
 
 import { DifficultyDecoration } from "./DifficultyDecoration.js";
+import { map } from 'https://cdn.skypack.dev/ramda';
+
 
 const formatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' });
 
@@ -35,6 +37,16 @@ export function LevelBox({level}) {
 							</li>
 						</ul>
 					</div>
+					<div class="level-horizontal_spacer"></div>
+					<div class="level-box_tags-wrapper">
+						<ul class="level-box_tags">
+							${map(
+								tag => html`<span class="level-box_tag">${tag}</span>`,
+								level.tags
+							)}
+						</ul>
+					</div>
+
 				</div>
 
 			</div>
