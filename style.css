@@ -1,4 +1,20 @@
-/* CTRL-F to navigate !!! */
+/* 
+CTRL-F to navigate !!!
+
+General rules:
+
+ - the top level element of a component has a unique class name which is usually
+   an abbreviated version of the class. (e.g. LevelBox => lb)
+ - elements underneath a component are all prefixed with the top level element with
+   a single underscore. elements otherwise have fairly generic names.
+ - avoid nested elements in naming as much as possible.
+ - components can have modifiers. these have the modifier name and then an exclamation mark prefix:
+    e.g. very-tough\!dd
+
+it's basically BEM [http://getbem.com] but with different syntax cause I didn't like the double
+underscore and double dash thing
+
+*/
 :root {
 	--gray-50: #faf9f5;
 	--gray-100: #f3f1ed;
@@ -45,7 +61,7 @@ body {
 }
 
 /* LoadingScreen.js */
-.loading-screen {
+.ls {
 	display: flex;
 	height: 100vh;
 	background-color: var(--gray-100);
@@ -53,21 +69,21 @@ body {
 	justify-content: center;
 }
 
-.loading-screen .loading-panel {
+.ls_panel {
 	padding: 1rem;
 }
 
 /* LoadingPanel */
-.loading-panel {
+.lp {
 	background-color: var(--gray-50);
 }
 
-.loading-panel h1 {
+.lp_title {
 	font-size: 1.25rem;
 	line-height: 1.75rem;
 }
 
-.loading-panel p {
+.lp_description {
 	font-size: 0.875rem;
 	line-height: 1.25rem;
 	padding-top: 0.5rem;
@@ -76,40 +92,39 @@ body {
 
 /* Levels.js */
 
-.levels {
+.le {
 	background-color: var(--gray-100);
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 }
 
-.levels_level-list {
+.le_list {
 	min-width: 67%;
 }
 
-.levels_level-list .level-box {
+.le_box {
 	margin-top: 2rem;
 }
 
-
-.levels_search-options {
+.le_search {
 	width: 33%;
 	padding: 1.25rem;
 	margin-left: 2rem;
 }
 
 /* SearchOptionsBox.js */
-.search-options {
+.sb {
 	background-color: var(--gray-50);
 	display: flex;
 	flex-direction: column;
 }
 
-.search-options_search {
+.sb_form {
 	display: flex;
 }
 
-.search-options_input {
+.sb_input {
 	padding: 0.5rem;
 	padding-left: 1.5rem;
 	background-color: var(--gray-200);
@@ -118,54 +133,53 @@ body {
 	flex-grow: 1;
 }
 
-.search-options_input::placeholder {
+.sb_input::placeholder {
 	color: var(--gray-700);
 }
 
-.search-options_input:focus {
+.sb_input:focus {
 	outline: 2px solid transparent;
 	outline-offset: 2px;
 	background-color: #ffffff;
 	box-shadow: inset 0 0 0 2px var(--gray-200);
 }
 
-.search-options_sep {
+.sb_sep {
 	width: 0.375rem;
 	color: var(--gray-400);
 }
 
-.search-options_button {
+.sb_button {
 	background-color: var(--gray-200);
 	padding-left: 0.75rem;
 	padding-right: 1rem;
 	border-top-right-radius: 9999px;
 	border-bottom-right-radius: 9999px;
 	color: var(--gray-900);
-	/* --fa-secondary-opacity: 0.8; */
 }
 
-.search-options_button:hover {
+.sb_button:hover {
 	background-color: var(--gray-600);
 	color: var(--gray-100);
 }
 
-.search-options_twine {
+.sb_twine {
 	margin-top: 1.25rem;
 	padding-left: 1.5rem;
 	color: var(--gray-800);
 }
 
-.search-options_row {
+.sb_row {
 	display: flex;
 	margin-top: 0.75rem;
 	align-items: center;
 }
 
-.search-options_row:first-child {
+.sb_row:first-child {
 	margin-top: 0;
 }
 
-.search-options_row-icon {
+.sb_icon {
 	font-size: 1.25rem;
 	width: 1.25rem;
 	display: flex;
@@ -173,11 +187,11 @@ body {
 	justify-content: center;
 }
 
-.search-options_row-icon + span {
+.sb_icon + span {
 	margin-left: 1rem;
 }
 
-.search-options_select {
+.sb_select {
 	appearance: none;
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
@@ -191,76 +205,76 @@ body {
 	padding-right: 1.75rem;
 }
 
-.search-options_select:focus {
+.sb_select:focus {
 	outline: 2px solid transparent;
 	outline-offset: 2px;
 	background-color: #ffffff;
 	box-shadow: inset 0 0 0 2px var(--gray-200);
 }
 
-.search-options_select:disabled {
+.sb_select:disabled {
 	opacity: 0.3;
 }
 
-.search-options_row .token-input {
+.sb_row .token-input {
 	font-size: 0.75rem;
 	line-height: 1rem;
 	font-style: italic;
 	margin-left: 0.25rem;
 }
 
-.search-options_row .token-input .tags-input:focus-within {
+.sb_row .token-input .tags-input:focus-within {
 	outline: 2px solid transparent;
 	outline-offset: 1px;
 	background-color: #ffffff;
 	box-shadow: inset 0 0 0 1px var(--gray-200);
 }
 
-.search-options_row .token-input .tags-input {
+.sb_row .token-input .tags-input {
 	width: 12rem;
 	background-color: var(--gray-200);
 }
 
-.search-options_row .token-input + span {
+.sb_row .token-input + span {
 	margin-left: 0.125rem;
 }
 
-.search-options_toggle {
+.sb_toggle {
 	color: var(--rose-600);
 	font-weight: var(--semibold);
 }
 
-.search-options_toggle:hover {
+.sb_toggle:hover {
 	color: var(--rose-800);
 	cursor: pointer;
 }
 
-.search-options_toggle:focus {
+.sb_toggle:focus {
 	outline: 2px solid transparent;
 	outline-offset: 2px;
 }
 
 /* LevelBox.js */
-.level-box {
+.lb {
 	background-color: var(--gray-50);
 	display: flex;
 	flex-direction: row;
 }
 
-.level-box_image-box {
+.lb_image1 {
 	width: 40%;
 	max-width: 28rem;
 	background-color: var(--rose-500);
 }
 
-.level-box_image-box_wrapper {
+.lb_image2 {
 	position: relative;
 	height: 100%;
 	background-color: var(--gray-200);
 	padding-bottom: 56.25%; /* 9/16 */
 }
 
-.level-box_image-box_image {
+.lb_image3 {
 	position: absolute;
 	top: 0;
 	z-index: 10;
@@ -269,48 +283,48 @@ body {
 	height: 100%;
 }
 
-.level-box_info {
+.lb_info {
 	position: relative;
 	width: 60%;
 }
 
-.level-box_info_title {
+.lb_info2 {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 	padding: 1em;
 }
 
-.level-box_artist {
+.lb_artist {
 	font-size: 0.75rem;
 	line-height: 1rem;
 	color: var(--gray-700);
 }
 
-.level-box_song {
+.lb_song {
 	font-weight: var(--semibold);
 }
 
-.level-box_decorator {
+.lb_decorator {
 	position: absolute;
 	top: 0;
 	right: 0;
 }
 
-.level-box_info-wrapper {
+.lb_icons1 {
 	display: flow-root;
 	overflow: hidden;
 	margin-top: 0.5rem;
 }
 
-.level-box_info-icons {
+.lb_icons2 {
 	display: flex;
 	flex-wrap: wrap;
 	margin-left: -0.75rem;
 	padding-top: -0.25rem;
 }
 
-.level-box_icon {
+.lb_icon {
 	margin-left: 0.75rem;
 	padding-top: 0.25rem;
 	color: var(--gray-700);
@@ -318,27 +332,27 @@ body {
 	line-height: 1rem;
 }
 
-.level-box_icon span {
+.lb_icon span {
 	margin-left: 0.25rem;
 }
 
-.level-horizontal_spacer {
+.lb_spacer {
 	flex-grow: 1;
 }
 
-.level-box_tags-wrapper {
+.lb_tags1 {
 	display: flow-root;
 	overflow: hidden;
 }
 
-.level-box_tags {
+.lb_tags2 {
 	display: flex;
 	flex-wrap: wrap;
 	margin-left: -0.25rem;
 	margin-top: -0.125rem;
 }
 
-.level-box_tag {
+.lb_tag {
 	margin-left: 0.25rem;
 	margin-top: 1.25rem;
 	font-size: 0.75rem;
@@ -354,18 +368,18 @@ body {
 
 
 /* DifficultyDecoration.js */
-.difficulty-decoration {
+.dd {
 	display: flex;
 	justify-content: flex-end;
 	align-items: stretch;
 }
 
-.difficulty-decoration_bg {
+.dd_bg {
     width: 1.5rem;
     clip-path: polygon(0% -4%, 104% -4%, 104% 100%, 100% 100%);
 }
 
-.difficulty-decoration_text {
+.dd_text {
 	font-size: 0.75rem;
 	line-height: 1rem;
 	padding-top: 0.125rem;
@@ -376,19 +390,19 @@ body {
 	font-weight: --var(light);
 }
 
-.easy\!difficulty-decoration span {
+.easy\!dd > span {
 	color: var(--lime-300);
 	background-color: var(--lime-800);
 }
-.medium\!difficulty-decoration span {
+.medium\!dd > span {
 	color: var(--amber-800);
 	background-color: var(--amber-300);
 }
-.tough\!difficulty-decoration span {
+.tough\!dd > span {
 	color: var(--rose-300);
 	background-color: var(--rose-800);
 }
-.very-tough\!difficulty-decoration span {
+.very-tough\!dd > span {
 	color: var(--violet-300);
 	background-color: var(--violet-800);
 }

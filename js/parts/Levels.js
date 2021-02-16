@@ -98,17 +98,17 @@ export function Levels({worker}) {
 	const nextPage = () => setOffset(prev => prev + 10);
 
 	return html`
-		<div class="levels">
-			<div class="levels_level-list">
+		<div class="le">
+			<div class="le_list">
 				<button onclick=${prevPage}>previous page</button>
 				<button onclick=${nextPage}>next page</button>
 				${map(
-					level => html`<${LevelBox} level=${level} />`,
+					level => html`<${LevelBox} level=${level} _class="le_box" />`,
 					levels
 				)}
 			</div>
 			<${SearchOptionsBox}
-			  _class="levels_search-options" 
+			  _class="le_search" 
 			  ...${
 				{
 				tags,

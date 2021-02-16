@@ -3,52 +3,52 @@ import { html } from "../utils/html.js";
 import { DifficultyDecoration } from "./DifficultyDecoration.js";
 import { map } from 'https://cdn.skypack.dev/ramda';
 
+import cm from 'https://cdn.skypack.dev/classnames';
+
 
 const formatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' });
 
 const bpmText = (maxBPM, minBPM) => maxBPM === minBPM ? `${maxBPM} BPM` : `${minBPM}-${maxBPM} BPM`;
 
-export function LevelBox({level}) {
+export function LevelBox({level, _class}) {
 	return html`
-		<div class="level-box">
-			<div class="level-box_image-box">
-				<div class="level-box_image-box_wrapper">
-                    <img class="level-box_image-box_image" src=${level.thumb} />
+		<div class=${cm("lb", _class)}>
+			<div class="lb_image1">
+				<div class="lb_image2">
+                    <img class="lb_image3" src=${level.thumb} />
                 </div>
 			</div>
-			<div class="level-box_info">
-				<${DifficultyDecoration} _class="level-box_decorator" difficulty=${level.difficulty} />
-				<div class="level-box_info_title">
-					<h2 class="level-box_artist">${level.artist}</h2>
-					<h1 class="level-box_song">${level.song}</h1>
-					<div class="level-box_info-wrapper">
-						<ul class="level-box_info-icons">
-							<li class="level-box_icon">
+			<div class="lb_info">
+				<${DifficultyDecoration} _class="lb_decorator" difficulty=${level.difficulty} />
+				<div class="lb_info2">
+					<h2 class="lb_artist">${level.artist}</h2>
+					<h1 class="lb_song">${level.song}</h1>
+					<div class="lb_icons1">
+						<ul class="lb_icons2">
+							<li class="lb_icon">
 								<i class="fad fa-pencil-alt"></i>
 								<span>${formatter.format(level.authors)}</span>
 							</li>
-							<li class="level-box_icon">
+							<li class="lb_icon">
 								<i class="fad fa-triangle-music"></i>
 								<span>${bpmText(level.max_bpm, level.min_bpm)}</span>
 							</li>
-							<li class="level-box_icon">
+							<li class="lb_icon">
 								<i class="fab fa-discord"></i>
 								<span>Rhythm Doctor Lounge</span>
 							</li>
 						</ul>
 					</div>
-					<div class="level-horizontal_spacer"></div>
-					<div class="level-box_tags-wrapper">
-						<ul class="level-box_tags">
+					<div class="lb_spacer"></div>
+					<div class="lb_tags1">
+						<ul class="lb_tags2">
 							${map(
-								tag => html`<span class="level-box_tag">${tag}</span>`,
+								tag => html`<span class="lb_tag">${tag}</span>`,
 								level.tags
 							)}
 						</ul>
 					</div>
-
 				</div>
-
 			</div>
 		</div>
 	`

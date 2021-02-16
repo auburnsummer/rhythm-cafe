@@ -8,10 +8,10 @@ import { html } from "../utils/html.js";
 const DIFFICULTIES = ["Easy", "Medium", "Tough", "Very Tough"];
 
 const DIFFICULTY_CLASSES = [
-    "easy!difficulty-decoration",
-    "medium!difficulty-decoration",
-    "tough!difficulty-decoration",
-    "very-tough!difficulty-decoration"
+    "easy!dd",
+    "medium!dd",
+    "tough!dd",
+    "very-tough!dd"
 ];
 
 export function DifficultyDecoration ({difficulty, _class}) {
@@ -21,9 +21,9 @@ export function DifficultyDecoration ({difficulty, _class}) {
     const colour = DIFFICULTY_CLASSES[difficulty];
 
     return html`
-        <div class=${cn("difficulty-decoration", _class, colour)}>
-            <span class="difficulty-decoration_bg"></span>
-            <span class="difficulty-decoration_text">${difficultyText}</span>
+        <div class=${cn("dd", _class, colour)}>
+            <span class="dd_bg"></span>
+            <span class="dd_text">${difficultyText}</span>
         </div>
     `
 }

@@ -16,8 +16,8 @@ export function LoadingScreen() {
 	}
 
 	return html`
-		<div class="loading-screen">
-			<${LoadingPanel} state=${workerState} error=${workerError} />
+		<div class="ls">
+			<${LoadingPanel} _class="ls_panel" state=${workerState} error=${workerError} />
 		</div>
 	`
 }

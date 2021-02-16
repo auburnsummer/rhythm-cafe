@@ -35,19 +35,17 @@ export function SearchOptionsBox({
 	}
 
 	return html`
-		<div class=${cn("search-options", _class)}>
-			<form onsubmit=${handleSubmit} class="search-options_search">
-				<input value=${inputContent} onchange=${setThis(setInputContent)} class="search-options_input" type="text" placeholder="Search..." />
-				<div class="search-options_sep"></div>
-				<!-- onclick=${evt => setSearch(inputContent)} -->
-				<button type="submit" value="Search" class="search-options_button">
-					<!-- <i class="fad fa-search fa-swap-opacity"></i> -->
+		<div class=${cn("sb", _class)}>
+			<form onsubmit=${handleSubmit} class="sb_form">
+				<input value=${inputContent} onchange=${setThis(setInputContent)} class="sb_input" type="text" placeholder="Search..." />
+				<div class="sb_sep"></div>
+				<button type="submit" value="Search" class="sb_button">
 					<i class="fad fa-search fa-swap-opacity"></i>
 				</button>
 			</form>
-			<ul class="search-options_twine">
-				<li class="search-options_row">
-					<span class="search-options_row-icon">
+			<ul class="sb_twine">
+				<li class="sb_row">
+					<span class="sb_icon">
 						<i class="fad fa-tags"></i>
 					</span>
 					<span>
@@ -58,8 +56,8 @@ export function SearchOptionsBox({
 						tags
 					</span>
 				</li>
-				<li class="search-options_row">
-					<span class="search-options_row-icon">
+				<li class="sb_row">
+					<span class="sb_icon">
 						<i class="fad fa-pencil-alt"></i>
 					</span>
 					<span>
@@ -67,8 +65,8 @@ export function SearchOptionsBox({
 					</span>
 					<${TokenInput} value=${authors} onchange=${setThis(setAuthors)} />
 				</li>
-				<li class="search-options_row">
-					<span class="search-options_row-icon">
+				<li class="sb_row">
+					<span class="sb_icon">
 						<i class="fad fa-pager"></i>
 					</span>
 					<span>
@@ -76,7 +74,7 @@ export function SearchOptionsBox({
 					</span>
 					<span>
 						<select
-							class="search-options_select"
+							class="sb_select"
 							name="limit"
 							id="limit"
 							value=${limit}
@@ -93,8 +91,8 @@ export function SearchOptionsBox({
 						levels per page
 					</span>
 				</li>
-				<li class="search-options_row">
-					<span class="search-options_row-icon">
+				<li class="sb_row">
+					<span class="sb_icon">
 						<i class="fad fa-sort-shapes-up-alt"></i>
 					</span>
 					<span>
@@ -104,7 +102,7 @@ export function SearchOptionsBox({
 						<select
 						value=${search.length === 0 ? sort : "Relevance"}
 						onchange=${setThis(setSort)}
-						class="search-options_select"
+						class="sb_select"
 						name="sort"
 						id="sort"
 						disabled=${search.length > 0}>
@@ -120,18 +118,18 @@ export function SearchOptionsBox({
 						</select>
 					</span>
 				</li>
-				<li class="search-options_row">
-					<span class="search-options_row-icon">
+				<li class="sb_row">
+					<span class="sb_icon">
 						<i class="fad fa-clipboard-check"></i>
 					</span>
 					<span>Hide unreferred levels</span>
 				</li>
-				<li class="search-options_row">
-					<span class="search-options_row-icon">
+				<li class="sb_row">
+					<span class="sb_icon">
 						<i class="fad fa-directions"></i>
 					</span>
 					<span>
-					<button class="search-options_toggle" onClick=${rotateAutoimport(1)}>${showAutoimport ? "Show" : "Hide"}</button> auto-import links</span>
+					<button class="sb_toggle" onClick=${rotateAutoimport(1)}>${showAutoimport ? "Show" : "Hide"}</button> auto-import links</span>
 				</li>
 			</ul>
 		</div>
