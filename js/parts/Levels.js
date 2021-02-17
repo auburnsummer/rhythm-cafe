@@ -17,6 +17,7 @@ export function Levels({worker}) {
 	const [showAutoimport, setShowAutoimport] = useState(false);
 	const [search, setSearch] = useState("");
 
+
 	const sql = useMemo(() => {
 		// https://github.com/auburnsummer/rdlevels2/issues/1
 		const sortStrings = {

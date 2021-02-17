@@ -4,7 +4,7 @@ CTRL-F to navigate !!!
 General rules:
 
  - the top level element of a component has a unique class name which is usually
-   an abbreviated version of the class. (e.g. LevelBox => lb)
+   an abbreviated version of the js file. (e.g. LevelBox => lb)
  - elements underneath a component are all prefixed with the top level element with
    a single underscore. elements otherwise have fairly generic names.
  - avoid nested elements in naming as much as possible.
@@ -94,13 +94,18 @@ body {
 
 .le {
 	background-color: var(--gray-100);
-	height: 100vh;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+	background-attachment: fixed;
+	min-height: calc(100vh - 2.5rem);
+	height: 100%;
 	display: flex;
 	justify-content: center;
+	align-items: start;
 }
 
 .le_list {
 	min-width: 67%;
+	padding-left: 2rem;
 }
 
 .le_box {
@@ -109,8 +114,11 @@ body {
 
 .le_search {
 	width: 33%;
-	padding: 1.25rem;
-	margin-left: 2rem;
+	padding: 1rem;
+	margin-left: 1.25rem;
+	margin-right: 1.25rem;
+	position: sticky;
+	top: 6rem;
 }
 
 /* SearchOptionsBox.js */
@@ -394,15 +402,23 @@ body {
 	color: var(--lime-300);
 	background-color: var(--lime-800);
 }
+
 .medium\!dd > span {
 	color: var(--amber-800);
 	background-color: var(--amber-300);
 }
+
 .tough\!dd > span {
 	color: var(--rose-300);
 	background-color: var(--rose-800);
 }
+
 .very-tough\!dd > span {
 	color: var(--violet-300);
 	background-color: var(--violet-800);
+}
+
+.he {
+	height: 2.5rem;
+	background-color: var(--rose-200);
 }

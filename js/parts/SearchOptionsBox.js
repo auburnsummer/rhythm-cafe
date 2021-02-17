@@ -49,19 +49,16 @@ export function SearchOptionsBox({
 						<i class="fad fa-tags"></i>
 					</span>
 					<span>
-						Search levels with
+						Tags:
 					</span>
 					<${TokenInput} value=${tags} onchange=${setThis(setTags)} />
-					<span>
-						tags
-					</span>
 				</li>
 				<li class="sb_row">
 					<span class="sb_icon">
 						<i class="fad fa-pencil-alt"></i>
 					</span>
 					<span>
-						Search levels made by
+						Authors:
 					</span>
 					<${TokenInput} value=${authors} onchange=${setThis(setAuthors)} />
 				</li>
