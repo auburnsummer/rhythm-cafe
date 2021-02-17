@@ -86,15 +86,6 @@ export function Levels({worker}) {
 		console.log(levels);
 	}, [levels]);
 
-	const makeLevelBox = level => {
-		return html`
-			<li>
-				<${LevelBox} level=${level} />
-			</li>
-		`
-	}
-
-
 	const prevPage = () => setOffset(prev => max(prev - 10, 0));
 	const nextPage = () => setOffset(prev => prev + 10);
 

@@ -10,9 +10,9 @@ const formatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction
 
 const bpmText = (maxBPM, minBPM) => maxBPM === minBPM ? `${maxBPM} BPM` : `${minBPM}-${maxBPM} BPM`;
 
-export function LevelBox({level, _class}) {
+export function LevelBox({level, expanded, _class}) {
 	return html`
-		<div class=${cm("lb", _class)}>
+		<div class=${cm("lb", _class, {"expanded!lb": expanded})}>
 			<div class="lb_image1">
 				<div class="lb_image2">
                     <img class="lb_image3" src=${level.thumb} />

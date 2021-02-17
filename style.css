@@ -322,7 +322,6 @@ body {
 .lb_icons1 {
 	display: flow-root;
 	overflow: hidden;
-	margin-top: 0.5rem;
 }
 
 .lb_icons2 {
@@ -362,11 +361,11 @@ body {
 
 .lb_tag {
 	margin-left: 0.25rem;
-	margin-top: 1.25rem;
 	font-size: 0.75rem;
+	margin-top: 0.125rem;
 	line-height: 1rem;
 	font-style: italic;
-	padding-top: 0.125rem;
+	padding-top: 0.25rem;
 	padding-bottom: 0.125rem;
 	padding-left: 0.25rem;
 	padding-right: 0.25rem;
@@ -374,6 +373,9 @@ body {
 	background-color: var(--gray-200);
 }
 
+.expanded\!lb .lb_image1 {
+	width: 0%;
+}
 
 /* DifficultyDecoration.js */
 .dd {
