@@ -373,9 +373,36 @@ body {
 	background-color: var(--gray-200);
 }
 
-.expanded\!lb .lb_image1 {
-	width: 0%;
+.lb_description {
+	display: none;
 }
+
+.lb_downloads {
+	display: none;
+}
+
+.expanded\!lb .lb_icons1, .expanded\!lb .lb_tags1 {
+	display: none;
+}
+
+.expanded\!lb .lb_description {
+	display: block;
+	padding: 0.25rem;
+	font-size: 0.75rem;
+	line-height: 1rem;
+	margin-top: 0.25rem;
+	background-color: var(--gray-100);
+	color: var(--gray-700);
+	box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.expanded\!lb .lb_downloads {
+	display: flex;
+}
+
+/* .expanded\!lb .lb_image1 {
+	width: 0%;
+} */
 
 /* DifficultyDecoration.js */
 .dd {

@@ -10,9 +10,9 @@ const formatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction
 
 const bpmText = (maxBPM, minBPM) => maxBPM === minBPM ? `${maxBPM} BPM` : `${minBPM}-${maxBPM} BPM`;
 
-export function LevelBox({level, expanded, _class}) {
+export function LevelBox({level, id, expanded, _class, onclick}) {
 	return html`
-		<div class=${cm("lb", _class, {"expanded!lb": expanded})}>
+		<div onclick=${onclick} class=${cm("lb", _class, {"expanded!lb": expanded})} id=${id}>
 			<div class="lb_image1">
 				<div class="lb_image2">
                     <img class="lb_image3" src=${level.thumb} />
@@ -39,6 +39,9 @@ export function LevelBox({level, expanded, _class}) {
 							</li>
 						</ul>
 					</div>
+					<div class="lb_description">
+						<p>${level.description}</p>
+					</div>
 					<div class="lb_spacer"></div>
 					<div class="lb_tags1">
 						<ul class="lb_tags2">
@@ -47,6 +50,14 @@ export function LevelBox({level, expanded, _class}) {
 								level.tags
 							)}
 						</ul>
+					</div>
+					<div class="lb_downloads">
+						${level.url ? html`
+							<a href=${level.url}>Download link 1</a>
+						` : null}
+						${level.url2 ? html`
+							<a href=${level.url2}>Download link 2</a>
+						` : null}
 					</div>
 				</div>
 			</div>

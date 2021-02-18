@@ -2,7 +2,7 @@ import { html } from "../utils/html.js";
 import { LevelBox } from "./LevelBox.js";
 import { split, max, map } from 'https://cdn.skypack.dev/ramda';
 import { setThis } from "../utils/functions.js";
-import { useMemo, useState, useEffect } from "https://cdn.skypack.dev/preact/hooks";
+import { useMemo, useState, useEffect, useLayoutEffect } from "https://cdn.skypack.dev/preact/hooks";
 
 import { SortOptions } from "../utils/enums.js";
 import { useSelect } from "../hooks/useSelect.js";
@@ -12,12 +12,16 @@ export function Levels({worker}) {
 	const [limit, setLimit] = useState(20);
 	const [offset, setOffset] = useState(0);
 	const [sort, setSort] = useState(SortOptions.Newest);
+	// tags and authors are comma separated strings
 	const [tags, setTags] = useState("");
 	const [authors, setAuthors] = useState("");
 	const [showAutoimport, setShowAutoimport] = useState(false);
 	const [search, setSearch] = useState("");
 
+	const [expandedID, setExpandedID] = useState("");
 
+
+	// Make the SQL query:
 	const sql = useMemo(() => {
 		// https://github.com/auburnsummer/rdlevels2/issues/1
 		const sortStrings = {
@@ -86,6 +90,21 @@ export function Levels({worker}) {
 		console.log(levels);
 	}, [levels]);
 
+	useLayoutEffect(() => {
+		// scroll to the selected expansion.
+		// console.log(expandedID);
+		const element = document.getElementById(expandedID);
+		if (element) {
+			element.scrollIntoView({
+				behavior: "smooth",
+				block: "center"
+			});
+		}
+		// ref.current.scrollIntoView(false);
+	}, [expandedID]);
+
+	const setID = id => evt => setExpandedID(id);
+
 	const prevPage = () => setOffset(prev => max(prev - 10, 0));
 	const nextPage = () => setOffset(prev => prev + 10);
 
@@ -95,7 +114,15 @@ export function Levels({worker}) {
 				<button onclick=${prevPage}>previous page</button>
 				<button onclick=${nextPage}>next page</button>
 				${map(
-					level => html`<${LevelBox} level=${level} _class="le_box" />`,
+					level => html`
+						<${LevelBox}
+						id=${level.id}
+						onclick=${setID(level.id)}
+						expanded=${level.id === expandedID}
+						level=${level}
+						_class="le_box"
+						/>
+					`,
 					levels
 				)}
 			</div>
