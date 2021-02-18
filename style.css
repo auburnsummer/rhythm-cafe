@@ -105,6 +105,7 @@ body {
 
 .le_list {
 	min-width: 67%;
+	max-width: 67%;
 	padding-left: 2rem;
 }
 
@@ -398,6 +399,24 @@ body {
 
 .expanded\!lb .lb_downloads {
 	display: flex;
+}
+
+.lb_download {
+	background-color: var(--rose-700);
+	font-size: 0.75rem;
+	color: var(--rose-100);
+	padding: 0.125rem;
+	margin-left: 0.25rem;
+}
+
+.lb_download:first-child {
+	margin-left: 0rem;
+}
+
+.lb_download:hover {
+	background-color: var(--rose-500);
+	color: var(--rose-50);
+	cursor: pointer;
 }
 
 /* .expanded\!lb .lb_image1 {

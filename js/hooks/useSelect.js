@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'https://cdn.skypack.dev/preact/hooks';
-import { fromPairs, zip, map, pipe, groupBy, prop, uniq, uniqBy, sortBy, filter, omit } from 'https://cdn.skypack.dev/ramda';
+import { fromPairs, zip, map, pipe, groupBy, prop, uniq, uniqBy, sortBy, filter } from 'https://cdn.skypack.dev/ramda';
 
 import { LoadingState } from "../utils/enums.js";
 
@@ -49,7 +49,7 @@ export function useSelect(worker, query) {
                     )(group);
 
                     return {
-                        ...omit(["tag", "tag_seq", "author", "author_seq"], group[0]),
+                        ...group[0],
                         tags,
                         authors
                     }

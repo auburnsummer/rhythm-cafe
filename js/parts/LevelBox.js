@@ -53,10 +53,10 @@ export function LevelBox({level, id, expanded, _class, onclick}) {
 					</div>
 					<div class="lb_downloads">
 						${level.url ? html`
-							<a href=${level.url}>Download link 1</a>
+							<a class="lb_download" href=${level.url}>Download link 1</a>
 						` : null}
 						${level.url2 ? html`
-							<a href=${level.url2}>Download link 2</a>
+							<a class="lb_download" href=${level.url2}>Download link 2</a>
 						` : null}
 					</div>
 				</div>
