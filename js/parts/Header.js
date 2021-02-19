@@ -5,6 +5,7 @@ export function Header() {
 	return html`
 		<header class="he">
 			<svg
+				class="he_logo"
 				xmlns="http://www.w3.org/2000/svg"
 				fill-rule="evenodd"
 				stroke-linejoin="round"

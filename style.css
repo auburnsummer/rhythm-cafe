@@ -513,3 +513,8 @@ body {
 	z-index: 10;
 	box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px -1px
 }
+
+.he_logo {
+	height: 3.1rem;
+	fill: var(--violet-300);
+}
