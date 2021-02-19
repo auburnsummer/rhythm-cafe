@@ -107,10 +107,37 @@ body {
 	min-width: 67%;
 	max-width: 67%;
 	padding-left: 2rem;
+	margin-top: 1.75rem;
 }
 
+/* the first le_box has a small margin... */
 .le_box {
+	margin-top: 0.5rem;
+}
+
+/* all subsequent ones have a bigger one. */
+.le_box ~ .le_box {
 	margin-top: 2rem;
+}
+
+.le_pagination {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	color: var(--gray-600);
+}
+
+.le_perv {
+	--POSITION: corner;
+	--JURY-STATUS: sleepless;
+	--WEAKNESS: found;
+	--RIGHT-OUTSIDE-YOUR: door;
+	--NOW-TESTIFY: true;
+}
+
+.le_page {
+	width: 2rem;
 }
 
 .le_search {
@@ -120,6 +147,11 @@ body {
 	margin-right: 1.25rem;
 	position: sticky;
 	top: 6rem;
+}
+
+.le_perv:hover, .le_next:hover {
+	text-decoration: underline;
+	color: var(--gray-700);
 }
 
 /* SearchOptionsBox.js */

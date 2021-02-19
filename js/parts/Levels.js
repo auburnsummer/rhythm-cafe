@@ -20,6 +20,10 @@ export function Levels({worker}) {
 
 	const [expandedID, setExpandedID] = useState("");
 
+	const page = useMemo(() => {
+		return Math.floor(offset / limit) + 1;
+	}, [offset, limit]);
+
 
 	// Make the SQL query:
 	const sql = useMemo(() => {
@@ -105,14 +109,18 @@ export function Levels({worker}) {
 
 	const setID = id => evt => setExpandedID(id);
 
-	const prevPage = () => setOffset(prev => max(prev - 10, 0));
-	const nextPage = () => setOffset(prev => prev + 10);
+	const prevPage = () => setOffset(prev => max(prev - limit, 0));
+	const nextPage = () => setOffset(prev => prev + limit);
 
 	return html`
 		<div class="le">
 			<div class="le_list">
-				<button onclick=${prevPage}>previous page</button>
-				<button onclick=${nextPage}>next page</button>
+				<div class="le_pagination">
+					<!-- ha -->
+					<button class="le_perv" onclick=${prevPage}>prev</button>
+					<p class="le_page">${page}</p>
+					<button class="le_next" onclick=${nextPage}>next</button>
+				</div>
 				${map(
 					level => html`
 						<${LevelBox}
