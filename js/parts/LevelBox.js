@@ -10,7 +10,16 @@ const formatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction
 
 const bpmText = (maxBPM, minBPM) => maxBPM === minBPM ? `${maxBPM} BPM` : `${minBPM}-${maxBPM} BPM`;
 
+
 export function LevelBox({level, id, expanded, _class, onclick}) {
+
+	const approved = level.approval >= 10;
+
+	const approvedDescriptions = [
+		"Peer-Reviewed: A trusted member of the community has checked for correct timing, metadata, and cues.",
+		"Non-Referred: A trusted member of the community has checked for correct timing, metadata, and cues, and has found that the level does not meet standards."
+	]
+
 	return html`
 		<div onclick=${onclick} class=${cm("lb", _class, {"expanded!lb": expanded})} id=${id}>
 			<div class="lb_image1">
@@ -37,6 +46,13 @@ export function LevelBox({level, id, expanded, _class, onclick}) {
 								<i class="fab fa-discord"></i>
 								<span>Rhythm Doctor Lounge</span>
 							</li>
+							${level.approval !== 0 ? html`
+								<li class=${cm("lb_approval", {"nope!lb_approval" : !approved})}>
+									${approved ?
+										html`<i title=${approvedDescriptions[0]} class="fas fa-check"></i>` :
+										html`<i title=${approvedDescriptions[1]} class="fas fa-times"></i>`}
+								</li>
+							` : null}
 						</ul>
 					</div>
 					<div class="lb_description">

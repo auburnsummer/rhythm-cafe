@@ -376,12 +376,20 @@ body {
 	padding-top: -0.25rem;
 }
 
-.lb_icon {
+.lb_icon, .lb_approval {
 	margin-left: 0.75rem;
 	padding-top: 0.25rem;
 	color: var(--gray-700);
 	font-size: 0.75rem;
 	line-height: 1rem;
+}
+
+.lb_approval {
+	color: var(--lime-300);
+}
+
+.nope\!lb_approval {
+	color: var(--rose-500);
 }
 
 .lb_icon span {

@@ -24,7 +24,6 @@ export function Levels({worker}) {
 		return Math.floor(offset / limit) + 1;
 	}, [offset, limit]);
 
-
 	// Make the SQL query:
 	const sql = useMemo(() => {
 		// https://github.com/auburnsummer/rdlevels2/issues/1
