@@ -15,17 +15,17 @@ export function SearchOptionsBox({
 	setTags,
 	authors,
 	setAuthors,
-	showAutoimport,
-	setShowAutoimport,
 	limit,
 	setLimit,
 	sort,
 	setSort,
 	search,
-	setSearch
+	setSearch,
+	showUnapproved,
+	setShowUnapproved
 }) {
 
-	const rotateAutoimport = useTwineSwitch([true, false], showAutoimport, setShowAutoimport);
+	const rotateUnapproved = useTwineSwitch([true, false], showUnapproved, setShowUnapproved);
 
 	const [inputContent, setInputContent] = useState("");
 
@@ -119,14 +119,8 @@ export function SearchOptionsBox({
 					<span class="sb_icon">
 						<i class="fad fa-clipboard-check"></i>
 					</span>
-					<span>Hide unreferred levels</span>
-				</li>
-				<li class="sb_row">
-					<span class="sb_icon">
-						<i class="fad fa-directions"></i>
-					</span>
-					<span>
-					<button class="sb_toggle" onClick=${rotateAutoimport(1)}>${showAutoimport ? "Show" : "Hide"}</button> auto-import links</span>
+					<button class="sb_toggle" onClick=${rotateUnapproved(1)}>${showUnapproved ? "Show" : "Hide"}</button>
+					<span>unreferred levels</span>
 				</li>
 			</ul>
 		</div>

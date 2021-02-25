@@ -15,10 +15,10 @@ export function Levels({worker}) {
 	// tags and authors are comma separated strings
 	const [tags, setTags] = useState("");
 	const [authors, setAuthors] = useState("");
-	const [showAutoimport, setShowAutoimport] = useState(false);
 	const [search, setSearch] = useState("");
 
 	const [expandedID, setExpandedID] = useState("");
+	const [showUnapproved, setShowUnapproved] = useState(false);
 
 	const page = useMemo(() => {
 		return Math.floor(offset / limit) + 1;
@@ -57,6 +57,10 @@ export function Levels({worker}) {
 		)
 		` : '';
 
+		const approvedWhere = !showUnapproved ? `
+		AND approval >= 10
+		` : '';
+
 		const subquery = search.length === 0 ? `
 		SELECT L.*, row_number() OVER (
 			ORDER BY ${sortStrings[sort]}
@@ -64,6 +68,7 @@ export function Levels({worker}) {
 		WHERE True
 		${tagsWhere}
 		${authorsWhere}
+		${approvedWhere}
 		LIMIT ${limit} OFFSET ${offset}
 		` : `
 		SELECT L.*, row_number() OVER (
@@ -74,6 +79,7 @@ export function Levels({worker}) {
 		WHERE ft MATCH '${search}'
 			${tagsWhere}
 			${authorsWhere}
+			${approvedWhere}
 		LIMIT ${limit} OFFSET ${offset}
 		`
 
@@ -85,7 +91,7 @@ export function Levels({worker}) {
 		LEFT JOIN level_author AS A ON A.id = Q.id
 		ORDER BY rn
 		`
-	}, [tags, authors, search, limit, offset, sort]);
+	}, [tags, authors, search, limit, offset, sort, showUnapproved]);
 
 	const [levels, state] = useSelect(worker, sql);
 
@@ -142,14 +148,14 @@ export function Levels({worker}) {
 				setTags,
 				authors,
 				setAuthors,
-				showAutoimport,
-				setShowAutoimport,
 				limit,
 				setLimit,
 				sort,
 				setSort,
 				search,
-				setSearch
+				setSearch,
+				showUnapproved,
+				setShowUnapproved
 				}
 			}
 			/>

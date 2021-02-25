@@ -236,8 +236,12 @@ body {
 	justify-content: center;
 }
 
-.sb_icon + span {
+.sb_icon + span, .sb_icon + .sb_toggle {
 	margin-left: 1rem;
+}
+
+.sb_toggle + span {
+	margin-left: 0.25rem;
 }
 
 .sb_select {
