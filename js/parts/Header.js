@@ -4,7 +4,6 @@ const ANNOUNCEMENTS = [
 	html`<li>Not sure where to start? Try the <a href="https://docs.google.com/spreadsheets/d/1acZltH8MKs81Nu-BOsaupeWfjJVDiDVoVzbIKepPdYQ/edit#gid=0">RD Streamer Setlist!</a></li>`,
 	html`<li><a href="https://rhythm-doctor.gitbook.io/level-editor/">Editor tutorial</a> by Klyzx et al</li>`,
 	html`<li>i'm working on adding all the old website features please be patient</li>`,
-	html`<li>this is a fourth announcement which causes it to go out of screen</li>`
 ]
 
 export function Header() {
