@@ -119,45 +119,49 @@ export function Levels({worker}) {
 
 	return html`
 		<div class="le">
-			<div class="le_list">
-				<div class="le_pagination">
-					<!-- ha -->
-					<button class="le_perv" onclick=${prevPage}>prev</button>
-					<p class="le_page">${page}</p>
-					<button class="le_next" onclick=${nextPage}>next</button>
+			<div class="le_container">
+
+				<div class="le_list">
+					<div class="le_pagination">
+						<!-- ha -->
+						<button class="le_perv" onclick=${prevPage}>prev</button>
+						<p class="le_page">${page}</p>
+						<button class="le_next" onclick=${nextPage}>next</button>
+					</div>
+					${map(
+						level => html`
+							<${LevelBox}
+							id=${level.id}
+							onclick=${setID(level.id)}
+							expanded=${level.id === expandedID}
+							level=${level}
+							_class="le_box"
+							/>
+						`,
+						levels
+					)}
 				</div>
-				${map(
-					level => html`
-						<${LevelBox}
-						id=${level.id}
-						onclick=${setID(level.id)}
-						expanded=${level.id === expandedID}
-						level=${level}
-						_class="le_box"
-						/>
-					`,
-					levels
-				)}
-			</div>
-			<${SearchOptionsBox}
-			  _class="le_search" 
-			  ...${
-				{
-				tags,
-				setTags,
-				authors,
-				setAuthors,
-				limit,
-				setLimit,
-				sort,
-				setSort,
-				search,
-				setSearch,
-				showUnapproved,
-				setShowUnapproved
+				<${SearchOptionsBox}
+				_class="le_search" 
+				...${
+					{
+					tags,
+					setTags,
+					authors,
+					setAuthors,
+					limit,
+					setLimit,
+					sort,
+					setSort,
+					search,
+					setSearch,
+					showUnapproved,
+					setShowUnapproved
+					}
 				}
-			}
-			/>
+				/>
+
+			</div>
 		</div>
 	`
 }

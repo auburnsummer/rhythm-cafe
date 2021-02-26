@@ -39,6 +39,7 @@ underscore and double dash thing
 	--rose-900: #881337;
 
 	--lime-300: #BEF264;
+	--lime-400: #A3E635;
 	--lime-800: #3F6212;
 
 	--amber-300: #FCD34D;
@@ -108,13 +109,18 @@ body {
 	height: 100%;
 	display: flex;
 	justify-content: center;
+}
+
+.le_container {
+	display: flex;
+	justify-content: center;
 	align-items: start;
+	max-width: 1536px;
 }
 
 .le_list {
 	min-width: 67%;
 	max-width: 67%;
-	padding-left: 2rem;
 	margin-top: 1.75rem;
 }
 
@@ -152,7 +158,6 @@ body {
 	width: 33%;
 	padding: 1rem;
 	margin-left: 1.25rem;
-	margin-right: 1.25rem;
 	position: sticky;
 	top: 6rem;
 }
@@ -385,7 +390,7 @@ body {
 }
 
 .lb_approval {
-	color: var(--lime-300);
+	color: var(--lime-400);
 }
 
 .nope\!lb_approval {
