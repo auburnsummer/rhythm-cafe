@@ -70,7 +70,7 @@ export function Levels({worker}) {
 		${approvedWhere}
 		LIMIT ${limit} OFFSET ${offset}
 		` : `
-		SELECT L.*, row_number() OVER (
+		SELECT L.*, S.*, row_number() OVER (
 			ORDER BY rank
 		) AS rn FROM ft
 		INNER JOIN level AS L ON ft._rowid_ = L._rowid_
