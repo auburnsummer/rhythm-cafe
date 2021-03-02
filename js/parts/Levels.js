@@ -139,25 +139,27 @@ export function Levels({worker}) {
 					levels
 				)}
 			</div>
-			<${SearchOptionsBox}
-			  _class="le_search" 
-			  ...${
-				{
-				tags,
-				setTags,
-				authors,
-				setAuthors,
-				limit,
-				setLimit,
-				sort,
-				setSort,
-				search,
-				setSearch,
-				showUnapproved,
-				setShowUnapproved
+			<div class="le_dispensary">
+				<${SearchOptionsBox}
+				_class="le_search" 
+				...${
+					{
+					tags,
+					setTags,
+					authors,
+					setAuthors,
+					limit,
+					setLimit,
+					sort,
+					setSort,
+					search,
+					setSearch,
+					showUnapproved,
+					setShowUnapproved
+					}
 				}
-			}
-			/>
+				/>
+			</div>
 		</div>
 	`
 }
