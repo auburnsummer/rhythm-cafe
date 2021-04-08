@@ -1,1 +1,0 @@
-export const DB_URL = "https://f000.backblazeb2.com/file/rhythm-cafe/orchard.db.br";

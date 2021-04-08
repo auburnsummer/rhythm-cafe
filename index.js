@@ -1,9 +1,0 @@
-import 'https://cdn.skypack.dev/preact/debug';
-import { render } from 'https://cdn.skypack.dev/preact';
-import { html } from "./js/utils/html.js";
-import { LoadingScreen } from "./js/LoadingScreen.js";
-
-// set FA's behaviour for preact
-window.FontAwesome.config.autoReplaceSvg = 'nest';
-
-render(html`<${LoadingScreen} />`, document.body);
