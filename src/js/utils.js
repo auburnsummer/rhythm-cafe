@@ -1,7 +1,7 @@
 // Disorganised pile of utilities
 import Enum from 'enum';
 
-export const API_URL = "http://api.rhythm.cafe/orchard.json";
+export const API_URL = "https://api.rhythm.cafe/orchard.json";
 
 export const LoadingState = new Enum(["Loading", "Loaded", "Error"]);
 
