@@ -5,7 +5,7 @@
     "clean": "rm -rf build"
   },
   "devDependencies": {
-    "snowpack": "^3.2.2",
+    "snowpack": "^3.2.2"
   },
   "dependencies": {
     "enum": "^3.0.4",
