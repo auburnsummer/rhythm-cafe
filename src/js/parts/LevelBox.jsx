@@ -12,13 +12,13 @@ export function LevelBox({level}) {
 
     return (
         <article class="lb">
-            <div>
-                <img src={level.thumb} />
+            <div class="lb_imagebox">
+                <img class="lb_image" src={level.thumb} />
             </div>
-            <div>
+            <div class="lb_info">
                 <div>
-                    <h2>{level.artist}</h2>
-                    <h1>{level.song}</h1>
+                    <h2 class="lb_artist">{level.artist}</h2>
+                    <h1 class="lb_song">{level.song}</h1>
                 </div>
             </div>
         </article>
