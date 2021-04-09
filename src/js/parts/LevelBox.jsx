@@ -1,5 +1,7 @@
 import { h } from 'preact';
 
+import "./LevelBox.css";
+
 export function LevelBox({level}) {
 	const approved = level.approval >= 10;
 
@@ -9,14 +11,16 @@ export function LevelBox({level}) {
 	]
 
     return (
-        <article>
+        <article class="lb">
             <div>
                 <img src={level.thumb} />
+            </div>
+            <div>
                 <div>
-                    
+                    <h2>{level.artist}</h2>
+                    <h1>{level.song}</h1>
                 </div>
             </div>
-            {JSON.stringify(level)}
         </article>
     )
 }
