@@ -19,6 +19,12 @@
     padding: 1rem;
 }
 
+.lb_cast {
+    display: flex;
+    flex-direction: column;
+}
+
+
 .lb_artist {
     font-size: 0.75rem;
     line-height: 0.75rem;
@@ -28,4 +34,23 @@
 .lb_song {
     font-size: 1.125rem;
     line-height: 1.75rem;
+}
+
+.lb_metadata {
+    margin-top: 0.25rem;
+}
+
+.lb_metaitem {
+    /* FA icons inherit size from their container, which is why we're setting font size here
+    and not in lb_metatext */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    color: var(--warmGray-600);
+}
+
+.lb_metatext {
+    margin-left: 0.25rem;
 }
