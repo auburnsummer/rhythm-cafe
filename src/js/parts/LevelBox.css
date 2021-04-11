@@ -32,7 +32,7 @@
 }
 
 .lb_song {
-    font-size: 1.125rem;
+    font-size: 1rem;
     line-height: 1.75rem;
 }
 
@@ -43,13 +43,13 @@ named after the Patron Saint of CSS, benface
 */
 .lb_metadatawrapper {
     display: flow-root;
-    margin-top: 0.25rem;
+    margin-top: 0.125rem;
 }
 
 /* the Benface Maneuver involves first putting negative margin on this element... */
 .lb_metadata {
     margin-top: -0.25rem;
-    margin-left: -0.25rem;
+    margin-left: -0.75rem;
     display: flex;
     flex-wrap: wrap;
 }
@@ -65,7 +65,7 @@ a sibling of the parent will. */
     align-items: center;
     font-size: 0.75rem;
     line-height: 0.75rem;
-    margin-left: 0.25rem;
+    margin-left: 0.75rem;
     margin-top: 0.25rem;
     max-width: 100%;
     color: var(--warmGray-600);
