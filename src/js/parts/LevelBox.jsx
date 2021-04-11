@@ -47,20 +47,22 @@ export function LevelBox({level}) {
                 <div class="lb_cast">
                     <h2 class="lb_artist">{artist}</h2>
                     <h1 class="lb_song">{song}</h1>
-                    <ul class="lb_metadata">
-                        <li class="lb_metaitem lb_author">
-                            <i class="lb_metaicon fad fa-pencil-alt"></i>
-                            <span class="lb_metatext">{author}</span>
-                        </li>
-                        <li class="lb_metaitem lb_bpm">
-                            <i class="lb_metaicon fad fa-heartbeat fa-swap-opacity"></i>
-                            <span class="lb_metatext">{bpmText(level)}</span>
-                        </li>
-                        <li class="lb_metaitem lb_source">
-                            {sourceIcon(level)}
-                            <span class="lb_metatext">{sourceText(level)}</span>
-                        </li>
-                    </ul>
+                    <div class="lb_metadatawrapper">
+                        <ul class="lb_metadata">
+                            <li class="lb_metaitem lb_author">
+                                <i class="lb_metaicon fad fa-pencil-alt"></i>
+                                <span class="lb_metatext">{author}</span>
+                            </li>
+                            <li class="lb_metaitem lb_bpm">
+                                <i class="lb_metaicon fad fa-heartbeat fa-swap-opacity"></i>
+                                <span class="lb_metatext">{bpmText(level)}</span>
+                            </li>
+                            <li class="lb_metaitem lb_source">
+                                {sourceIcon(level)}
+                                <span class="lb_metatext">{sourceText(level)}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </article>

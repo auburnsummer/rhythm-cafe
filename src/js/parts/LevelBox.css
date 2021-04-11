@@ -41,12 +41,22 @@ time for the BENFACE MANEUVER!!!!
 
 named after the Patron Saint of CSS, benface
 */
-.lb_metadata {
+.lb_metadatawrapper {
+    display: flow-root;
     margin-top: 0.25rem;
+}
+
+/* the Benface Maneuver involves first putting negative margin on this element... */
+.lb_metadata {
+    margin-top: -0.25rem;
+    margin-left: -0.25rem;
     display: flex;
     flex-wrap: wrap;
 }
 
+/* ...and all the children get a positive margin to "cancel it out". */
+/* this way, any child that's visually "next" to the parent won't have a margin, but elements that are "next" to
+a sibling of the parent will. */
 .lb_metaitem {
     /* FA icons inherit size from their container, which is why we're setting font size here
     and not in lb_metatext */
@@ -55,6 +65,9 @@ named after the Patron Saint of CSS, benface
     align-items: center;
     font-size: 0.75rem;
     line-height: 0.75rem;
+    margin-left: 0.25rem;
+    margin-top: 0.25rem;
+    max-width: 100%;
     color: var(--warmGray-600);
 }
 
