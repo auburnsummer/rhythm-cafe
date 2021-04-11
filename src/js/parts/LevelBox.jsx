@@ -2,6 +2,23 @@ import { h } from 'preact';
 
 import "./LevelBox.css";
 
+function bpmText({max_bpm, min_bpm}) {
+    return max_bpm === min_bpm ? 
+           `${max_bpm} BPM` : 
+           `${min_bpm}-${max_bpm} BPM`;
+}
+
+function sourceIcon({source_id}) {
+    const map = {
+        'yeoldesheet' : <i class="lb_metaicon fab fa-discord"></i>,
+        'rdl' : <i class="lb_metaicon fab fa-discord"></i>,
+        'workshop' : <i class="lb_metaicon fab fa-steam"></i>
+    };
+    return map[source_id];
+}
+
+
+
 export function LevelBox({level}) {
 	const approved = level.approval >= 10;
 
@@ -25,6 +42,13 @@ export function LevelBox({level}) {
                         <li class="lb_metaitem lb_author">
                             <i class="lb_metaicon fad fa-pencil-alt"></i>
                             <span class="lb_metatext">{author}</span>
+                        </li>
+                        <li class="lb_metaitem lb_bpm">
+                            <i class="lb_metaicon fad fa-heartbeat fa-swap-opacity"></i>
+                            <span class="lb_metatext">{bpmText(level)}</span>
+                        </li>
+                        <li class="lb_metaitem lb_source">
+                            {sourceIcon(level)}
                         </li>
                     </ul>
                 </div>
