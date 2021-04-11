@@ -17,6 +17,15 @@ function sourceIcon({source_id}) {
     return map[source_id];
 }
 
+function sourceText({source_id}) {
+    const map = {
+        'yeoldesheet' : 'Rhythm Doctor Lounge',
+        'rdl' : 'Rhythm Doctor Lounge',
+        'workshop' : 'Steam Workshop'
+    };
+    return map[source_id];
+}
+
 
 
 export function LevelBox({level}) {
@@ -49,6 +58,7 @@ export function LevelBox({level}) {
                         </li>
                         <li class="lb_metaitem lb_source">
                             {sourceIcon(level)}
+                            <span class="lb_metatext">{sourceText(level)}</span>
                         </li>
                     </ul>
                 </div>

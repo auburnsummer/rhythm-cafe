@@ -36,8 +36,15 @@
     line-height: 1.75rem;
 }
 
+/*
+time for the BENFACE MANEUVER!!!!
+
+named after the Patron Saint of CSS, benface
+*/
 .lb_metadata {
     margin-top: 0.25rem;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .lb_metaitem {
@@ -53,4 +60,7 @@
 
 .lb_metatext {
     margin-left: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

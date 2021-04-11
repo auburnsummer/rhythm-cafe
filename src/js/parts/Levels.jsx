@@ -13,7 +13,7 @@ export function Levels() {
 	const [tags, setTags] = useState("");
 	const [authors, setAuthors] = useState("");
 	const [search, setSearch] = useState("");
-	const [showUnapproved, setShowUnapproved] = useState(false);
+	const [showUnapproved, setShowUnapproved] = useState(true);
 
     // make the sql query:
 	const sql = useMemo(() => {
@@ -51,6 +51,10 @@ export function Levels() {
 		AND approval >= 10
 		` : '';
 
+		const sourceWhere = `
+		AND source_id = 'workshop'
+		`
+
 		const subquery = search.length === 0 ? `
 		SELECT L.*, row_number() OVER (
 			ORDER BY ${sortStrings[sort]}
@@ -59,6 +63,7 @@ export function Levels() {
 		${tagsWhere}
 		${authorsWhere}
 		${approvedWhere}
+		${sourceWhere}
 		LIMIT ${limit} OFFSET ${offset}
 		` : `
 		SELECT L.*, S.*, row_number() OVER (
@@ -70,6 +75,7 @@ export function Levels() {
 			${tagsWhere}
 			${authorsWhere}
 			${approvedWhere}
+			${sourceWhere}
 		LIMIT ${limit} OFFSET ${offset}
 		`
 
