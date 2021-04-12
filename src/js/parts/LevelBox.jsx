@@ -64,6 +64,10 @@ export function LevelBox({level}) {
                         </ul>
                     </div>
                 </div>
+                <div class="lb_spacer"></div>
+                <ul class="lb_tags">
+                    
+                </ul>
             </div>
         </article>
     )
