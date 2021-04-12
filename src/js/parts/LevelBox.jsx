@@ -1,6 +1,6 @@
 import { h } from 'preact';
-
 import "./LevelBox.css";
+import cc from "classcat";
 
 function bpmText({max_bpm, min_bpm}) {
     return max_bpm === min_bpm ? 
@@ -26,15 +26,19 @@ function sourceText({source_id}) {
     return map[source_id];
 }
 
+function approvalIcon(approved) {
+	const approvedDescriptions = [
+		"Peer-Reviewed: A trusted member of the community has checked for correct timing, metadata, and cues.",
+		"Non-Referred: A trusted member of the community has checked for correct timing, metadata, and cues, and has found that the level does not meet standards."
+	];
+    return approved ?
+           <i class="fas fa-check"></i> :
+           <i class="fas fa-times"></i>;
+}
 
 
 export function LevelBox({level}) {
 	const approved = level.approval >= 10;
-
-	const approvedDescriptions = [
-		"Peer-Reviewed: A trusted member of the community has checked for correct timing, metadata, and cues.",
-		"Non-Referred: A trusted member of the community has checked for correct timing, metadata, and cues, and has found that the level does not meet standards."
-	]
 
     const {thumb, artist, song, author} = level;
 
@@ -60,6 +64,9 @@ export function LevelBox({level}) {
                             <li class="lb_metaitem lb_source">
                                 {sourceIcon(level)}
                                 <span class="lb_metatext">{sourceText(level)}</span>
+                            </li>
+                            <li class={cc(["lb_metaitem", {"yay!lb_approved" : approved, "nay!lb_approved" : !approved}])}>
+                                {approvalIcon(approved)}
                             </li>
                         </ul>
                     </div>

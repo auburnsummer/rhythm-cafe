@@ -77,3 +77,11 @@ a sibling of the parent will. */
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.yay\!lb_approved {
+    color: var(--green-500);
+}
+
+.nay\!lb_approved {
+    color: var(--rose-600);
+}
