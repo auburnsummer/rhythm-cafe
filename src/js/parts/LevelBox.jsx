@@ -47,7 +47,10 @@ function Tags({seizure_warning, tags}) {
     return (
         <ul class="lb_tags">
             {seizure_warning ?
-            <li class="caution!lb_tag lb_tag">Seizure warning</li> :
+            <li class="caution!lb_tag lb_tag">
+                <i class="fad fa-exclamation-triangle"></i>
+                <span>Seizure warning</span>
+            </li> :
             null}
             {
                 tags.map(tag => (
@@ -56,6 +59,10 @@ function Tags({seizure_warning, tags}) {
             }
         </ul>
     )
+}
+
+function DifficultyDecorator({difficulty}) {
+    
 }
 
 

@@ -1,11 +1,15 @@
 .lb {
     width: 24rem;
     background-color: var(--warmGray-100);
+    border-radius: 0.5rem;
 }
 
 .lb_imagebox {
     position: relative;
     padding-bottom: calc(900%/16);
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    overflow: hidden;
 }
 
 .lb_image {
@@ -33,7 +37,7 @@
 
 .lb_song {
     font-size: 1rem;
-    line-height: 1.75rem;
+    line-height: 1.5rem;
 }
 
 /*
@@ -84,4 +88,37 @@ a sibling of the parent will. */
 
 .nay\!lb_approved {
     color: var(--rose-600);
+}
+
+/* another benface maneuver */
+.lb_tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: -0.25rem;
+    margin-top: -0.25rem;
+    padding-top: 0.75rem;
+}
+
+.lb_tag {
+    margin-left: 0.25rem;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    background-color: var(--warmGray-200);
+    color: var(--warmGray-500);
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    border-radius: 9999px;
+}
+
+.caution\!lb_tag {
+    background-color: var(--amber-100);
+    color: var(--amber-500);
+}
+
+.caution\!lb_tag span {
+    margin-left: 0.125rem;
 }
