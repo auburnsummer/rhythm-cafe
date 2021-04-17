@@ -1,0 +1,15 @@
+env:
+  browser: true
+  es2021: true
+extends:
+  - airbnb-base
+  - preact
+parserOptions:
+  ecmaVersion: 12
+  sourceType: module
+rules:
+  'indent': ['error', 4]
+  'react/jsx-indent': ['error', 4]
+  'import/prefer-default-export': off
+  'import/no-default-export': error
+  'newline-per-chained-call': error
