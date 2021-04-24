@@ -29,3 +29,11 @@ export const groupBy = (func, arr) => arr.reduce((accum, curr) => {
         [bucket]: accum[bucket] ? accum[bucket].concat([curr]) : [curr],
     };
 }, {});
+
+// calculate diff between two objects.
+export const diff = (a, b) => Object.keys(a)
+    .filter((key) => a[key] !== b[key])
+    .reduce((prev, curr) => ({
+        [curr]: a[curr],
+        ...prev
+    }), {});

@@ -1,3 +1,5 @@
+/* slightly modified version of wouter's uselocation */
+
 import {
     useEffect, useRef, useState, useCallback,
 } from "preact/hooks";
@@ -11,16 +13,16 @@ const eventReplaceState = "replaceState";
 export const events = [eventPopstate, eventPushState, eventReplaceState];
 
 const {
-    location, history, addEventListener, removeEventListener,
+    location, addEventListener, removeEventListener, history,
 } = window;
 
 /* eslint-disable max-len */
 const currentPathname = (base, path = location.pathname) => (!path.toLowerCase().indexOf(base.toLowerCase())
     ? path.slice(base.length) || "/"
-    : `~${path}`)
+    : `~${path}`);
 /* eslint-enable */
 
-export const useLocation = ({ base = "" } = {}) => {
+export function useLocation ({ base = "" } = {}) {
     const [pathAndSearch, update] = useState(() => ({
         path: currentPathname(base),
         search: location.search,
@@ -69,7 +71,7 @@ export const useLocation = ({ base = "" } = {}) => {
     );
 
     return [pathAndSearch, navigate];
-};
+}
 
 // While History API does have `popstate` event, the only
 // proper way to listen to changes via `push/replaceState`

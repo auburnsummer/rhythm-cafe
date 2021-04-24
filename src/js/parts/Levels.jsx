@@ -2,11 +2,10 @@ import { h } from 'preact';
 import { useMemo, useState, useEffect } from "preact/hooks";
 import { SortOptions, LoadingState } from "../utils";
 import { useDatasette } from "../hooks/useDatasette";
-import { useLocation} from "../hooks/useLocation";
 
 import { LevelBox } from "./LevelBox";
 
-export function Levels() {
+export function Levels({route}) {
 	const [limit, setLimit] = useState(20);
 	const [offset, setOffset] = useState(0);
     const [sort, setSort] = useState(SortOptions.Newest);
@@ -15,12 +14,6 @@ export function Levels() {
 	const [authors, setAuthors] = useState("");
 	const [search, setSearch] = useState("");
 	const [showUnapproved, setShowUnapproved] = useState(true);
-
-	const [location, setLocation] = useLocation();
-
-	useEffect(() => {
-		console.log(location);
-	}, [location])
 
     // make the sql query:
 	const sql = useMemo(() => {
@@ -109,7 +102,7 @@ export function Levels() {
 
     return (
         <div>
-			<h1 onClick={() => setLocation("/somewhere?aaa=aaa")}>hello world</h1>
+			<h1 onClick={() => route("/", {ene: 'afa', bene: 'bafa'})}>hello world</h1>
 			<ul>
 				{
 					results.map(r => (

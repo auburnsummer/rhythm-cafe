@@ -1,0 +1,29 @@
+.sb {
+    flex-grow: 1;
+}
+
+.sb_bar {
+    margin-left: 1rem;
+    padding: 0.25rem;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.sb_input {
+    flex-grow: 1;
+    padding: 0.5rem 0.25rem 0.5rem 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    background-color: var(--violet-100);
+    color: var(--violet-900);
+}
+
+.sb_input:focus {
+    background-color: white;
+}
+
+.sb_input::placeholder {
+    color: var(--violet-400);
+}
