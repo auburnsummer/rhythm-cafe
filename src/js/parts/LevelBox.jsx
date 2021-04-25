@@ -2,6 +2,11 @@ import { h } from 'preact';
 import "./LevelBox.css";
 import cc from "classcat";
 
+function authorText({authors}) {
+    const formatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' });
+    return formatter.format(authors);
+}
+
 function bpmText({max_bpm, min_bpm}) {
     return max_bpm === min_bpm ? 
            `${max_bpm} BPM` : 
@@ -82,7 +87,7 @@ export function LevelBox({level}) {
                         <ul class="lb_metadata">
                             <li class="lb_metaitem lb_author">
                                 <i class="lb_metaicon fad fa-pencil-alt"></i>
-                                <span class="lb_metatext">{author}</span>
+                                <span class="lb_metatext">{authorText(level)}</span>
                             </li>
                             <li class="lb_metaitem lb_bpm">
                                 <i class="lb_metaicon fad fa-heartbeat fa-swap-opacity"></i>

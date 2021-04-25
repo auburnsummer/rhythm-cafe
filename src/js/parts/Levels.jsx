@@ -5,14 +5,13 @@ import { useDatasette } from "../hooks/useDatasette";
 
 import { LevelBox } from "./LevelBox";
 
-export function Levels({route}) {
+export function Levels({route, q}) {
 	const [limit, setLimit] = useState(20);
 	const [offset, setOffset] = useState(0);
     const [sort, setSort] = useState(SortOptions.Newest);
 	// tags and authors are comma separated strings
 	const [tags, setTags] = useState("");
 	const [authors, setAuthors] = useState("");
-	const [search, setSearch] = useState("");
 	const [showUnapproved, setShowUnapproved] = useState(true);
 
     // make the sql query:
@@ -52,10 +51,10 @@ export function Levels({route}) {
 		` : '';
 
 		const sourceWhere = `
-		AND source_id = 'workshop'
-		`
+		AND source_id IN ('rdl', 'yeoldesheet', 'workshop')
+		`;
 
-		const subquery = search.length === 0 ? `
+		const subquery = q.length === 0 ? `
 		SELECT L.*, row_number() OVER (
 			ORDER BY ${sortStrings[sort]}
 		) AS rn FROM levels AS L
@@ -71,7 +70,7 @@ export function Levels({route}) {
 		) AS rn FROM ft
 		INNER JOIN level AS L ON ft._rowid_ = L._rowid_
 		INNER JOIN status AS S ON S.id = L.id
-		WHERE ft MATCH '${search}'
+		WHERE ft MATCH '${q}'
 			${tagsWhere}
 			${authorsWhere}
 			${approvedWhere}
@@ -87,7 +86,7 @@ export function Levels({route}) {
 		LEFT JOIN level_author AS A ON A.id = Q.id
 		ORDER BY rn
 		`
-	}, [tags, authors, search, limit, offset, sort, showUnapproved]);
+	}, [tags, authors, q, limit, offset, sort, showUnapproved]);
 
     const [results, error, state] = useDatasette(sql);
 

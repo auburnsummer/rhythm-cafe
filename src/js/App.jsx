@@ -38,7 +38,7 @@ export function App() {
     return (
         <>
             <Header />
-            <Levels route={setLocation} />
+            <Levels route={setLocation} {...query} />
         </>
     )
 }
