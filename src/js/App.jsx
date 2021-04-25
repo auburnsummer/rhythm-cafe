@@ -3,11 +3,10 @@ import { Header } from "./parts/Header";
 import { Levels } from "./parts/Levels";
 
 import qs from "querystringify";
-
 import { useEffect, useMemo } from "preact/hooks";
 import { useLocation}  from "./hooks/useLocation";
 
-import { diff } from "./utils";
+import { diff } from "./utils/helpers";
 
 export function App() {
     const [_location, _setLocation] = useLocation();

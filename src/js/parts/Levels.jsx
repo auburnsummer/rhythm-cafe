@@ -1,18 +1,22 @@
 import { h } from 'preact';
 import { useMemo, useState, useEffect } from "preact/hooks";
-import { SortOptions, LoadingState } from "../utils";
+import { SortOptions, LoadingState } from "../utils/constants";
+import { searchParser } from "../utils/searchParser";
 import { useDatasette } from "../hooks/useDatasette";
 
 import { LevelBox } from "./LevelBox";
 
 export function Levels({route, q}) {
-	const [limit, setLimit] = useState(20);
-	const [offset, setOffset] = useState(0);
-    const [sort, setSort] = useState(SortOptions.Newest);
+	const limit = 20;
+	const offset = 0;
+	const sort = SortOptions.Newest;
+
+	const {tags, authors, query} = useMemo(() => {
+		return searchParser(q)
+	}, [q]);
+
 	// tags and authors are comma separated strings
-	const [tags, setTags] = useState("");
-	const [authors, setAuthors] = useState("");
-	const [showUnapproved, setShowUnapproved] = useState(true);
+	const showUnapproved = true;
 
     // make the sql query:
 	const sql = useMemo(() => {
@@ -26,15 +30,12 @@ export function Levels({route, q}) {
 			[SortOptions.SongZToA]: "song DESC"
 		}
 
-		const tagList = (tags || "").split(",");
-		const authorsList = (authors || "").split(",");
-
 		const tagsWhere = tags.length ? `
 		AND L.id IN (
 			SELECT T.id FROM level_tag AS T
-			WHERE T.tag LIKE ${tagList.map(t => `'${t}%'`).join(' OR T.tag LIKE ')}
+			WHERE T.tag LIKE ${tags.map(t => `'${t}%'`).join(' OR T.tag LIKE ')}
 			GROUP BY T.id
-			HAVING count(DISTINCT T.tag) >= ${tagList.length}
+			HAVING count(DISTINCT T.tag) >= ${tags.length}
 		)		
 		` : '';
 		const authorsWhere = authors.length ? `
@@ -42,7 +43,7 @@ export function Levels({route, q}) {
 			SELECT A.id FROM level_author AS A
 			WHERE A.author LIKE ${authorsList.map(a => `'${a}%'`).join(' OR A.author LIKE ')}
 			GROUP BY A.id
-			HAVING count(DISTINCT A.author) >= ${authorsList.length}
+			HAVING count(DISTINCT A.author) >= ${authors.length}
 		)
 		` : '';
 
@@ -54,7 +55,7 @@ export function Levels({route, q}) {
 		AND source_id IN ('rdl', 'yeoldesheet', 'workshop')
 		`;
 
-		const subquery = q.length === 0 ? `
+		const subquery = query.length === 0 ? `
 		SELECT L.*, row_number() OVER (
 			ORDER BY ${sortStrings[sort]}
 		) AS rn FROM levels AS L
@@ -70,7 +71,7 @@ export function Levels({route, q}) {
 		) AS rn FROM ft
 		INNER JOIN level AS L ON ft._rowid_ = L._rowid_
 		INNER JOIN status AS S ON S.id = L.id
-		WHERE ft MATCH '${q}'
+		WHERE ft MATCH '${query}'
 			${tagsWhere}
 			${authorsWhere}
 			${approvedWhere}
@@ -86,7 +87,7 @@ export function Levels({route, q}) {
 		LEFT JOIN level_author AS A ON A.id = Q.id
 		ORDER BY rn
 		`
-	}, [tags, authors, q, limit, offset, sort, showUnapproved]);
+	}, [tags, authors, query, limit, offset, sort, showUnapproved]);
 
     const [results, error, state] = useDatasette(sql);
 

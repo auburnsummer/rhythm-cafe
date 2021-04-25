@@ -45,14 +45,14 @@ export function useLocation ({ base = "" } = {}) {
             }
         };
 
-        events.forEach((e) => addEventListener(e, checkForUpdates));
+        events.forEach(e => addEventListener(e, checkForUpdates));
 
         // it's possible that an update has occurred between render and the effect handler,
         // so we run additional check on mount to catch these updates. Based on:
         // https://gist.github.com/bvaughn/e25397f70e8c65b0ae0d7c90b731b189
         checkForUpdates();
 
-        return () => events.forEach((e) => removeEventListener(e, checkForUpdates));
+        return () => events.forEach(e => removeEventListener(e, checkForUpdates));
     }, [base]);
 
     // the 2nd argument of the `useLocation` return value is a function
@@ -79,7 +79,7 @@ export function useLocation ({ base = "" } = {}) {
 //
 // See https://stackoverflow.com/a/4585031
 if (typeof history !== "undefined") {
-    [eventPushState, eventReplaceState].forEach((type) => {
+    [eventPushState, eventReplaceState].forEach(type => {
         const original = history[type];
 
         history[type] = function () {

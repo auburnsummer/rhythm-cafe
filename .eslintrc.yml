@@ -13,3 +13,4 @@ rules:
   'import/prefer-default-export': off
   'import/no-default-export': error
   'newline-per-chained-call': error
+  'arrow-parens': ['error', 'as-needed']

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'preact/hooks';
 import axios from 'redaxios';
-import {
-    LoadingState, API_URL, groupBy, uniqBy,
-} from '../utils';
+
+import { LoadingState, API_URL } from "../utils/constants";
+import { groupBy, uniqBy } from "../utils/helpers";
 
 export function useDatasette(query) {
     const [result, setResult] = useState([]);
@@ -23,16 +23,16 @@ export function useDatasette(query) {
                 // processing to get it in a better 'shape'.
                 // todo: would be nicer from an API standpoint to do this in datasette?
                 // then people can make downloaders, etc. without having to do this
-                const groups = groupBy((x) => x.id, data);
+                const groups = groupBy(x => x.id, data);
                 return Object.entries(groups).map(([, rows]) => {
                     const tags = rows[0].tag == null
                         ? []
-                        : uniqBy((x) => x.tag_seq, rows)
+                        : uniqBy(x => x.tag_seq, rows)
                             .sort((a, b) => a.tag_seq - b.tag_seq)
-                            .map((x) => x.tag);
-                    const authors = uniqBy((x) => x.author_seq, rows)
+                            .map(x => x.tag);
+                    const authors = uniqBy(x => x.author_seq, rows)
                         .sort((a, b) => a.author_seq - b.author_seq)
-                        .map((x) => x.author);
+                        .map(x => x.author);
                     return {
                         ...rows[0],
                         tags,
@@ -40,11 +40,11 @@ export function useDatasette(query) {
                     };
                 });
             })
-            .then((processed) => {
+            .then(processed => {
                 setResult(processed);
                 setState(LoadingState.Loaded);
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log('here is an error!');
                 console.log(err);
                 setState(LoadingState.Error);
