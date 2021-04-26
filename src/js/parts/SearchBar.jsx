@@ -11,6 +11,9 @@ export function SearchBar() {
                     placeholder="What do you feel like playing today?"
                 >
                 </input>
+                <button type="button" class="sb_filtertoggle">
+                    <i class="fas fa-filter"></i>
+                </button>
                 <button type="button" class="sb_button">
                     <i class="fad fa-search"></i>
                 </button>

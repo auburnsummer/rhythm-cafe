@@ -11,11 +11,11 @@ export function Levels({route, q}) {
 	const offset = 0;
 	const sort = SortOptions.Newest;
 
+	// these values are embedded in the search query.
 	const {tags, authors, query} = useMemo(() => {
-		return searchParser(q)
+		return searchParser(q);
 	}, [q]);
 
-	// tags and authors are comma separated strings
 	const showUnapproved = true;
 
     // make the sql query:
@@ -89,6 +89,8 @@ export function Levels({route, q}) {
 		`
 	}, [tags, authors, query, limit, offset, sort, showUnapproved]);
 
+	// pass the sql query into the useDatasette hook, which is where the data fetching
+	// actually happens.
     const [results, error, state] = useDatasette(sql);
 
 	if (state === LoadingState.Loading) {
