@@ -40,3 +40,7 @@
 	color: var(--violet-400);
 	text-decoration: underline;
 }
+
+.he_searchbar {
+	flex-grow: 1;
+}

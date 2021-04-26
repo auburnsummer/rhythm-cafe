@@ -1,7 +1,3 @@
-.sb {
-    flex-grow: 1;
-}
-
 .sb_bar {
     margin-left: 1rem;
     padding: 0.25rem;
@@ -71,4 +67,8 @@
     background-color: white;
     color: var(--violet-300);
     box-shadow: inset 0 0 0 2px var(--violet-300);
+}
+
+.sb_optionbox {
+    
 }

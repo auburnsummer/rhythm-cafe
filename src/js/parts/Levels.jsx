@@ -1,33 +1,24 @@
 import { h } from 'preact';
 import { useMemo, useState, useEffect } from "preact/hooks";
 import { SortOptions, LoadingState } from "../utils/constants";
-import { searchParser } from "../utils/searchParser";
 import { useDatasette } from "../hooks/useDatasette";
 
 import { LevelBox } from "./LevelBox";
 
-export function Levels({route, q}) {
-	const limit = 20;
-	const offset = 0;
-	const sort = SortOptions.Newest;
-
-	// these values are embedded in the search query.
-	const {tags, authors, query} = useMemo(() => {
-		return searchParser(q);
-	}, [q]);
-
-	const showUnapproved = true;
+export function Levels({route, tags, authors, search, limit, page, show_x}) {
+	const sort = SortOptions.newest;
 
     // make the sql query:
 	const sql = useMemo(() => {
+		const offset = limit * page;
 		// https://github.com/auburnsummer/rdlevels2/issues/1
 		const sortStrings = {
-			[SortOptions.Newest]: "uploaded DESC, last_updated DESC",
-			[SortOptions.Oldest]: "last_updated ASC, uploaded ASC",
-			[SortOptions.ArtistAToZ]: "artist ASC",
-			[SortOptions.ArtistZToA]: "artist DESC",
-			[SortOptions.SongAToZ]: "song ASC",
-			[SortOptions.SongZToA]: "song DESC"
+			[SortOptions.newest]: "uploaded DESC, last_updated DESC",
+			[SortOptions.oldest]: "last_updated ASC, uploaded ASC",
+			[SortOptions.artistaz]: "artist ASC",
+			[SortOptions.artistza]: "artist DESC",
+			[SortOptions.songaz]: "song ASC",
+			[SortOptions.songza]: "song DESC"
 		}
 
 		const tagsWhere = tags.length ? `
@@ -47,7 +38,7 @@ export function Levels({route, q}) {
 		)
 		` : '';
 
-		const approvedWhere = !showUnapproved ? `
+		const approvedWhere = !show_x ? `
 		AND approval >= 10
 		` : '';
 
@@ -55,7 +46,7 @@ export function Levels({route, q}) {
 		AND source_id IN ('rdl', 'yeoldesheet', 'workshop')
 		`;
 
-		const subquery = query.length === 0 ? `
+		const subquery = search.length === 0 ? `
 		SELECT L.*, row_number() OVER (
 			ORDER BY ${sortStrings[sort]}
 		) AS rn FROM levels AS L
@@ -71,7 +62,7 @@ export function Levels({route, q}) {
 		) AS rn FROM ft
 		INNER JOIN level AS L ON ft._rowid_ = L._rowid_
 		INNER JOIN status AS S ON S.id = L.id
-		WHERE ft MATCH '${query}'
+		WHERE ft MATCH '${search}'
 			${tagsWhere}
 			${authorsWhere}
 			${approvedWhere}
@@ -87,7 +78,7 @@ export function Levels({route, q}) {
 		LEFT JOIN level_author AS A ON A.id = Q.id
 		ORDER BY rn
 		`
-	}, [tags, authors, query, limit, offset, sort, showUnapproved]);
+	}, [tags, authors, search, limit, page, sort, show_x]);
 
 	// pass the sql query into the useDatasette hook, which is where the data fetching
 	// actually happens.
@@ -104,7 +95,7 @@ export function Levels({route, q}) {
 
     return (
         <div>
-			<h1 onClick={() => route("/", {ene: 'afa', bene: 'bafa'})}>hello world</h1>
+			<h1 onClick={() => route("/", {ene: 'afa', bene: 'bafa'})}></h1>
 			<ul>
 				{
 					results.map(r => (

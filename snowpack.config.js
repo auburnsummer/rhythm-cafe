@@ -19,15 +19,7 @@ module.exports = {
         public: '/',
     },
     plugins: [
-    // [
-    //   '@snowpack/plugin-webpack',
-    //   {
-    //     extendConfig: (config) => {
-    //       config.plugins.push(new BundleAnalyzerPlugin({generateStatsFile: true}));
-    //       return config;
-    //     }
-    //   }
-    // ]
+        'snowpack-plugin-yaml'
     ],
     packageOptions: {
     /* ... */

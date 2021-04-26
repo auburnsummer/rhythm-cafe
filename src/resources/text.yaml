@@ -1,0 +1,50 @@
+# the text that appears in the search box
+search_placeholder:
+  en: 'What do you feel like playing today?'
+  kr: '검색...'
+# two parts, seperated by an input box.
+prompt_limit_1:
+  en: 'Display'
+  kr: ''
+prompt_limit_2:
+  en: 'levels per page'
+  kr: ''
+# two parts, seperated by an input box. in english we leave the second blank.
+prompt_sort_1:
+  en: 'Sort by'
+  kr: ''
+prompt_sort_2:
+  en: ''
+  kr: ''
+# sort options
+sort_newest:
+  en: 'Newest'
+  kr: ''
+sort_oldest:
+  en: 'Oldest'
+  kr: ''
+sort_artistaz:
+  en: 'Artist A to Z'
+  kr: ''
+sort_artistza:
+  en: 'Artist Z to A'
+  kr: ''
+sort_songaz:
+  en: 'Song A to Z'
+  kr: ''
+sort_songza:
+  en: 'Song Z to A'
+  kr: ''
+# [show/hide] unreferred levels
+prompt_deusovi_1:
+  en: ''
+  kr: ''
+prompt_deusovi_2:
+  en: 'Unreferred levels'
+  kr: ''
+deusovi_show:
+  en: 'Show'
+  kr: ''
+deusovi_hide:
+  en: 'Hide'
+  kr: ''
