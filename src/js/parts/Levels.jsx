@@ -94,7 +94,7 @@ export function Levels({route, tags, authors, search, limit, page, show_x}) {
 	}
 
     return (
-        <div>
+        <main>
 			<h1 onClick={() => route("/", {ene: 'afa', bene: 'bafa'})}></h1>
 			<ul>
 				{
@@ -105,6 +105,6 @@ export function Levels({route, tags, authors, search, limit, page, show_x}) {
 					))
 				}
 			</ul>
-		</div>
+		</main>
     )
 }

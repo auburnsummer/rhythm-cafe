@@ -30,11 +30,16 @@
     color: var(--violet-400);
 }
 
+.sb_togglewrapper {
+    position: relative;
+}
+
 .sb_filtertoggle {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     background-color: var(--violet-300);
     color: var(--violet-100);
+    height: 100%;
 }
 
 .sb_filtertoggle:hover {
@@ -70,5 +75,6 @@
 }
 
 .sb_optionbox {
-    
+    position: absolute;
+    right: 0;
 }

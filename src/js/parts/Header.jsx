@@ -2,10 +2,11 @@ import { h } from "preact";
 import "./Header.css";
 
 import { SearchBar } from "./SearchBar";
+import cc from "classcat";
 
-export function Header({text}) {
+export function Header({_class, text}) {
 	return (
-		<header class="he">
+		<header class={cc(["he", _class])}>
 			<svg
 				class="he_logo"
 				xmlns="http://www.w3.org/2000/svg"

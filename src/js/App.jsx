@@ -11,6 +11,8 @@ import { searchParser } from "./utils/searchParser";
 
 import texts from "../resources/text.yaml";
 
+import "./App.css";
+
 const getText = locale => id => texts[id][locale];
 
 export function App() {
@@ -49,9 +51,9 @@ export function App() {
 	}, [query.q]);
 
     return (
-        <>
-            <Header text={text} />
-            <Levels route={setLocation} {...processed} {...query} />
-        </>
+        <div class="ap">
+            <Header _class="ap_header" text={text} />
+            <Levels _class="ap_levels" route={setLocation} {...processed} {...query} />
+        </div>
     )
 }

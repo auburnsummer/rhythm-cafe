@@ -2,7 +2,6 @@
 	display: flex;
 	height: 2.5rem;
 	background-color: var(--violet-200);
-	position: relative;
 	z-index: 10;
 	box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 	align-items: stretch;
