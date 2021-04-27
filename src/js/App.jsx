@@ -21,7 +21,8 @@ export function App() {
         q: "",      // user's search query
         limit: 20,
         page: 0,
-        show_x: false
+        show_x: false,
+        sort: 'newest'
     };
 
     // modified useLocation hook from wouter to also include the query string (bit after the ?)
@@ -38,7 +39,7 @@ export function App() {
 
     // wrapper around wouter's setLocation that uses implicit default values from above
     const setLocation = (path, search) => {
-        const diffed = diff(search, defaults);
+        const diffed = diff(search, queryDefaults);
         _setLocation(`${path}${qs.stringify(diffed, true)}`);
     }
 
@@ -52,7 +53,11 @@ export function App() {
 
     return (
         <div class="ap">
-            <Header _class="ap_header" text={text} />
+            <Header
+                _class="ap_header"
+                text={text}
+                route={setLocation}
+                query={query} />
             <Levels _class="ap_levels" route={setLocation} {...processed} {...query} />
         </div>
     )

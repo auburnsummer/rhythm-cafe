@@ -5,9 +5,7 @@ import { useDatasette } from "../hooks/useDatasette";
 
 import { LevelBox } from "./LevelBox";
 
-export function Levels({route, tags, authors, search, limit, page, show_x}) {
-	const sort = SortOptions.newest;
-
+export function Levels({route, tags, authors, search, limit, page, show_x, sort}) {
     // make the sql query:
 	const sql = useMemo(() => {
 		const offset = limit * page;
