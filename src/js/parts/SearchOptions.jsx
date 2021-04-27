@@ -16,53 +16,49 @@ export function SearchOptions({_class, text}) {
                     <span>
                         {text("prompt_limit_1")}
                     </span>
-                    <span>
-                        <select
-                            class="so_select"
-                            name="limit"
-                            id="limit"
-                        >
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="150">150</option>
-                        </select>
-                    </span>
+                    <select
+                        class="so_select"
+                        name="limit"
+                        id="limit"
+                    >
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="150">150</option>
+                    </select>
                     <span>
                         {text("prompt_limit_2")}
                     </span>
                 </li>
                 <li class="so_row so_sort">
-                    <span class="sb_icon">
+                    <span class="so_icon">
 						<i class="fad fa-sort-shapes-up-alt"></i>
 					</span>
 					<span>
 						{text('prompt_sort_1')}
 					</span>
-					<span>
-						<select
-						class="sb_select"
-						name="sort"
-						id="sort">
+					<select
+                    class="so_select"
+                    name="sort"
+                    id="sort">
                         {
                             SortOptions.enums.map(({key}) => <option value={key}>{text(`sort_${key}`)}</option>)
                         }
 					</select>
-					</span>
                     <span>
                         {text('prompt_sort_2')}
                     </span>
                 </li>
                 <li class="so_row so_deusovi">
-                    <span class="sb_icon">
+                    <span class="so_icon">
 						<i class="fad fa-clipboard-check"></i>
 					</span>
                     <span>
                         {text("prompt_deusovi_1")}
                     </span>
                     <select
-						class="sb_select"
+						class="so_select"
 						name="deusovi"
 						id="deusovi">
                         <option>{text("deusovi_show")}</option>

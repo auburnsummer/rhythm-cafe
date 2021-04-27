@@ -47,7 +47,17 @@
     color: var(--violet-300);
 }
 
-.sb_input:focus ~ .sb_filtertoggle:hover {
+.sb_filtertoggle:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.sb_filtertoggle > i {
+    width: 1rem;
+    display: inline-block;
+}
+
+.sb_input:focus ~ .sb_togglewrapper > .sb_filtertoggle:hover {
     background-color: white;
     color: var(--violet-300);
     box-shadow: inset 0 0 0 2px var(--violet-300);
@@ -68,6 +78,11 @@
     color: var(--violet-300);
 }
 
+.sb_button:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
 .sb_input:focus ~ .sb_button:hover {
     background-color: white;
     color: var(--violet-300);
@@ -75,6 +90,12 @@
 }
 
 .sb_optionbox {
+    display: none;
     position: absolute;
     right: 0;
+    margin-top: 0.25rem;
+}
+
+.visible\!sb_optionbox {
+    display: block;
 }
