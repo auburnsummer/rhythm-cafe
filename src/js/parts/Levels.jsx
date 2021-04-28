@@ -93,7 +93,6 @@ export function Levels({route, tags, authors, search, limit, page, show_x, sort}
 
     return (
         <main>
-			<h1 onClick={() => route("/", {ene: 'afa', bene: 'bafa'})}></h1>
 			<ul>
 				{
 					results.map(r => (

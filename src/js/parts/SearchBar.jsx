@@ -12,11 +12,13 @@ export function SearchBar({_class, text, route, query}) {
     const [optionsVisible, setOptionsVisible] = useState(false/*true*/);
 
     const [barText, setBarText] = useState(query.q);
-    const [limit, setLimit] = useState(query.limit);
-    const [showX, setShowX] = useState(query.show_x);
+    const [limit, setLimit] = useState(parseInt(query.limit));
+    const [showX, setShowX] = useState(query.show_x === "true");
     const [sort, setSort] = useState(query.sort);
 
-    const clickHandler = _ => {
+    const submitHandler = evt => {
+        evt.preventDefault();
+        evt.stopPropagation();
         route('/', {
             q: barText,
             limit,
@@ -28,7 +30,7 @@ export function SearchBar({_class, text, route, query}) {
 
     return (
         <div class={cc(["sb", _class])}>
-            <form class="sb_bar">
+            <form class="sb_bar" onSubmit={submitHandler}>
                 <input 
                     class="sb_input"
                     placeholder={text("search_placeholder")}
@@ -57,7 +59,7 @@ export function SearchBar({_class, text, route, query}) {
                         }}
                     />
                 </div>
-                <button type="button" class="sb_button" onClick={clickHandler}>
+                <button type="submit" class="sb_button">
                     <i class="fad fa-search"></i>
                 </button>
             </form>
