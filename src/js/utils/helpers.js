@@ -38,6 +38,4 @@ export const diff = (a, b) => Object.keys(a)
 /*
 Remove a "slice" in an array, replacing it with the given string.
 */
-export const removeSlice = (a, i, j, s = "") => {
-    return a.slice(0, i) + s + a.slice(j);
-}
+export const removeSlice = (a, i, j, s = "") => a.slice(0, i) + s + a.slice(j)

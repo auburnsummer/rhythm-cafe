@@ -8,16 +8,15 @@ function tagFilter(prev) {
     if (match === null) {
         // we're done.
         return prev;
-    } else {
-        // there was a match.
-        const newTags = prev.tags.concat([match[1]]);
-        const newQ = removeSlice(prev.search, match.index, match.index + match[0].length, "");
-        return tagFilter({
-            ...prev,
-            tags: newTags,
-            search: newQ
-        })
     }
+    // there was a match.
+    const newTags = prev.tags.concat([match[1]]);
+    const newQ = removeSlice(prev.search, match.index, match.index + match[0].length, "");
+    return tagFilter({
+        ...prev,
+        tags: newTags,
+        search: newQ,
+    })
 }
 
 export function searchParser(q) {

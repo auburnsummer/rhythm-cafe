@@ -19,7 +19,7 @@ module.exports = {
         public: '/',
     },
     plugins: [
-        'snowpack-plugin-yaml'
+        'snowpack-plugin-yaml',
     ],
     packageOptions: {
     /* ... */
