@@ -1,11 +1,15 @@
 import { h } from 'preact';
 import { useMemo, useState, useEffect } from "preact/hooks";
+import cc from "classcat";
+
 import { SortOptions, LoadingState } from "../utils/constants";
 import { useDatasette } from "../hooks/useDatasette";
 
 import { LevelBox } from "./LevelBox";
 
-export function Levels({route, tags, authors, search, limit, page, show_x, sort}) {
+import "./Levels.css";
+
+export function Levels({_class, route, tags, authors, search, limit, page, show_x, sort}) {
     // make the sql query:
 	const sql = useMemo(() => {
 		const offset = limit * page;
@@ -92,11 +96,11 @@ export function Levels({route, tags, authors, search, limit, page, show_x, sort}
 	}
 
     return (
-        <main>
-			<ul>
+        <main class={cc(["le", _class])}>
+			<ul class="le_list">
 				{
 					results.map(r => (
-						<li>
+						<li class="le_item">
 							<LevelBox level={r} />
 						</li>
 					))

@@ -1,0 +1,9 @@
+.le {
+    padding: 1.5rem;
+}
+
+.le_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+
+}
