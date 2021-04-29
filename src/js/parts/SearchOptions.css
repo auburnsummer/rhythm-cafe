@@ -1,6 +1,9 @@
 .so {
     width: 24rem;
     background-color: var(--violet-100);
+	border-left: 0.25rem solid var(--violet-200);
+	border-right: 0.25rem solid var(--violet-200);
+	border-bottom: 0.25rem solid var(--violet-200);
 }
 
 .so_twine {

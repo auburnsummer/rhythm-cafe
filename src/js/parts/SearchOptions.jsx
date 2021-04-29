@@ -4,8 +4,14 @@ import "./SearchOptions.css";
 import cc from "classcat";
 
 import { SortOptions } from "../utils/constants";
+import { useEffect } from "preact/hooks";
 
 export function SearchOptions({_class, text, limit, setLimit, showX, setShowX, sort, setSort}) {
+
+    useEffect(() => {
+        console.log(SortOptions)
+    })
+
     return (
         <div class={cc(["so", _class])}>
             <ul class="so_twine">
@@ -47,7 +53,7 @@ export function SearchOptions({_class, text, limit, setLimit, showX, setShowX, s
                     value={sort}
                     onChange={evt => setSort(evt.target.value)}>
                         {
-                            SortOptions.enums.map(({key}) => <option value={key}>{text(`sort_${key}`)}</option>)
+                            Object.keys(SortOptions).map(key => <option value={key}>{text(`sort_${key}`)}</option>)
                         }
 					</select>
                     <span>

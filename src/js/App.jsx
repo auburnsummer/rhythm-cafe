@@ -1,10 +1,10 @@
-import { h, Fragment } from 'preact';
+import { h, Fragment, createContext } from 'preact';
 import { Header } from "./parts/Header";
 import { Levels } from "./parts/Levels";
 
 import qs from "querystringify";
-import { useEffect, useMemo } from "preact/hooks";
-import { useLocation}  from "./hooks/useLocation";
+import { useState, useEffect, useMemo } from "preact/hooks";
+import { useLocation }  from "./hooks/useLocation";
 
 import { diff } from "./utils/helpers";
 import { searchParser } from "./utils/searchParser";
@@ -16,6 +16,12 @@ import "./App.css";
 const getText = locale => id => texts[id][locale];
 
 export function App() {
+    const [lang, setLang] = useState("en");
+
+    const text = useMemo(() => {
+        return getText(lang)
+    }, [lang]);
+
     // default values for various query params.
     const queryDefaults = {
         q: "",      // user's search query
@@ -42,9 +48,6 @@ export function App() {
         const diffed = diff(search, queryDefaults);
         _setLocation(`${path}${qs.stringify(diffed, true)}`);
     }
-
-    // for now, just english.
-    const text = getText("en");
 
     // use searchParser to break up the query into seperate tag author search
     const processed = useMemo(() => {

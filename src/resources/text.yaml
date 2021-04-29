@@ -48,3 +48,16 @@ deusovi_show:
 deusovi_hide:
   en: 'Hide'
   kr: ''
+# difficulties
+difficulty_0:
+  en: 'Easy'
+  kr: ''
+difficulty_1:
+  en: 'Medium'
+  kr: ''
+difficulty_2:
+  en: 'Tough'
+  kr: ''
+difficulty_3:
+  en: 'Very Tough'
+  kr: ''

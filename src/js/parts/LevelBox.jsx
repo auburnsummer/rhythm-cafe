@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import "./LevelBox.css";
 import cc from "classcat";
 
@@ -66,20 +66,32 @@ function Tags({seizure_warning, tags}) {
     )
 }
 
-function DifficultyDecorator({difficulty}) {
-    
+function DescriptionText({description}) {
+    // match either an opening color tag or an ending color tag.
+    // rhythm doctor doesn't require ending color tags, so you can't rely on
+    // there always being a matching end tag.
+    const re = /<color=#[0-9a-fA-F]+?>|<\/color>/g;
+
+    const colorFiltered = description.replaceAll(re, "");
+
+    return colorFiltered.split("\n").map(p => <p>{p}</p>)
 }
 
-
 export function LevelBox({level}) {
-    const {thumb, artist, song, author, approval} = level;
+    const {thumb, artist, song, author, approval, description} = level;
 
     return (
         <article class="lb">
             <div class="lb_imagebox">
                 <img class="lb_image" src={thumb} />
+                <div class="lb_overlay">
+                    <div class="lb_description">
+                        <DescriptionText {...level} />
+                    </div>
+                </div>
             </div>
             <div class="lb_info">
+                {/* <DifficultyDecorator {...level} /> */}
                 <div class="lb_cast">
                     <h2 class="lb_artist">{artist}</h2>
                     <h1 class="lb_song">{song}</h1>

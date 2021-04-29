@@ -20,6 +20,7 @@ module.exports = {
     },
     plugins: [
         'snowpack-plugin-yaml',
+        '@snowpack/plugin-typescript',
     ],
     packageOptions: {
     /* ... */
