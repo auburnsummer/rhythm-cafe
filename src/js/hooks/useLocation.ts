@@ -4,12 +4,21 @@ import {
     useEffect, useRef, useState, useCallback,
 } from "preact/hooks";
 
+type PathAndSearch = {
+    path: string,
+    search: string
+}
+
+type NavigationFunc = (to: string, { replace }?: {
+    replace?: boolean | undefined;
+}) => void
+
 /**
  * History API docs @see https://developer.mozilla.org/en-US/docs/Web/API/History
  */
-const eventPopstate = "popstate";
-const eventPushState = "pushState";
-const eventReplaceState = "replaceState";
+const eventPopstate = "popstate" as const;
+const eventPushState = "pushState" as const;
+const eventReplaceState = "replaceState" as const;
 export const events = [eventPopstate, eventPushState, eventReplaceState];
 
 const {
@@ -17,12 +26,12 @@ const {
 } = window;
 
 /* eslint-disable max-len */
-const currentPathname = (base, path = location.pathname) => (!path.toLowerCase().indexOf(base.toLowerCase())
+const currentPathname = (base: string, path = location.pathname) => (!path.toLowerCase().indexOf(base.toLowerCase())
     ? path.slice(base.length) || "/"
     : `~${path}`);
 /* eslint-enable */
 
-export function useLocation ({ base = "" } = {}) {
+export function useLocation ({ base = "" } = {}): [PathAndSearch, NavigationFunc] {
     const [pathAndSearch, update] = useState(() => ({
         path: currentPathname(base),
         search: location.search,
@@ -61,7 +70,7 @@ export function useLocation ({ base = "" } = {}) {
     // the function reference should stay the same between re-renders, so that
     // it can be passed down as an element prop without any performance concerns.
     const navigate = useCallback(
-        (to, { replace = false } = {}) => history[replace ? eventReplaceState : eventPushState](
+        (to: string, { replace = false } = {}) => history[replace ? eventReplaceState : eventPushState](
             null,
             "",
             // handle nested routers and absolute paths
@@ -83,8 +92,10 @@ if (typeof history !== "undefined") {
         const original = history[type];
 
         history[type] = function () {
+            // @ts-ignore
             const result = original.apply(this, arguments);
             const event = new Event(type);
+            // @ts-ignore
             event.arguments = arguments;
 
             dispatchEvent(event);

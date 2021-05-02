@@ -1,5 +1,8 @@
 // random library of helper functions.
 
+import { h } from "preact";
+import { StateUpdater } from "preact/hooks";
+
 /*
 Given an array, return a new array that only contains unique values as determined
 by the provided function. i.e. in the new array, there will never be any elements
@@ -34,7 +37,7 @@ not duplicated in B.
 */
 export const diff = (a: StringMap<any>, b: StringMap<any>) => Object.keys(a)
     .filter(key => a[key] !== b[key])
-    .reduce((prev, curr) => ({
+    .reduce((prev: StringMap<any>, curr) => ({
         [curr]: a[curr],
         ...prev,
     }), {});
@@ -43,3 +46,16 @@ export const diff = (a: StringMap<any>, b: StringMap<any>) => Object.keys(a)
 Remove a "slice" in a string, replacing it with the given string.
 */
 export const removeSlice = (a: string, i: number, j: number, s = "") => a.slice(0, i) + s + a.slice(j)
+
+// identity function.
+export const id = <T>(a: T) => a;
+
+/*
+wrapper for the typical setSomething(evt.target.value) pattern. pass a transformer as needed.
+*/
+export const setThis = <T>(setFunc: StateUpdater<T>, transform: (_: string) => T) => (evt: Event) => {
+    const {target} = evt;
+    if (target) {
+        setFunc(transform((<HTMLInputElement>target).value));
+    }
+}

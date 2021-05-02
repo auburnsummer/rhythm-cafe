@@ -8,8 +8,22 @@ import { useDatasette } from "../hooks/useDatasette";
 import { LevelBox } from "./LevelBox";
 
 import "./Levels.css";
+import { RouteFunction } from '../utils/types';
 
-export function Levels({_class, route, tags, authors, search, limit, page, show_x, sort}) {
+type LevelsArgs = {
+	_class: string,
+	route: RouteFunction,
+	tags: Array<string>,
+	authors: Array<string>,
+	search: string,
+	limit: number,
+	page: number,
+	show_x: boolean,
+	sort: SortOptions
+}
+
+
+export function Levels({_class, route, tags, authors, search, limit, page, show_x, sort}: LevelsArgs) {
     // make the sql query:
 	const sql = useMemo(() => {
 		const offset = limit * page;
@@ -34,7 +48,7 @@ export function Levels({_class, route, tags, authors, search, limit, page, show_
 		const authorsWhere = authors.length ? `
 		AND L.id IN (
 			SELECT A.id FROM level_author AS A
-			WHERE A.author LIKE ${authorsList.map(a => `'${a}%'`).join(' OR A.author LIKE ')}
+			WHERE A.author LIKE ${authors.map(a => `'${a}%'`).join(' OR A.author LIKE ')}
 			GROUP BY A.id
 			HAVING count(DISTINCT A.author) >= ${authors.length}
 		)
@@ -87,7 +101,6 @@ export function Levels({_class, route, tags, authors, search, limit, page, show_
     const [results, error, state] = useDatasette(sql);
 
 	if (state === LoadingState.Loading) {
-		console.log("hfiehfiefhief");
 		return (
 			<div>
 				loading

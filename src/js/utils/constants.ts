@@ -4,7 +4,7 @@ export enum LoadingState {
     Loading,
     Loaded,
     Error
-};
+}
 
 export enum SortOptions {
     newest = 'newest',

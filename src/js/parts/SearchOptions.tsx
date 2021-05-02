@@ -4,13 +4,21 @@ import "./SearchOptions.css";
 import cc from "classcat";
 
 import { SortOptions } from "../utils/constants";
-import { useEffect } from "preact/hooks";
+import { StateUpdater, useEffect } from "preact/hooks";
+import { id, setThis } from "../utils/helpers";
 
-export function SearchOptions({_class, text, limit, setLimit, showX, setShowX, sort, setSort}) {
+type SearchOptionArgs = {
+    _class: string,
+    text: (id: string) => string,
+    limit: number,
+    setLimit: StateUpdater<number>,
+    showX: boolean,
+    setShowX: StateUpdater<boolean>,
+    sort: SortOptions,
+    setSort: StateUpdater<SortOptions>
+}
 
-    useEffect(() => {
-        console.log(SortOptions)
-    })
+export function SearchOptions({_class, text, limit, setLimit, showX, setShowX, sort, setSort}: SearchOptionArgs) {
 
     return (
         <div class={cc(["so", _class])}>
@@ -27,7 +35,7 @@ export function SearchOptions({_class, text, limit, setLimit, showX, setShowX, s
                         name="limit"
                         id="limit"
                         value={limit}
-                        onChange={evt => setLimit(parseInt(evt.target.value))}
+                        onChange={setThis(setLimit, parseInt)}
                     >
                         <option value="5">5</option>
                         <option value="10">10</option>
@@ -51,7 +59,7 @@ export function SearchOptions({_class, text, limit, setLimit, showX, setShowX, s
                     name="sort"
                     id="sort"
                     value={sort}
-                    onChange={evt => setSort(evt.target.value)}>
+                    onChange={setThis(setSort, s => s as SortOptions)}>
                         {
                             Object.keys(SortOptions).map(key => <option value={key}>{text(`sort_${key}`)}</option>)
                         }
@@ -71,8 +79,9 @@ export function SearchOptions({_class, text, limit, setLimit, showX, setShowX, s
 						class="so_select"
 						name="deusovi"
 						id="deusovi"
-                        value={showX}
-                        onChange={evt => setShowX(evt.target.value === "true")}>
+                        value={showX ? "true" : "false"}
+                        onChange={setThis(setShowX, s => s === "true")}
+                    >
                         <option value="true">{text("deusovi_show")}</option>
                         <option value="false">{text("deusovi_hide")}</option>
 					</select>

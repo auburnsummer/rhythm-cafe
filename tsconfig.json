@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
-      "target": "ES2016",
+      "target": "esnext",
       "module": "commonjs",
+      "jsx": "react-jsx",
+      "jsxImportSource": "preact",
       "strict": true,
       "esModuleInterop": true,
       "skipLibCheck": true,
