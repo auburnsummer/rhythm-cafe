@@ -3,13 +3,14 @@ import { h } from "preact";
 import "./SearchOptions.css";
 import cc from "classcat";
 
+import { StateUpdater, useContext, useEffect } from "preact/hooks";
 import { SortOptions } from "../utils/constants";
-import { StateUpdater, useEffect } from "preact/hooks";
 import { id, setThis } from "../utils/helpers";
+
+import { LanguageContext } from "../hooks/LanguageContext";
 
 type SearchOptionArgs = {
     _class: string,
-    text: (id: string) => string,
     limit: number,
     setLimit: StateUpdater<number>,
     showX: boolean,
@@ -18,14 +19,17 @@ type SearchOptionArgs = {
     setSort: StateUpdater<SortOptions>
 }
 
-export function SearchOptions({_class, text, limit, setLimit, showX, setShowX, sort, setSort}: SearchOptionArgs) {
+export function SearchOptions({
+    _class, limit, setLimit, showX, setShowX, sort, setSort,
+}: SearchOptionArgs) {
+    const { text } = useContext(LanguageContext);
 
     return (
         <div class={cc(["so", _class])}>
             <ul class="so_twine">
                 <li class="so_row so_limit">
                     <span class="so_icon">
-                        <i class="fad fa-pager"></i>
+                        <i class="fad fa-pager" />
                     </span>
                     <span>
                         {text("prompt_limit_1")}
@@ -49,48 +53,48 @@ export function SearchOptions({_class, text, limit, setLimit, showX, setShowX, s
                 </li>
                 <li class="so_row so_sort">
                     <span class="so_icon">
-						<i class="fad fa-sort-shapes-up-alt"></i>
-					</span>
-					<span>
-						{text('prompt_sort_1')}
-					</span>
-					<select
-                    class="so_select"
-                    name="sort"
-                    id="sort"
-                    value={sort}
-                    onChange={setThis(setSort, s => s as SortOptions)}>
+                        <i class="fad fa-sort-shapes-up-alt" />
+                    </span>
+                    <span>
+                        {text('prompt_sort_1')}
+                    </span>
+                    <select
+                        class="so_select"
+                        name="sort"
+                        id="sort"
+                        value={sort}
+                        onChange={setThis(setSort, s => s as SortOptions)}>
                         {
                             Object.keys(SortOptions).map(key => <option value={key}>{text(`sort_${key}`)}</option>)
                         }
-					</select>
+                    </select>
                     <span>
                         {text('prompt_sort_2')}
                     </span>
                 </li>
                 <li class="so_row so_deusovi">
                     <span class="so_icon">
-						<i class="fad fa-clipboard-check"></i>
-					</span>
+                        <i class="fad fa-clipboard-check" />
+                    </span>
                     <span>
                         {text("prompt_deusovi_1")}
                     </span>
                     <select
-						class="so_select"
-						name="deusovi"
-						id="deusovi"
+                        class="so_select"
+                        name="deusovi"
+                        id="deusovi"
                         value={showX ? "true" : "false"}
                         onChange={setThis(setShowX, s => s === "true")}
                     >
                         <option value="true">{text("deusovi_show")}</option>
                         <option value="false">{text("deusovi_hide")}</option>
-					</select>
+                    </select>
                     <span>
                         {text("prompt_deusovi_2")}
                     </span>
                 </li>
             </ul>
-            
+
         </div>
     )
 }

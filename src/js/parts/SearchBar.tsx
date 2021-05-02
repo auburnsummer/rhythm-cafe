@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useContext, useEffect, useState } from 'preact/hooks';
 
 import cc from "classcat";
 
@@ -9,16 +9,19 @@ import { SearchOptions } from "./SearchOptions";
 import { QueryParams, RouteFunction } from '../utils/types';
 import { id, setThis } from '../utils/helpers';
 
+import { LanguageContext } from "../hooks/LanguageContext";
+
 type SearchBarArgs = {
     _class: string,
-    text: (id: string) => string,
     route: RouteFunction,
     query: QueryParams
 }
 
 export function SearchBar({
-    _class, text, route, query,
+    _class, route, query,
 }: SearchBarArgs) {
+    const { text } = useContext(LanguageContext);
+
     const [optionsVisible, setOptionsVisible] = useState(false/* true */);
 
     const [barText, setBarText] = useState(query.q);
@@ -34,7 +37,7 @@ export function SearchBar({
             limit: limit.toString(),
             show_x: showX.toString(),
             sort,
-            page: "0"
+            page: "0",
         })
     }
 
@@ -57,7 +60,6 @@ export function SearchBar({
                     </button>
                     <SearchOptions
                         _class={cc(["sb_optionbox", {"visible!sb_optionbox": optionsVisible}])}
-                        text={text}
                         {...{
                             limit,
                             setLimit,

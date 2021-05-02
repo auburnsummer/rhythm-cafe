@@ -22,22 +22,23 @@ type LevelsArgs = {
 	sort: SortOptions
 }
 
-
-export function Levels({_class, route, tags, authors, search, limit, page, show_x, sort}: LevelsArgs) {
+export function Levels({
+    _class, route, tags, authors, search, limit, page, show_x, sort,
+}: LevelsArgs) {
     // make the sql query:
-	const sql = useMemo(() => {
-		const offset = limit * page;
-		// https://github.com/auburnsummer/rdlevels2/issues/1
-		const sortStrings = {
-			[SortOptions.newest]: "uploaded DESC, last_updated DESC",
-			[SortOptions.oldest]: "last_updated ASC, uploaded ASC",
-			[SortOptions.artistaz]: "artist ASC",
-			[SortOptions.artistza]: "artist DESC",
-			[SortOptions.songaz]: "song ASC",
-			[SortOptions.songza]: "song DESC"
-		}
+    const sql = useMemo(() => {
+        const offset = limit * page;
+        // https://github.com/auburnsummer/rdlevels2/issues/1
+        const sortStrings = {
+            [SortOptions.newest]: "uploaded DESC, last_updated DESC",
+            [SortOptions.oldest]: "last_updated ASC, uploaded ASC",
+            [SortOptions.artistaz]: "artist ASC",
+            [SortOptions.artistza]: "artist DESC",
+            [SortOptions.songaz]: "song ASC",
+            [SortOptions.songza]: "song DESC",
+        }
 
-		const tagsWhere = tags.length ? `
+        const tagsWhere = tags.length ? `
 		AND L.id IN (
 			SELECT T.id FROM level_tag AS T
 			WHERE T.tag LIKE ${tags.map(t => `'${t}%'`).join(' OR T.tag LIKE ')}
@@ -45,7 +46,7 @@ export function Levels({_class, route, tags, authors, search, limit, page, show_
 			HAVING count(DISTINCT T.tag) >= ${tags.length}
 		)		
 		` : '';
-		const authorsWhere = authors.length ? `
+        const authorsWhere = authors.length ? `
 		AND L.id IN (
 			SELECT A.id FROM level_author AS A
 			WHERE A.author LIKE ${authors.map(a => `'${a}%'`).join(' OR A.author LIKE ')}
@@ -54,15 +55,15 @@ export function Levels({_class, route, tags, authors, search, limit, page, show_
 		)
 		` : '';
 
-		const approvedWhere = !show_x ? `
+        const approvedWhere = !show_x ? `
 		AND approval >= 10
 		` : '';
 
-		const sourceWhere = `
+        const sourceWhere = `
 		AND source_id IN ('rdl', 'yeoldesheet', 'workshop')
 		`;
 
-		const subquery = search.length === 0 ? `
+        const subquery = search.length === 0 ? `
 		SELECT L.*, row_number() OVER (
 			ORDER BY ${sortStrings[sort]}
 		) AS rn FROM levels AS L
@@ -86,7 +87,7 @@ export function Levels({_class, route, tags, authors, search, limit, page, show_
 		LIMIT ${limit} OFFSET ${offset}
 		`
 
-		return `
+        return `
 		SELECT Q.*, T.tag, T.seq AS tag_seq, A.author, A.seq AS author_seq FROM (
 			${subquery}
 		) AS Q
@@ -94,31 +95,31 @@ export function Levels({_class, route, tags, authors, search, limit, page, show_
 		LEFT JOIN level_author AS A ON A.id = Q.id
 		ORDER BY rn
 		`
-	}, [tags, authors, search, limit, page, sort, show_x]);
+    }, [tags, authors, search, limit, page, sort, show_x]);
 
-	// pass the sql query into the useDatasette hook, which is where the data fetching
-	// actually happens.
+    // pass the sql query into the useDatasette hook, which is where the data fetching
+    // actually happens.
     const [results, error, state] = useDatasette(sql);
 
-	if (state === LoadingState.Loading) {
-		return (
-			<div>
-				loading
-			</div>
-		)
-	}
+    if (state === LoadingState.Loading) {
+        return (
+            <div>
+                loading
+            </div>
+        )
+    }
 
     return (
         <main class={cc(["le", _class])}>
-			<ul class="le_list">
-				{
-					results.map(r => (
-						<li class="le_item">
-							<LevelBox level={r} />
-						</li>
-					))
-				}
-			</ul>
-		</main>
+            <ul class="le_list">
+                {
+                    results.map(r => (
+                        <li class="le_item">
+                            <LevelBox level={r} />
+                        </li>
+                    ))
+                }
+            </ul>
+        </main>
     )
 }

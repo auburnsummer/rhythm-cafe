@@ -1,10 +1,13 @@
 import { h, Fragment, createContext } from 'preact';
 import qs from "querystringify";
-import { useState, useEffect, useMemo } from "preact/hooks";
+import {
+    useState, useEffect, useMemo, StateUpdater,
+} from "preact/hooks";
 import { Header } from "./parts/Header";
 import { Levels } from "./parts/Levels";
 
 import { useLocation } from "./hooks/useLocation";
+import { LanguageContext } from "./hooks/LanguageContext";
 
 import { diff } from "./utils/helpers";
 import { searchParser } from "./utils/searchParser";
@@ -19,8 +22,9 @@ const getText = (locale: string) => (id: string): string => texts[id][locale];
 
 export function App() {
     const [lang, setLang] = useState("en");
-
     const text = useMemo(() => getText(lang), [lang]);
+
+    const value = {lang, text, setLang};
 
     // default values for various query params.
     const queryDefaults = {
@@ -39,14 +43,14 @@ export function App() {
         const merged = {
             ...queryDefaults,
             ...qs.parse(_location.search),
-        } 
-        // then transform out from strings. 
+        }
+        // then transform out from strings.
         return [_location.path, {
             ...merged,
             limit: parseInt(merged.limit),
             page: parseInt(merged.page),
             show_x: merged.show_x === 'true',
-            sort: merged.sort as SortOptions
+            sort: merged.sort as SortOptions,
         }]
     }, [_location]);
 
@@ -60,13 +64,14 @@ export function App() {
     const processed = useMemo(() => searchParser(query.q), [query.q]);
 
     return (
-        <div class="ap">
-            <Header
-                _class="ap_header"
-                text={text}
-                route={setLocation}
-                query={query} />
-            <Levels _class="ap_levels" route={setLocation} {...processed} {...query} />
-        </div>
+        <LanguageContext.Provider value={value}>
+            <div class="ap">
+                <Header
+                    _class="ap_header"
+                    route={setLocation}
+                    query={query} />
+                <Levels _class="ap_levels" route={setLocation} {...processed} {...query} />
+            </div>
+        </LanguageContext.Provider>
     )
 }
