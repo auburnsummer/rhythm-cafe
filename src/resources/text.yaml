@@ -48,6 +48,16 @@ deusovi_show:
 deusovi_hide:
   en: 'Hide'
   kr: ''
+# source texts
+source_rdl:
+  en: 'Rhythm Doctor Lounge'
+  kr: ''
+source_workshop:
+  en: 'Steam Workshop'
+  kr: ''
+source_yeoldesheet:
+  en: 'Rhythm Doctor Lounge'
+  kr: ''
 # difficulties
 difficulty_0:
   en: 'Easy'
@@ -60,4 +70,17 @@ difficulty_2:
   kr: ''
 difficulty_3:
   en: 'Very Tough'
+  kr: ''
+# peer reviews
+peerreview_okay:
+  en: 'Peer-Reviewed: A trusted member of the community has checked for correct timing, metadata, and cues.'
+  kr: ''
+peerreview_fail:
+  en: 'Non-Referred: A trusted member of the community has checked for correct timing, metadata, and cues, and has found that the level does not meet standards.'
+  kr: ''
+seizure_warning:
+  en: 'Seizure warning'
+  kr: ''
+seizure_warning_long:
+  en: 'This level contains flashing lights which could trigger photosensitive epilepsy.'
   kr: ''

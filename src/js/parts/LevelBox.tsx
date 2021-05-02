@@ -3,6 +3,8 @@ import "./LevelBox.css";
 import cc from "classcat";
 
 import { Level } from "../utils/types";
+import { LanguageContext } from "../hooks/LanguageContext";
+import { useContext } from 'preact/hooks';
 
 function authorText({authors}: Pick<Level, "authors">) {
     // @ts-ignore
@@ -25,38 +27,31 @@ function SourceIcon({source_id}: Pick<Level, "source_id">) {
     return map[source_id];
 }
 
-function sourceText({source_id}: Pick<Level, "source_id">) {
-    const map = {
-        yeoldesheet: 'Rhythm Doctor Lounge',
-        rdl: 'Rhythm Doctor Lounge',
-        workshop: 'Steam Workshop',
-    };
-    return map[source_id];
+function sourceText(source_id: string, text: (id: string) => string) {
+    return text(`source_${source_id}`);
 }
 
-function ApprovalIcon({approval}: Pick<Level, "approval">) {
-    const approvedDescriptions = [
-        "Peer-Reviewed: A trusted member of the community has checked for correct timing, metadata, and cues.",
-        "Non-Referred: A trusted member of the community has checked for correct timing, metadata, and cues, and has found that the level does not meet standards.",
-        "Not Yet Reviewed: This level has not yet been checked for correct timing, metadata, and cues.",
-    ];
+type TextFuncObj = {text: (id: string) => string};
+type ApprovalIcon = Pick<Level, "approval"> & TextFuncObj;
+function ApprovalIcon({approval, text}: ApprovalIcon) {
     if (approval >= 10) {
-        return <i class="fas fa-check" title={approvedDescriptions[0]} />;
+        return <i class="fas fa-check" title={text('peerreview_okay')} />;
     }
     if (approval < 0) {
-        return <i class="fas fa-times" title={approvedDescriptions[1]} />;
+        return <i class="fas fa-times" title={text('peerreview_bad')} />;
     }
 
-    return <i class="fad fa-dot-circle" title={approvedDescriptions[2]} />;
+    return null;
 }
 
-function Tags({seizure_warning, tags}: Pick<Level, "seizure_warning" | "tags">) {
+type Tags = Pick<Level, "seizure_warning" | "tags"> & TextFuncObj;
+function Tags({seizure_warning, tags, text}: Tags) {
     return (
         <ul class="lb_tags">
             {seizure_warning
                 ? <li class="caution!lb_tag lb_tag">
                     <i class="fad fa-exclamation-triangle" />
-                    <span>Seizure warning</span>
+                    <span title="fhaifhaihf">{text('seizure_warning')}</span>
                 </li>
                 : null}
             {
@@ -72,6 +67,8 @@ function DescriptionText({description}: Pick<Level, "description">) {
     // match either an opening color tag or an ending color tag.
     // rhythm doctor doesn't require ending color tags, so you can't rely on
     // there always being a matching end tag.
+
+    // TODO: instead of stripping out the color tags, actually use them
     const re = /<color=#[0-9a-fA-F]+?>|<\/color>/g;
 
     const colorFiltered = description.replaceAll(re, "");
@@ -79,10 +76,30 @@ function DescriptionText({description}: Pick<Level, "description">) {
     return <>{colorFiltered.split("\n").map(p => <p>{p}</p>)}</>
 }
 
+type DifficultyDecorator = Pick<Level, "difficulty"> & TextFuncObj;
+function DifficultyDecorator({difficulty, text}: DifficultyDecorator) {
+
+    return (
+        <div class={cc(
+            ["lb_dd",
+            {
+                "easy!lb_dd" : difficulty === 0,
+                "medium!lb_dd" : difficulty === 1,
+                "tough!lb_dd" : difficulty === 2,
+                "souls!lb_dd" : difficulty === 3
+            }])}>
+            <span class="lb_ddbg"></span>
+            <span class="lb_ddtext">{text(`difficulty_${difficulty}`)}</span>
+        </div>
+    )
+}
+
 export function LevelBox({level}: {level: Level}) {
     const {
-        thumb, artist, song, approval, description,
+        thumb, artist, song, approval,
     } = level;
+
+    const { lang, text } = useContext(LanguageContext);
 
     return (
         <article class="lb">
@@ -95,7 +112,7 @@ export function LevelBox({level}: {level: Level}) {
                 </div>
             </div>
             <div class="lb_info">
-                {/* <DifficultyDecorator {...level} /> */}
+                <DifficultyDecorator {...level} text={text} />
                 <div class="lb_cast">
                     <h2 class="lb_artist">{artist}</h2>
                     <h1 class="lb_song">{song}</h1>
@@ -111,7 +128,7 @@ export function LevelBox({level}: {level: Level}) {
                             </li>
                             <li class="lb_metaitem lb_source">
                                 <SourceIcon {...level} />
-                                <span class="lb_metatext">{sourceText(level)}</span>
+                                <span class="lb_metatext">{sourceText(level.source_id, text)}</span>
                             </li>
                             <li class={cc([
                                 "lb_metaitem",
@@ -122,13 +139,13 @@ export function LevelBox({level}: {level: Level}) {
                                     "umm!lb_approved": approval === 0,
                                 }])
                             }>
-                                <ApprovalIcon approval={approval} />
+                                <ApprovalIcon approval={approval} text={text} />
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="lb_spacer" />
-                <Tags {...level} />
+                <Tags {...level} text={text} />
             </div>
         </article>
     )

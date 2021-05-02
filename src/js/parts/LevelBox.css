@@ -49,6 +49,52 @@
 
 .lb_info {
     padding: 1rem;
+    position: relative;
+}
+
+.lb_dd {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+	justify-content: flex-end;
+	align-items: stretch;
+}
+
+.lb_ddbg {
+    width: 1.5rem;
+    clip-path: polygon(0% -4%, 104% -4%, 104% 100%, 100% 100%);
+}
+
+.lb_ddtext {
+	font-size: 0.75rem;
+	line-height: 1rem;
+	padding-top: 0.125rem;
+	padding-bottom: 0.125rem;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+	text-transform: lowercase;
+    font-weight: 200;
+}
+
+.easy\!lb_dd .lb_ddbg, .easy\!lb_dd .lb_ddtext {
+    background-color: var(--teal-100);
+    color: var(--teal-500);
+}
+
+.medium\!lb_dd .lb_ddbg, .medium\!lb_dd .lb_ddtext {
+    background-color: var(--amber-100);
+    color: var(--amber-500);
+}
+
+.tough\!lb_dd .lb_ddbg, .tough\!lb_dd .lb_ddtext {
+    background-color: var(--rose-100);
+    color: var(--rose-500);
+}
+
+.souls\!lb_dd .lb_ddbg, .souls\!lb_dd .lb_ddtext {
+    background-color: var(--violet-100);
+    color: var(--violet-500);
 }
 
 .lb_cast {

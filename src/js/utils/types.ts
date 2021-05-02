@@ -12,6 +12,7 @@ export type Level = {
     artist: string,
     song: string,
     author: string,
+    difficulty: number,
     description: string,
     approval: number,
     approval_message: string | null,
