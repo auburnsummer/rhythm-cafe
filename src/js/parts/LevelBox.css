@@ -30,12 +30,14 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    padding: 1rem;
+    padding: 1.25rem;
     opacity: 0;
     color: white;
     transition-property: opacity;
     transition-duration: 250ms;
     box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
 }
 
 .lb:hover .lb_overlay {
@@ -45,6 +47,27 @@
 .lb_description {
     font-size: 0.875rem;
     line-height: 1rem;
+    flex-grow: 1
+}
+
+.lb_buttons {
+    width: 2rem;
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.lb_button {
+    border-width: 1px;
+    border-color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.lb_button:hover {
+    background-color: var(--violet-400);
 }
 
 .lb_info {

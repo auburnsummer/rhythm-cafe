@@ -6,6 +6,8 @@ import { Level } from "../utils/types";
 import { LanguageContext } from "../hooks/LanguageContext";
 import { useContext } from 'preact/hooks';
 
+import copy from 'clipboard-copy';
+
 function authorText({authors}: Pick<Level, "authors">) {
     // @ts-ignore
     const formatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' });
@@ -38,7 +40,7 @@ function ApprovalIcon({approval, text}: ApprovalIcon) {
         return <i class="fas fa-check" title={text('peerreview_okay')} />;
     }
     if (approval < 0) {
-        return <i class="fas fa-times" title={text('peerreview_bad')} />;
+        return <i class="fas fa-times" title={text('peerreview_fail')} />;
     }
 
     return null;
@@ -101,6 +103,8 @@ export function LevelBox({level}: {level: Level}) {
 
     const { lang, text } = useContext(LanguageContext);
 
+    const canonicalUrl = level.url ? level.url : level.url2;
+
     return (
         <article class="lb">
             <div class="lb_imagebox">
@@ -108,6 +112,14 @@ export function LevelBox({level}: {level: Level}) {
                 <div class="lb_overlay">
                     <div class="lb_description">
                         <DescriptionText {...level} />
+                    </div>
+                    <div class="lb_buttons">
+                        <button onClick={() => copy(canonicalUrl)} class="lb_button lb_copy">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <a href={canonicalUrl} class="lb_button lb_download">
+                            <i class="fas fa-download"></i>
+                        </a>
                     </div>
                 </div>
             </div>

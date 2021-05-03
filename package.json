@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "classcat": "^5.0.3",
+    "clipboard-copy": "^4.0.1",
     "enum": "^3.0.4",
     "preact": "^10.5.13",
     "querystringify": "^2.2.0",

@@ -22,6 +22,8 @@ export type Level = {
     min_bpm: number,
     source_id: sourceId,
     source_iid: string,
+    url: string | null,
+    url2: string,
     seizure_warning: boolean,
     has_classics: boolean,
     has_oneshots: boolean,
