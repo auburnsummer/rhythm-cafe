@@ -1,6 +1,6 @@
 .lb {
     /*width: 24rem;*/
-    background-color: var(--warmGray-100);
+    background-color: var(--blueGray-100);
     border-radius: 0.5rem;
 }
 
@@ -14,7 +14,7 @@
 
 .lb_image {
     position: absolute;
-    background-color: var(--warmGray-600);
+    background-color: var(--blueGray-600);
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -129,7 +129,7 @@
 .lb_artist {
     font-size: 0.75rem;
     line-height: 0.75rem;
-    color: var(--warmGray-500);
+    color: var(--blueGray-500);
 }
 
 .lb_song {
@@ -169,7 +169,7 @@ a sibling of the parent will. */
     margin-left: 0.75rem;
     margin-top: 0.25rem;
     max-width: 100%;
-    color: var(--warmGray-600);
+    color: var(--blueGray-600);
 }
 
 .lb_metatext {
@@ -202,8 +202,8 @@ a sibling of the parent will. */
     margin-top: 0.25rem;
     font-size: 0.75rem;
     line-height: 1rem;
-    background-color: var(--warmGray-200);
-    color: var(--warmGray-500);
+    background-color: var(--blueGray-200);
+    color: var(--blueGray-500);
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     padding-top: 0.125rem;
