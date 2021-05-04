@@ -53,7 +53,7 @@ function Tags({seizure_warning, tags, text}: Tags) {
             {seizure_warning
                 ? <li class="caution!lb_tag lb_tag">
                     <i class="fad fa-exclamation-triangle" />
-                    <span title="fhaifhaihf">{text('seizure_warning')}</span>
+                    <span title={text('seizure_warning_long')}>{text('seizure_warning')}</span>
                 </li>
                 : null}
             {

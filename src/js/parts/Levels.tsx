@@ -103,9 +103,12 @@ export function Levels({
 
     if (state === LoadingState.Loading) {
         return (
-            <div>
-                loading
-            </div>
+            <main class={cc(["loading!le", _class])}>
+                <div class="le_loadicon">
+					<i class="fad fa-spinner-third"></i>
+					<span>loading</span>
+				</div>
+            </main>
         )
     }
 
