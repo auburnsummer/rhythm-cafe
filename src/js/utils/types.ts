@@ -44,4 +44,4 @@ export type QueryParams = {
     sort: SortOptions;
 }
 
-export type RouteFunction = (path: string, search: Record<string, string>) => void;
+export type RouteFunction = (path: string, search: Record<string, string>, useCurrent: boolean) => void;

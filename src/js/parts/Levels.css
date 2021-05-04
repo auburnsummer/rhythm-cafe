@@ -10,8 +10,29 @@
     place-items: stretch;
 }
 
-.le_item {
+.le_item, .le_next {
     display: grid;
     place-items: stretch;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.le_next {
+    background-color: var(--blueGray-400);
+    border-radius: 0.5rem;
+}
+
+.le_next:hover {
+    box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.2), 0 4px 6px -1px rgba(0, 0, 0, 0.12);
+}
+
+.le_next > a {
+    display: grid;
+    place-content: center;
+    color: var(--blueGray-200);
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.le_next:hover > a {
+    color: var(--blueGray-100);
 }

@@ -119,6 +119,9 @@ export function Levels({
                         </li>
                     ))
                 }
+				<li class="le_next">
+					<button onClick={() => route("/", {page: (page + 1).toString()}, true)}>Next page</button>
+				</li>
             </ul>
         </main>
     )
