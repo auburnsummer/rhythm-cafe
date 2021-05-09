@@ -56,7 +56,8 @@ export function App() {
 
     // wrapper around wouter's setLocation that uses implicit default values from above
     const setLocation = (path: string, search: Record<string, string>, useCurrent: boolean = false) => {
-        const diffed = diff(search, useCurrent ? qs.parse(_location.search) : queryDefaults);
+        const curr = useCurrent ? {...qs.parse(_location.search), ...search} : search;
+        const diffed = diff(curr, queryDefaults);
         _setLocation(`${path}${qs.stringify(diffed, true)}`);
     }
 

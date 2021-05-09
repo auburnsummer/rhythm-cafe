@@ -38,7 +38,7 @@ export function SearchBar({
             show_x: showX.toString(),
             sort,
             page: "0",
-        })
+        }, false);
     }
 
     return (
