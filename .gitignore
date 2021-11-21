@@ -1,3 +1,5 @@
+node_modules
 .DS_Store
-build/
-node_modules/
+dist
+dist-ssr
+*.local

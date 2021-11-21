@@ -1,0 +1,43 @@
+.dd {
+    display: flex;
+}
+
+.dd > * {
+    background-color: red;
+}
+
+.easy\!dd > * {
+    background-color: var(--teal-100);
+    color: var(--teal-600);
+}
+
+.medium\!dd > * {
+    background-color: var(--amber-100);
+    color: var(--amber-600);
+}
+
+.tough\!dd > * {
+    background-color: var(--rose-100);
+    color: var(--rose-500);
+}
+
+.souls\!dd > * {
+    background-color: var(--violet-100);
+    color: var(--violet-500);
+}
+
+.dd_text {
+	font-size: 0.75rem;
+	line-height: 1rem;
+	padding-top: 0.125rem;
+	padding-bottom: 0.125rem;
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+	text-transform: lowercase;
+    font-weight: 200;
+}
+
+.dd_triangle {
+    width: 1.5rem;
+    clip-path: polygon(0% -4%, 104% -4%, 104% 100%, 100% 100%);
+}

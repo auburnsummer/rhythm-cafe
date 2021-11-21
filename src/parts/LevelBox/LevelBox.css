@@ -1,0 +1,201 @@
+.lb {
+    max-width: 26rem;
+    background-color: var(--blueGray-100);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.lb_imagebox {
+    position: relative;
+    padding-bottom: calc(900%/16); /* 16:9 ratio */
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.lb_image, .lb_overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.lb_image {
+    background-color: var(--blueGray-600);
+    object-fit: cover;
+    transition-property: filter;
+    transition-duration: 250ms;
+}
+
+.lb:hover .lb_image {
+    filter: brightness(55%) saturate(30%) blur(2px);
+}
+
+.lb_overlay {
+    padding: 1.25rem;
+    opacity: 0;
+    color: white;
+    transition-property: opacity;
+    transition-duration: 250ms;
+    box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+}
+
+.lb:hover .lb_overlay {
+    opacity: 1;
+}
+
+.lb_description {
+    font-size: 0.875rem;
+    line-height: 1rem;
+    flex-grow: 1;
+}
+
+.lb_buttons {
+    width: 2rem;
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.lb_button {
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.lb_button:hover {
+    background-color: var(--violet-400);
+    cursor: pointer;
+}
+
+.lb_info {
+    padding: 1rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.lb_decorator {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.lb_cast {
+    display: flex;
+    flex-direction: column;
+}
+
+/* visually, the artist should be above the song. */
+.lb_song {
+    order: 2;
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.25rem;
+    overflow-wrap: break-word;
+}
+
+.lb_artist {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--blueGray-500);
+    order: 1;
+}
+
+/*
+time for the BENFACE MANEUVER!!!!
+
+named after the Patron Saint of CSS, benface
+*/
+
+.lb_metadata-wrapper {
+    display: flow-root; /* benface recommends this as part of the Manuever, not sure why tbh */
+}
+
+/* the Benface Maneuver involves first putting negative margin on this element... */
+.lb_metadata {
+    display: flex;
+    margin-top: 0.25rem;
+    flex-wrap: wrap;
+    margin-left: calc(1.25rem / 2 * -1);
+}
+
+/* ...and all the children get a positive margin to "cancel it out". */
+/* this way, any child that's visually "next" to the parent won't have a margin, but elements that are "next" to
+a sibling of the parent will. */
+.lb_metaitem {
+    margin-left: calc(1.25rem / 2);
+}
+
+.lb_authors, .lb_bpm, .lb_source {
+    color: var(--blueGray-700);
+    display: flex;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    max-width: 100%;
+}
+
+.lb_author-list, .lb_bpm-text, .lb_source-button {
+    margin-left: 0.25rem;
+}
+
+.lb_metabutton, .lb_metatext {
+    white-space: pre;
+    color: var(--blueGray-500);
+}
+
+.lb_metabutton:hover {
+    color: var(--blueGray-700);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.lb_spacer {
+    flex-grow: 1;
+}
+
+/* another benface maneuver */
+.lb_tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: -0.25rem;
+    margin-top: -0.25rem;
+    padding-top: 0.75rem;
+}
+
+.lb_tag {
+    margin-left: 0.25rem;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    background-color: var(--blueGray-200);
+    color: var(--blueGray-500);
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    border-radius: 9999px;
+}
+
+.lb_tag:enabled:hover {
+    background-color: var(--blueGray-300);
+    color: var(--blueGray-600);
+    cursor: pointer;
+}
+
+.caution\!lb_tag {
+    background-color: var(--amber-100);
+    color: var(--amber-600);
+}
+
+.caution\!lb_tag span {
+    margin-left: 0.25rem;
+}
