@@ -7,6 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "clipboard-copy": "^4.0.1",
     "clsx": "^1.1.1",
     "preact": "^10.5.13",
     "redaxios": "^0.4.1",

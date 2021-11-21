@@ -1,4 +1,5 @@
 import cc from 'clsx';
+import copy from 'clipboard-copy';
 import { useMemo } from 'preact/hooks';
 import { ConjunctionList } from '..';
 import { DifficultyDecorator } from '../DifficultyDecorator/DifficultyDecorator';
@@ -64,7 +65,7 @@ export function LevelBox({level, "class": _class}) {
                         <DescriptionText {...level} />
                     </div>
                     <div class="lb_buttons">
-                        <button class="lb_button lb_copy">
+                        <button onClick={() => copy(canonicalUrl)} class="lb_button lb_copy">
                             <i class="fas fa-copy"></i>
                         </button>
                         <a href={canonicalUrl} class="lb_button lb_download">
