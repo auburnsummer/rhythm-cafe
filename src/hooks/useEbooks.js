@@ -31,6 +31,6 @@ const EBOOKS = [
     "lugi: lucia has been trapped in the RDCube™️\nlugi: she must atone"
 ];
 
-export function useEBooks() {
+export function useEbooks() {
     return sample(EBOOKS);
 }

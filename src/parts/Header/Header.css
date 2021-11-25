@@ -1,15 +1,27 @@
 .he {
 	display: flex;
-	height: 2.5rem;
-	background-color: var(--violet-200);
+	height: 2.75rem;
+	background-color: var(--violet-300);
 	z-index: 10;
 	box-shadow: var(--shadow-elevation-low);
 	align-items: stretch;
 }
 
 .he_logo {
-	height: 3.1rem;
-	fill: var(--violet-300);
+	height: 3.4rem;
+	fill: var(--violet-400);
+	opacity: 70%;
+}
+
+.he_search {
+	margin-left: 1.5rem;
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
+	flex-grow: 1;
+}
+
+.he_temp {
+	margin-left: 5rem;
 }
 /* 
 .he_announcements {

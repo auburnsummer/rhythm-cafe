@@ -2,7 +2,10 @@ import { LevelBox } from "..";
 import { useLevels } from "../../hooks/useLevels"
 import cc from "clsx";
 
+import { SearchContext } from "..";
+
 import "./Levels.css";
+import { useContext, useEffect } from "preact/hooks";
 
 /**
  * @typedef LevelsProps
@@ -11,8 +14,13 @@ import "./Levels.css";
 
 /** @param {LevelsProps} */
 export function Levels({"class": _class}) {
+    const [value, setValue] = useContext(SearchContext);
 
-    const {state, result, error} = useLevels();
+    const {state, result, error} = useLevels(value);
+
+    useEffect(() => {
+        console.log(value);
+    }, [value])
 
     return (
         <main class={cc(_class, "le")}>

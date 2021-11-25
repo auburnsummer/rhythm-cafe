@@ -1,0 +1,10 @@
+.st {
+    display: flex;
+    align-items: baseline;
+    background-color: var(--violet-400);
+    color: var(--violet-100);
+    border-radius: 0.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    font-size: 0.875rem;
+}

@@ -3,3 +3,7 @@ export * from './Levels/Levels';
 export * from './LevelBox/LevelBox';
 export * from './DifficultyDecorator/DifficultyDecorator';
 export * from './ConjunctionList/ConjunctionList';
+export * from './Search/Search';
+export * from './SearchToken/SearchToken';
+export * from './SearchContext/SearchContext';
+export * from './SearchContext/SearchContextFactory';

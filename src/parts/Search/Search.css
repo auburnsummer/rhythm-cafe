@@ -1,0 +1,16 @@
+.se {
+    display: flex;
+    align-items: stretch;
+    background-color: var(--violet-100);
+    color: var(--violet-900);
+    border-radius: 0.25rem;
+}
+
+.se_token {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.se > *:first-child {
+    margin-left: 0.5rem;
+}

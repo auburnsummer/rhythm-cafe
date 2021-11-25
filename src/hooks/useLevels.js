@@ -35,13 +35,23 @@ import axios from "redaxios";
  * @property {number} kudos
  */
 
+/**
+ * @typedef 
+ */
+
+/**
+ * @typedef {string} LevelProps
+ */
+
 /** @type import("../utils/constants").LoadingState */
 const initialState = 'Loading';
 
-/** @type {{levels: Level[], nextURL: string}} */
-const initialValue = {levels: [], nextURL: ""}
+/** @type {{levels: Level[], next: string}} */
+const initialValue = {levels: [], next: ""}
 
-export function useLevels() {
+
+
+export function useLevels(input) {
     const [state, setState] = useState(initialState);
     const [result, setResult] = useState(initialValue);
     const [error, setError] = useState(null);
@@ -84,8 +94,9 @@ export function useLevels() {
                         // 1-liner from hell...
                         return [...columns.keys()].reduce((prev, n) => ({...prev, [columns[n]] : row[n]}), {})
                     });
-                const nextURL = resp.data.next_url;
-                setResult({levels, nextURL});
+                const next = new URLSearchParams(new URL(resp.data.next_url).search).get("_next");
+                setResult({levels, next});
+                setState("Loaded");
             })
             .catch(err => {
                 setState('Error');
