@@ -50,7 +50,7 @@ const initialState = 'Loading';
 const initialValue = {levels: [], next: ""}
 
 
-
+/** @param {import("../parts/SearchContext/SearchContext").SearchContext} input */
 export function useLevels(input) {
     const [state, setState] = useState(initialState);
     const [result, setResult] = useState(initialValue);
@@ -62,13 +62,28 @@ export function useLevels(input) {
         // first item is the key, second is the value.
         // https://docs.datasette.io/en/stable/json_api.html
         // also just playing with the GUI at api.rhythm.cafe can help understand the parameters
-        const params = [
-            ["approval__gte", "10"],
+
+        // params from search context.
+        const searchParams = input.params.map(sp => {
+            return sp.type == undefined
+                ? [sp.param, sp.value]
+                : [`${sp.param}__${sp.type}`, sp.value]
+        });
+
+        // also params from search context.
+        const otherSearchParam = input.q !== ""
+             ? [["_search", input.q]]
+             : [];
+
+        // params that are always there.
+        const fixedParams = [
             ["_json", "tags"],
             ["_json", "authors"],
             ["_ttl", "3600"], // 1 hour
             ["_size", "25"]
         ];
+
+        const params = [...searchParams, ...fixedParams, ...otherSearchParam];
 
         // build a URLSearchParams object out of it.
         // we're doing it like this because of the multiple "_json" arguments, so

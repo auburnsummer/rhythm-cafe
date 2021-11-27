@@ -10,8 +10,14 @@ import { SearchContext } from "./SearchContext";
 export function SearchContextFactory({children}) {
     /** @type import('./SearchContext').SearchContext */
     const initialState = {
-        params: [],
-        q: ""
+        params: [
+            {
+                type: "gte",
+                param: "approval",
+                value: 10
+            }
+        ],
+        q: "rdrpg"
     }
     const [state, setState] = useState(initialState);
 
