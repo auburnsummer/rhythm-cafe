@@ -1,5 +1,6 @@
 import { API_URL } from "../utils/constants";
 import { useCallback, useEffect, useState } from "preact/hooks";
+import { useMitt } from "./useMitt";
 import axios from "redaxios";
 
 /**
@@ -56,9 +57,9 @@ export function useLevels(input) {
     const [result, setResult] = useState(initialValue);
     const [error, setError] = useState(null);
 
+    const E = useMitt();
 
-
-    useEffect(() => {
+    const update = useCallback(() => {
         setState('Loading');
 
         // first item is the key, second is the value.
@@ -119,7 +120,20 @@ export function useLevels(input) {
                 setState('Error');
                 setError(err);
             })
-    }, []);
+
+    }, [input.params, input.q]);
+
+    useEffect(() => {
+        E.on("startNewSearch", update);
+        return () => {
+            E.off("startNewSearch")
+        }
+    }, [E, update]);
+
+    // fire one off, initially.
+    useEffect(() => {
+        E.emit("startNewSearch");
+    }, [E]);
 
     return {state, result, error};
 }
