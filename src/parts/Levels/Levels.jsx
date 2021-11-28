@@ -1,5 +1,6 @@
 import { LevelBox } from "..";
 import { useLevels } from "../../hooks/useLevels"
+import { useMitt } from '../../hooks/useMitt';
 import cc from "clsx";
 
 import { SearchContext } from "..";
@@ -17,6 +18,15 @@ export function Levels({"class": _class}) {
     const [value, setValue] = useContext(SearchContext);
 
     const {state, result, error} = useLevels(value);
+
+    const E = useMitt();
+    
+    useEffect(() => {
+        E.on("yo", () => console.log("yoyoyo"));
+        return () => {
+            E.off("yo");
+        }
+    });
 
     useEffect(() => {
         console.log(value);
