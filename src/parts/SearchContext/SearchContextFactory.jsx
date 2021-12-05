@@ -17,22 +17,58 @@ const initialState = {
             value: 2
         }
     ],
-    q: "rdrpg"
+    q: ""
 }
 
 /**
- * @param {SearchContext} prev 
- * @param {*} action 
+ * @typedef SetAction
+ * @property {"set"} type
+ * @property {string} id
+ * @property {Partial<import("..").SearchParameter>} value
  */
-function reducer(prev, action) {
-    return prev;
+
+/** @typedef {SetAction} Action */
+
+/**
+ * @param {SearchContext} prev 
+ * @param {Action} action 
+ */
+function reducer({params, q}, action) {
+
+    /**
+     * @param {import("..").SearchParameter[]} params 
+     * @param {Action} action
+     */
+    function paramReducer(params, action) {
+        if (action.type === 'set') {
+            return params.map(p => {
+                if (p.id != action.id) {
+                    return p;
+                }
+                return {
+                    ...p,
+                    ...action.value
+                }
+            });
+        }
+    }
+
+    /**
+     * @param {string} q 
+     * @param {Action} action
+     */
+    function qReducer(q, action) {
+        return q;
+    }
+
+    return {
+        params: paramReducer(params, action),
+        q: qReducer(q, action)
+    }
 }
 
 /** @param {SearchContextFactoryProps} */
 export function SearchContextFactory({children}) {
-
-    
-    // const [state, setState] = useState(initialState);
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const value = useMemo(() => [state, dispatch], [state]);

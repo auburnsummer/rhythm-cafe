@@ -34,15 +34,26 @@ export function Levels({"class": _class}) {
 
     return (
         <main class={cc(_class, "le")}>
-            <ul class="le_list">
-                {
-                    result.levels.map(level => (
-                        <li class="le_item">
-                            <LevelBox class="le_levelbox" level={level} />
-                        </li>
-                    ))
-                }
-            </ul>
+            {
+                state === "Loading" && (
+                    <div class="le_loading">
+                        loading...
+                    </div>
+                )
+            }
+            {
+                state === "Loaded" && (
+                    <ul class="le_list">
+                        {
+                            result.levels.map(level => (
+                                <li class="le_item">
+                                    <LevelBox class="le_levelbox" level={level} />
+                                </li>
+                            ))
+                        }
+                    </ul>
+                )
+            }
         </main>
     )
 }
