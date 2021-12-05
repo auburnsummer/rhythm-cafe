@@ -1,10 +1,121 @@
 .st {
     display: flex;
-    align-items: baseline;
-    background-color: var(--violet-400);
-    color: var(--violet-100);
-    border-radius: 0.25rem;
+    flex-direction: row;
+    align-items: stretch;
+    font-size: 0.875rem;
+    line-height: 1.65rem;
+    z-index: 20;
+}
+
+.st_param {
+    display: flex;
+    background-color: var(--purple-500);
+    color: var(--purple-100);
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.125rem;
+}
+
+.st_sep {
+    width: 0.125rem;
+    background-color: var(--coolGray-300);
+}
+
+.st_type, .st_value {
+    display: flex;
+    position: relative;
+}
+
+.st_type > button, .st_value > button {
+    display: flex;
+    background-color: var(--coolGray-400);
+    color: var(--coolGray-100);
+    user-select: none;
+}
+
+.st_type > button:hover, .st_value > button:hover {
+    background-color: var(--coolGray-300);
+    color: var(--coolGray-600);
+    cursor: pointer;
+}
+
+.st_type > button {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
-    font-size: 0.875rem;
 }
+
+.st_value > button {
+    padding-left: 0.125rem;
+    padding-right: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.sd_options {
+    display: none;
+    position: absolute;
+    top: 2rem;
+    left: 0;
+}
+
+.visible\!sd_options {
+    display: flex;
+    flex-direction: column;
+}
+
+.sd_option {
+    white-space: nowrap;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: var(--coolGray-100);
+}
+
+.sd_option:first-child {
+    padding-top: 0.125rem;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.sd_option:last-child {
+    padding-bottom: 0.125rem;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.selected\!sd_option {
+    background-color: var(--coolGray-300);
+    cursor: pointer;
+}
+
+/* .st {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background-color: var(--coolGray-400);
+    color: var(--coolGray-100);
+    border-radius: 0.25rem;
+    padding-left: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.65rem;
+}
+
+.st_type, .st_value, .st_param {
+    display: flex;
+    align-items: stretch;
+}
+
+.st_sep {
+    width: 0.125rem;
+    background-color: var(--coolGray-300);
+}
+
+.st_param, .st_type-button, .st_value-button {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
+.st button:hover {
+    background-color: var(--coolGray-300);
+    cursor: pointer;
+} */

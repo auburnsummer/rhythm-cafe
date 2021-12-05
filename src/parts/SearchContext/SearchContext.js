@@ -4,6 +4,7 @@ import { createContext } from "preact";
 
 /**
  * @typedef SearchParameter
+ * @property {string} [id]
  * @property {keyof Level} param
  * @property {
      "exact" | 

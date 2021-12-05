@@ -10,7 +10,9 @@
   "dependencies": {
     "clipboard-copy": "^4.0.1",
     "clsx": "^1.1.1",
+    "downshift": "^6.1.7",
     "mitt": "^3.0.0",
+    "nanoid": "^3.1.30",
     "preact": "^10.5.13",
     "redaxios": "^0.4.1",
     "the-new-css-reset": "^1.4.0"

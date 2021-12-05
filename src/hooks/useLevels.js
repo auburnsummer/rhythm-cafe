@@ -37,10 +37,6 @@ import axios from "redaxios";
  */
 
 /**
- * @typedef 
- */
-
-/**
  * @typedef {string} LevelProps
  */
 
