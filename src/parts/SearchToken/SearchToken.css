@@ -5,8 +5,33 @@
     font-size: 0.875rem;
     line-height: 1.65rem;
     z-index: 20;
+    position: relative;
 }
 
+
+.st_close {
+    display: none;
+    position: absolute;
+    line-height: 0;
+    font-size: 0.75rem;
+    top: -0.25rem;
+    left: -0.25rem;
+}
+.st_param:hover ~ .st_close, .st_close:hover{
+    display: block;
+}
+
+.st_close > i {
+    --fa-primary-color: var(--rose-100);
+    --fa-secondary-color: var(--rose-700);
+    --fa-secondary-opacity: 1;
+}
+
+
+.st_close:hover > i {
+    --fa-secondary-color: var(--rose-800);
+    cursor: pointer;
+}
 .st_param {
     display: flex;
     background-color: var(--purple-500);

@@ -45,10 +45,11 @@ export function SelectDropdown({"class": _class, downshiftReturnValue, downshift
  * @property {string} label
  * @property {import('downshift').UseSelectProps<any>} typeDownshiftArgs
  * @property {import('downshift').UseSelectProps<any>} valueDownshiftArgs
+ * @property {() => void} onClose
  */
 
 /** @param {SearchTokenProps} */
-export function SearchToken({"class": _class, label, typeDownshiftArgs, valueDownshiftArgs}) {
+export function SearchToken({"class": _class, label, typeDownshiftArgs, valueDownshiftArgs, onClose}) {
     const valueDs = useSelect(valueDownshiftArgs);
     const typeDs = useSelect(typeDownshiftArgs);
 
@@ -57,6 +58,9 @@ export function SearchToken({"class": _class, label, typeDownshiftArgs, valueDow
             <div class="st_param">
                 <span>{label}</span>
             </div>
+            <button class="st_close" onClick={onClose}>
+                <i class="fad fa-times-circle fa-swap-opacity"></i>
+            </button>
             <div class="st_sep" />
             <SelectDropdown class="st_type" downshiftReturnValue={typeDs} downshiftArgs={typeDownshiftArgs} />
             <div class="st_sep" />

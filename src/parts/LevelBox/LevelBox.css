@@ -157,6 +157,18 @@ a sibling of the parent will. */
     cursor: pointer;
 }
 
+.yay\!lb_approval {
+    color: var(--green-400);
+}
+
+.nope\!lb_approval {
+    color: var(--rose-600);
+}
+
+.umm\!lb_approval {
+    display: none;
+}
+
 .lb_spacer {
     flex-grow: 1;
 }

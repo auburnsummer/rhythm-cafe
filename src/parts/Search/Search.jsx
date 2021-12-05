@@ -31,7 +31,8 @@ const TOKEN_PARAMS = {
                 itemToString: n => ['easy', 'medium', 'tough', 'very tough'][n],
                 selectedItem: p.value,
                 onSelectedItemChange: ({selectedItem: value}) => dispatch({type: 'set', id: p.id, value: {value}})
-            }
+            },
+            onClose: () => dispatch({type: 'remove', id: p.id})
         }
     }
 }
@@ -44,7 +45,6 @@ const TOKEN_PARAMS = {
 /** @param {SearchProps} */
 export function Search({"class": _class}) {
     const [search, dispatch] = useContext(SearchContext);
-
 
     return (
         <div class={cc(_class, "se")}>

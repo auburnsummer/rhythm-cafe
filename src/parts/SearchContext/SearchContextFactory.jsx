@@ -1,6 +1,6 @@
-import { useMemo, useReducer, useState } from "preact/hooks";
+import { useMemo, useReducer } from "preact/hooks";
 import { SearchContext } from "./SearchContext";
-import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid/non-secure';
 
 /**
  * @typedef SearchContextFactoryProps
@@ -27,7 +27,13 @@ const initialState = {
  * @property {Partial<import("..").SearchParameter>} value
  */
 
-/** @typedef {SetAction} Action */
+/**
+ * @typedef RemoveAction
+ * @property {"remove"} type 
+ * @property {string} id
+ */
+
+/** @typedef {SetAction | RemoveAction} Action */
 
 /**
  * @param {SearchContext} prev 
@@ -50,6 +56,9 @@ function reducer({params, q}, action) {
                     ...action.value
                 }
             });
+        }
+        if (action.type === 'remove') {
+            return params.filter(({id}) => id !== action.id);
         }
     }
 
