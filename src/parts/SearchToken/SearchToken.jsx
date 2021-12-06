@@ -4,7 +4,7 @@ import "./SearchToken.css";
 
 import {useSelect} from 'downshift'
 
-export function SelectDropdown({"class": _class, downshiftReturnValue, downshiftArgs}) {
+export function SelectDropdown({"class": _class, downshiftArgs}) {
     const {
         getToggleButtonProps,
         isOpen,
@@ -12,7 +12,7 @@ export function SelectDropdown({"class": _class, downshiftReturnValue, downshift
         highlightedIndex,
         getMenuProps,
         getItemProps
-    } = downshiftReturnValue;
+    } = useSelect(downshiftArgs);
     const {items, itemToString} = downshiftArgs;
 
     return (
@@ -42,16 +42,15 @@ export function SelectDropdown({"class": _class, downshiftReturnValue, downshift
 /**
  * @typedef SearchTokenProps
  * @property {string?} class
+ * @property {'select'} [valueType]
  * @property {string} label
  * @property {import('downshift').UseSelectProps<any>} typeDownshiftArgs
- * @property {import('downshift').UseSelectProps<any>} valueDownshiftArgs
+ * @property {any} valueArgs
  * @property {() => void} onClose
  */
 
 /** @param {SearchTokenProps} */
-export function SearchToken({"class": _class, label, typeDownshiftArgs, valueDownshiftArgs, onClose}) {
-    const valueDs = useSelect(valueDownshiftArgs);
-    const typeDs = useSelect(typeDownshiftArgs);
+export function SearchToken({"class": _class, label, valueType, typeDownshiftArgs, valueArgs, onClose}) {
 
     return (
         <div class={cc(_class, "st")}>
@@ -62,9 +61,18 @@ export function SearchToken({"class": _class, label, typeDownshiftArgs, valueDow
                 <i class="fad fa-times-circle fa-swap-opacity"></i>
             </button>
             <div class="st_sep" />
-            <SelectDropdown class="st_type" downshiftReturnValue={typeDs} downshiftArgs={typeDownshiftArgs} />
+            <SelectDropdown class="st_type" downshiftArgs={typeDownshiftArgs} />
             <div class="st_sep" />
-            <SelectDropdown class="st_value" downshiftReturnValue={valueDs} downshiftArgs={valueDownshiftArgs} />
+            {
+                valueType === 'number' && (
+                    <input type="number" {...valueArgs} /> 
+                )
+            }
+            {
+                !valueType && (
+                    <SelectDropdown class="st_value" downshiftArgs={valueArgs} />
+                )
+            }
         </div>
     )
 }

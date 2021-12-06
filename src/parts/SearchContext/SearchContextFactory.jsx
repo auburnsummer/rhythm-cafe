@@ -15,6 +15,12 @@ const initialState = {
             type: "exact",
             param: "difficulty",
             value: 2
+        },
+        {
+            id: nanoid(),
+            type: "gte",
+            param: "approval",
+            value: 10
         }
     ],
     q: ""
