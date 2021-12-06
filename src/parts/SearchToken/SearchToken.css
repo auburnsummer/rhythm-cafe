@@ -77,6 +77,21 @@
     border-bottom-right-radius: 0.25rem;
 }
 
+.st_value-input {
+    width: 3rem;
+    background-color: var(--coolGray-400);
+    color: var(--coolGray-100);
+    padding-left: 0.125rem;
+    padding-right: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.st_value-input:focus {
+    background-color: var(--coolGray-300);
+    color: var(--coolGray-600);
+}
+
 .sd_options {
     display: none;
     position: absolute;

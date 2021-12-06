@@ -65,7 +65,7 @@ export function SearchToken({"class": _class, label, valueType, typeDownshiftArg
             <div class="st_sep" />
             {
                 valueType === 'number' && (
-                    <input type="number" {...valueArgs} /> 
+                    <input class="st_value-input" type="number" {...valueArgs} /> 
                 )
             }
             {
