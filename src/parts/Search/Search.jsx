@@ -10,12 +10,7 @@ import "./Search.css";
  * @param {import("preact/hooks").StateUpdater<import("..").SearchContext>} dispatch 
  */
 
-const equalGteOrLte = (p, dispatch) => {
-    const items = {
-        'exact': '=',
-        'gte': '≥',
-        'lte': '≤'
-    }
+const typeDownshiftFactory = (items) => (p, dispatch) => {
     return {
         items: Object.keys(items),
         itemToString: s => items[s],
@@ -24,8 +19,19 @@ const equalGteOrLte = (p, dispatch) => {
     }
 }
 
+const equalGteOrLte = typeDownshiftFactory({
+    'exact': '=',
+    'gte': '≥',
+    'lte': '≤'
+});
+
 /** @type {Record<string, SearchTokenFunc>} */
 const TOKEN_PARAMS = {
+    'default': function(p, dispatch) {
+        return {
+            onClose: () => dispatch({type: 'remove', id: p.id})
+        }
+    },
     'difficulty': function(p, dispatch) {
         return {
             label: 'difficulty',
@@ -35,8 +41,7 @@ const TOKEN_PARAMS = {
                 itemToString: n => ['easy', 'medium', 'tough', 'very tough'][n],
                 selectedItem: p.value,
                 onSelectedItemChange: ({selectedItem: value}) => dispatch({type: 'set', id: p.id, value: {value}})
-            },
-            onClose: () => dispatch({type: 'remove', id: p.id})
+            }
         }
     },
     'approval': function(p, dispatch) {
@@ -52,12 +57,20 @@ const TOKEN_PARAMS = {
                         dispatch({type: 'set', id: p.id, value: {value: v}});
                     }
                 }
-                // items: [0, 1, 2, 3],
-                // itemToString: n => `${n}`,
-                // selectedItem: p.value,
-                // onSelectedItemChange: ({selectedItem: value}) => dispatch({type: 'set', id: p.id, value: {value}})
-            },
-            onClose: () => dispatch({type: 'remove', id: p.id})
+            }
+        }
+    },
+    'tags': function(p, dispatch) {
+        return {
+            label: "tag",
+            hideType: true,
+            valueType: 'text',
+            valueArgs: {
+                onChange: evt => {
+                    dispatch({type: 'set', id: p.id, value: {value: evt.target.value}})
+                },
+                value: p.value
+            }
         }
     }
 }
@@ -75,7 +88,7 @@ export function Search({"class": _class}) {
         <div class={cc(_class, "se")}>
             {
                 search.params.map(p => (
-                    <SearchToken class="se_token" {...TOKEN_PARAMS[p.param](p, dispatch)} />
+                    <SearchToken class="se_token" {...TOKEN_PARAMS['default'](p, dispatch)} {...TOKEN_PARAMS[p.param](p, dispatch)} />
                 ))
             }
         </div>

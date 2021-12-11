@@ -108,11 +108,14 @@ export function useLevels(input) {
                         // 1-liner from hell...
                         return [...columns.keys()].reduce((prev, n) => ({...prev, [columns[n]] : row[n]}), {})
                     });
-                const next = new URLSearchParams(new URL(resp.data.next_url).search).get("_next");
+                const next = resp.data.next_url
+                    ? new URLSearchParams(new URL(resp.data.next_url).search).get("_next")
+                    : null;
                 setResult({levels, next});
                 setState("Loaded");
             })
             .catch(err => {
+                console.log(err);
                 setState('Error');
                 setError(err);
             })

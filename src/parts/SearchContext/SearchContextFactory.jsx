@@ -21,6 +21,12 @@ const initialState = {
             type: "gte",
             param: "approval",
             value: 10
+        },
+        {
+            id: nanoid(),
+            type: "arraycontains",
+            param: "tags",
+            value: "rdrpg"
         }
     ],
     q: ""
