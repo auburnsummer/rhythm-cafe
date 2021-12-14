@@ -15,3 +15,43 @@
 .se > *:first-child {
     margin-left: 0.5rem;
 }
+
+.se_add {
+    margin-left: 0.5rem;
+}
+
+.af {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.af_button {
+    color: var(--violet-300);
+    border-color: var(--violet-200);
+    border-width: 1px;
+    border-style: dashed;
+    border-radius: 0.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.af_button:hover {
+    border-color: var(--violet-500);
+    color: var(--violet-500);
+    cursor: pointer;
+}
+
+
+.af_list {
+    z-index: 30;
+    position: absolute;
+    display: none;
+    width: 16rem;
+    top: 0;
+    margin-top: 2rem;
+}
+
+.visible\!af_list {
+    display: block;
+}

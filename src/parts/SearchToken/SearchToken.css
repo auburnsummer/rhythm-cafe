@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: stretch;
     font-size: 0.875rem;
-    line-height: 1.65rem;
+    line-height: 1.75rem;
     z-index: 20;
     position: relative;
 }
@@ -85,7 +85,7 @@
     padding-right: 0.25rem;
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
-    padding-bottom: 0.065rem; /* hack */
+    padding-top: 0.062rem; /* hack */
 }
 
 .st_value-input:focus, .ig_input:focus {

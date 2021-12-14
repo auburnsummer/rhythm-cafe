@@ -24,9 +24,9 @@ const initialState = {
         },
         {
             id: nanoid(),
-            type: "arraycontains",
-            param: "tags",
-            value: "rdrpg"
+            type: "exact",
+            param: "single_player",
+            value: 1
         }
     ],
     q: ""
