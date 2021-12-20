@@ -45,7 +45,14 @@ const initialState = {
  * @property {string} id
  */
 
-/** @typedef {SetAction | RemoveAction} Action */
+/**
+ * @typedef AddAction
+ * @property {"add"} type
+ * @property {Partial<import("..").SearchParameter>} value
+ * @returns 
+ */
+
+/** @typedef {SetAction | RemoveAction | AddAction} Action */
 
 /**
  * @param {SearchContext} prev 
@@ -71,6 +78,15 @@ function reducer({params, q}, action) {
         }
         if (action.type === 'remove') {
             return params.filter(({id}) => id !== action.id);
+        }
+        if (action.type === 'add') {
+            return [
+                ...params,
+                {
+                    id: nanoid(),
+                    ...action.value
+                }
+            ]
         }
     }
 

@@ -8,35 +8,40 @@ import analyze from 'rollup-plugin-analyzer'
  */
 export default function config({ command, mode }) {
 
-    /** @type {import('vite').UserConfig} */
-    const developmentConfig = {
-        plugins: [
-            
-        ]
-    }
+    const dev = mode === 'development';
 
-    /** @type {import('vite').UserConfig} */
-    const productionConfig = {
-        resolve: {
-            alias: {
-                "preact/debug": "./src/noop.js"
+    const aliases = {
+        ...dev
+            ? {
+
             }
-        },
-        plugins: [
-            analyze()
-        ]
+            : {
+                "preact/debug": "./src/noop.js"     
+            },
+        "react": "preact/compat",
+        "react-dom": "preact/compat"
     }
 
-    const modeSpecificConfig = mode === 'development' ? developmentConfig : productionConfig;
+    const plugins = [
+        ...dev
+            ? [
 
-    /** @type {import('vite').UserConfig} */
-    const allConfig = {
-        build: {
-            cssCodeSplit: false
-        },
-        plugins: [
-            preact(),
-        ]
+            ]
+            : [
+                analyze(),
+            ],
+        preact()
+    ]
+
+    const build = {
+        cssCodeSplit: false
     }
-    return {...modeSpecificConfig, ...allConfig, plugins: [...modeSpecificConfig.plugins, ...allConfig.plugins]}
+
+    return {
+        build,
+        plugins,
+        resolve: {
+            alias: aliases
+        }
+    }
 }
