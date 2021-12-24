@@ -216,21 +216,12 @@ export function Search({"class": _class}) {
                 ))
             }
             <AddAFilter class="se_add" />
-            {/* <div class="se_addbox">
-                <button onClick={() => setShowFilterMenu(prev => !prev)} class="se_add">
-                    <i class="fas fa-filter"></i>
-                </button>
-                <ul class={cc("se_addlist", showFilterMenu && "visible!se_addlist")}>
-                    <span>add a filter to the search</span>
-                    {
-                        ["a", "b", "c", "d"].map(s => (
-                            <li>
-                                <button>{s}</button>
-                            </li>
-                        ))
-                    }
-                </ul>
-            </div> */}
+            <input
+                class="se_input"
+                value={search.q}
+                placeholder="Search..."
+                onChange={evt => dispatch({type: "query", q: evt.target.value})}
+            />
         </div>
     )
 }

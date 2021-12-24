@@ -52,7 +52,13 @@ const initialState = {
  * @returns 
  */
 
-/** @typedef {SetAction | RemoveAction | AddAction} Action */
+/**
+ * @typedef QueryAction
+ * @property {"query"} type
+ * @property {string} q
+ */
+
+/** @typedef {SetAction | RemoveAction | AddAction | QueryAction} Action */
 
 /**
  * @param {SearchContext} prev 
@@ -88,6 +94,7 @@ function reducer({params, q}, action) {
                 }
             ]
         }
+        return params;
     }
 
     /**
@@ -95,6 +102,9 @@ function reducer({params, q}, action) {
      * @param {Action} action
      */
     function qReducer(q, action) {
+        if (action.type === 'query') {
+            return action.q;
+        }
         return q;
     }
 

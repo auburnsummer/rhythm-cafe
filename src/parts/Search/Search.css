@@ -86,3 +86,7 @@
     background-color: var(--coolGray-200);
     cursor: pointer;
 }
+
+.se_input {
+    margin-left: 0.5rem;
+}
