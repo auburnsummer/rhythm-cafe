@@ -1,5 +1,6 @@
 import cc from "clsx";
 import { useContext, useState } from "preact/hooks";
+import { useMitt } from "../../hooks/useMitt";
 import { SearchToken } from "..";
 import { SearchContext } from "..";
 import { Menu } from '@headlessui/react';
@@ -208,20 +209,30 @@ export function AddAFilter({"class": _class}) {
 export function Search({"class": _class}) {
     const [search, dispatch] = useContext(SearchContext);
 
+    const E = useMitt();
+
     return (
         <div class={cc(_class, "se")}>
-            {
-                search.params.map(p => (
-                    <SearchToken class="se_token" {...TOKEN_PARAMS['default'](p, dispatch)} {...TOKEN_PARAMS[p.param](p, dispatch)} />
-                ))
-            }
-            <AddAFilter class="se_add" />
-            <input
-                class="se_input"
-                value={search.q}
-                placeholder="Search..."
-                onChange={evt => dispatch({type: "query", q: evt.target.value})}
-            />
+            <div class="se_bar">
+                {
+                    search.params.map(p => (
+                        <SearchToken class="se_token" {...TOKEN_PARAMS['default'](p, dispatch)} {...TOKEN_PARAMS[p.param](p, dispatch)} />
+                    ))
+                }
+                <AddAFilter class="se_add" />
+                <input
+                    class="se_input"
+                    value={search.q}
+                    placeholder="Search..."
+                    onChange={evt => dispatch({type: "query", q: evt.target.value})}
+                />
+            </div>
+            <button
+                onClick={() => E.emit("startNewSearch")}
+                class="se_button"
+                >
+                <i class="fas fa-search"></i>
+            </button>
         </div>
     )
 }

@@ -1,9 +1,15 @@
 .se {
     display: flex;
+}
+
+.se_bar {
+    flex-grow: 1;
+    display: flex;
     align-items: stretch;
     background-color: var(--violet-100);
     color: var(--violet-900);
-    border-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
 }
 
 .se_token {
@@ -18,6 +24,22 @@
 
 .se_add {
     margin-left: 0.5rem;
+}
+
+.se_button {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: var(--coolGray-400);
+    border-left: 0.25rem solid var(--violet-300);
+    color: var(--coolGray-100);
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.se_button:hover {
+    background-color: var(--coolGray-300);
+    cursor: pointer;
+    color: var(--coolGray-600);
 }
 
 .af {
