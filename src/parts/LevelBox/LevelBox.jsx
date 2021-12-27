@@ -1,7 +1,7 @@
 import cc from 'clsx';
 import copy from 'clipboard-copy';
-import { useMemo } from 'preact/hooks';
-import { ConjunctionList } from '..';
+import { useContext, useMemo } from 'preact/hooks';
+import { ConjunctionList, SearchContext } from '..';
 import { DifficultyDecorator } from '../DifficultyDecorator/DifficultyDecorator';
 
 import "./LevelBox.css";
@@ -38,6 +38,8 @@ const formatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction
  * @param {LevelBoxProps}
  */
 export function LevelBox({level, "class": _class}) {
+    const [, dispatch] = useContext(SearchContext);
+
     const {song, artist, authors, tags, thumb, min_bpm, max_bpm, source_id, seizure_warning, approval} = level;
 
     const canonicalUrl = level.url || level.url2;
@@ -87,7 +89,14 @@ export function LevelBox({level, "class": _class}) {
                             <i class="lb_metaicon fad fa-pencil-alt" />
                             <ConjunctionList
                                 class="lb_author-list"
-                                elementRender={(v) => <button class="lb_metabutton" onClick={() => console.log(v)}>{v}</button>}
+                                elementRender={(v) => 
+                                    <button
+                                        class="lb_metabutton"
+                                        onClick={() => dispatch({type: "add", value: {type: "arraycontains", param: "authors", value: v}})}
+                                    >
+                                        {v}
+                                    </button>
+                                }
                                 literalRender={(v) => <span class="lb_metatext">{v}</span>}
                             >
                                 {authors}
@@ -137,7 +146,13 @@ export function LevelBox({level, "class": _class}) {
                     {
                         tags.map(tag => (
                             <li>
-                                <button class="lb_tag">{tag}</button>
+                                <button
+                                    onClick={() => dispatch(
+                                        {type: "add", value: {type: "arraycontains", param: "tags", value: tag}}
+                                    )}
+                                    class="lb_tag">
+                                    {tag}
+                                </button>
                             </li>
                         ))
                     }

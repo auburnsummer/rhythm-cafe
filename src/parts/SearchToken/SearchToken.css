@@ -101,6 +101,7 @@
 .ig_input {
     transition-duration: 100ms;
     transition-property: width;
+    height: 100%;
 }
 
 .sd_options {
@@ -138,35 +139,3 @@
     background-color: var(--coolGray-300);
     cursor: pointer;
 }
-
-/* .st {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    background-color: var(--coolGray-400);
-    color: var(--coolGray-100);
-    border-radius: 0.25rem;
-    padding-left: 0.25rem;
-    font-size: 0.875rem;
-    line-height: 1.65rem;
-}
-
-.st_type, .st_value, .st_param {
-    display: flex;
-    align-items: stretch;
-}
-
-.st_sep {
-    width: 0.125rem;
-    background-color: var(--coolGray-300);
-}
-
-.st_param, .st_type-button, .st_value-button {
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
-}
-
-.st button:hover {
-    background-color: var(--coolGray-300);
-    cursor: pointer;
-} */
