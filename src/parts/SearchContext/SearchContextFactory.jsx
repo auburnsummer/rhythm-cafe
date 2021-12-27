@@ -58,7 +58,12 @@ const initialState = {
  * @property {string} q
  */
 
-/** @typedef {SetAction | RemoveAction | AddAction | QueryAction} Action */
+/**
+ * @typedef PopAction
+ * @property {"pop"} type
+ */
+
+/** @typedef {SetAction | RemoveAction | AddAction | QueryAction | PopAction} Action */
 
 /**
  * @param {SearchContext} prev 
@@ -93,6 +98,9 @@ function reducer({params, q}, action) {
                     ...action.value
                 }
             ]
+        }
+        if (action.type === 'pop') {
+            return params.slice(0, -1);
         }
         return params;
     }

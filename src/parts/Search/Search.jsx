@@ -211,6 +211,13 @@ export function Search({"class": _class}) {
 
     const E = useMitt();
 
+    /** @param {KeyboardEvent} evt */
+    const onInputKeyDown = (evt) => {
+        if (evt.key === 'Backspace' && search.q === '') {
+            dispatch({type: "pop"});
+        }
+    }
+
     return (
         <div class={cc(_class, "se")}>
             <div class="se_bar">
@@ -224,6 +231,7 @@ export function Search({"class": _class}) {
                     class="se_input"
                     value={search.q}
                     placeholder="Search..."
+                    onKeyDown={onInputKeyDown}
                     onChange={evt => dispatch({type: "query", q: evt.target.value})}
                 />
             </div>
