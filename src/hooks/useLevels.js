@@ -47,8 +47,11 @@ const initialState = 'Loading';
 const initialValue = {levels: [], next: ""}
 
 
-/** @param {import("../parts/SearchContext/SearchContext").SearchContext} input */
-export function useLevels(input) {
+/**
+ * @param {import("../parts/SearchContext/SearchContext").SearchContext} input
+ * @param {string} next
+ * */
+export function useLevels(input, next) {
     const [state, setState] = useState(initialState);
     const [result, setResult] = useState(initialValue);
     const [error, setError] = useState(null);
@@ -82,7 +85,12 @@ export function useLevels(input) {
             ["_size", "25"]
         ];
 
-        const params = [...searchParams, ...fixedParams, ...otherSearchParam];
+        // "next" param, if it exists.
+        const nextParams = next
+            ? [["_next", next]] 
+            : [];
+
+        const params = [...searchParams, ...fixedParams, ...otherSearchParam, ...nextParams];
 
         // build a URLSearchParams object out of it.
         // we're doing it like this because of the multiple "_json" arguments, so
@@ -120,7 +128,7 @@ export function useLevels(input) {
                 setError(err);
             })
 
-    }, [input.params, input.q]);
+    }, [input.params, input.q, next]);
 
     useEffect(() => {
         E.on("startNewSearch", update);

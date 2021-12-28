@@ -6,7 +6,8 @@ import cc from "clsx";
 import { SearchContext } from "..";
 
 import "./Levels.css";
-import { useContext, useEffect } from "preact/hooks";
+import { useState, useContext, useEffect } from "preact/hooks";
+
 
 /**
  * @typedef LevelsProps
@@ -15,22 +16,23 @@ import { useContext, useEffect } from "preact/hooks";
 
 /** @param {LevelsProps} */
 export function Levels({"class": _class}) {
+    const [next, setNext] = useState("");
+
     const [value, setValue] = useContext(SearchContext);
 
-    const {state, result, error} = useLevels(value);
+    const {state, result, error} = useLevels(value, next);
 
     const E = useMitt();
-    
-    useEffect(() => {
-        E.on("yo", () => console.log("yoyoyo"));
-        return () => {
-            E.off("yo");
-        }
-    });
 
     useEffect(() => {
         console.log(value);
-    }, [value])
+    }, [value]);
+
+    useEffect(() => {
+        if (next) {
+            E.emit("startNewSearch");
+        }
+    }, [next]);
 
     return (
         <main class={cc(_class, "le")}>
@@ -50,6 +52,19 @@ export function Levels({"class": _class}) {
                                     <LevelBox class="le_levelbox" level={level} />
                                 </li>
                             ))
+                        }
+                        {
+                            result.next && (
+                                <li class="le_next">
+                                    <button
+                                        onClick={() => {
+                                            setNext(result.next);
+                                        }}
+                                    >
+                                        Next page
+                                    </button>
+                                </li>
+                            )
                         }
                     </ul>
                 )
