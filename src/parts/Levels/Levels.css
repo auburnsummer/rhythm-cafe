@@ -12,3 +12,18 @@
 .le_levelbox {
     height: 100%;
 }
+
+.le_next {
+    background-color: rgba(240, 230, 230, 0.3);
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    color: var(--blueGray-800);
+}
+
+.le_next:hover {
+    background-color: rgba(240, 230, 230, 0.4);
+    cursor: pointer;
+    color: var(--blueGray-900);
+}

@@ -6,7 +6,7 @@ import cc from "clsx";
 import { SearchContext } from "..";
 
 import "./Levels.css";
-import { useState, useContext, useEffect } from "preact/hooks";
+import { useState, useContext, useEffect, useCallback } from "preact/hooks";
 
 
 /**
@@ -55,8 +55,9 @@ export function Levels({"class": _class}) {
                         }
                         {
                             result.next && (
-                                <li class="le_next">
+                                <li class="le_item">
                                     <button
+                                        class="le_next"
                                         onClick={() => {
                                             setNext(result.next);
                                         }}
