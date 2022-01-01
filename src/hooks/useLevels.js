@@ -61,8 +61,6 @@ export function useLevels(input, next) {
     const E = useMitt();
 
     const update = useCallback(() => {
-
-        console.log(next);
         setState('Loading');
 
         // first item is the key, second is the value.

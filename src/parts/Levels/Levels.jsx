@@ -53,6 +53,7 @@ export function Levels({"class": _class}) {
                             previousNextTokens.length > 0 && (
                                 <li class="le_item">
                                     <button
+                                        class="le_perv"
                                         onClick={popNext}
                                     >
                                         prev page
