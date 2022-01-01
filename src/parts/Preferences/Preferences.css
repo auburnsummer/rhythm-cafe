@@ -1,0 +1,25 @@
+.pr {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+}
+
+.pr_button {
+    font-size: 1.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    color: var(--violet-500);
+}
+
+.pr_button:hover {
+    background-color: var(--violet-400);
+    color: var(--violet-800);
+    cursor: pointer;
+}
+
+.pr_panel {
+    position: absolute;
+    top: 0;
+    margin-top: 3rem;
+    right: 0;
+}

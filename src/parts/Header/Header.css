@@ -24,35 +24,7 @@
 .he_temp {
 	margin-left: 5rem;
 }
-/* 
-.he_announcements {
-	flex-grow: 1;
-	display: flex;
-	align-items: center;
-	margin-left: 1.5rem;
-	flex-wrap: nowrap;
-	font-size: 0.75rem;
-	overflow-x: scroll;
-	color: var(--violet-900);
-}
 
-.he_announcements li {
-	flex-shrink: 0;
+.he_preferences {
+	height: 100%;
 }
-
-.he_announcements li ~ li {
-	margin-left: 1rem;
-}
-
-.he_announcements a {
-	color: var(--violet-600);
-}
-
-.he_announcements a:hover {
-	color: var(--violet-400);
-	text-decoration: underline;
-}
-
-.he_searchbar {
-	flex-grow: 1;
-} */

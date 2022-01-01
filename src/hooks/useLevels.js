@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from "preact/hooks";
 import { useMitt } from "./useMitt";
 import axios from "redaxios";
 import { useMittEvent } from "./useMittEvent";
-import { usePrevious } from "./usePrevious";
 
 /**
  * @typedef Level
