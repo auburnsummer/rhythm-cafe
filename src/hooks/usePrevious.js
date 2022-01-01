@@ -1,14 +1,34 @@
-import { useEffect } from "preact/hooks";
+import { useState } from "preact/hooks";
 
+export function usePrevious(initialValue) {
+    const [previousValues, setPreviousValues] = useState([]);
+    const [currentValue, setCurrentValue] = useState(initialValue);
 
-export function usePrevious(value) {
-    const [prevs, setPrevs] = useState([]);
+    const set = value => {
+        setPreviousValues(prev => [...prev, currentValue]);
+        setCurrentValue(value); 
+    }
 
-    useEffect(() => {
-        setPrevs(prev => [...prev, value]);
-    }, [value]);
+    const pop = () => {
+        setCurrentValue(previousValues.at(-1));
+        setPreviousValues(prev => prev.slice(0, -1));
+    }
 
-    const clear = () => setPrevs([]);
+    const clear = () => {
+        setPreviousValues([]);
+    }
 
-    return [prevs, clear];
-}
+    return [currentValue, previousValues, set, pop, clear];
+
+    // // The ref object is a generic container whose current property is mutable ...
+    // // ... and can hold any value, similar to an instance property on a class
+    // const ref = useRef();
+  
+    // // Store current value in ref
+    // useEffect(() => {
+    //   ref.current = value;
+    // }, [value]); // Only re-run if value changes
+  
+    // // Return previous value (happens before update in useEffect above)
+    // return ref.current;
+  }

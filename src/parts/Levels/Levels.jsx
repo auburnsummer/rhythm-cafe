@@ -7,6 +7,9 @@ import { SearchContext } from "..";
 
 import "./Levels.css";
 import { useState, useContext, useEffect, useCallback } from "preact/hooks";
+import { useLog } from "../../hooks/useLog";
+import { usePrevious} from "../../hooks/usePrevious";
+import { useNonInitialEffect } from "../../hooks/useNonInitialEffect";
 
 
 /**
@@ -16,7 +19,10 @@ import { useState, useContext, useEffect, useCallback } from "preact/hooks";
 
 /** @param {LevelsProps} */
 export function Levels({"class": _class}) {
-    const [next, setNext] = useState("");
+
+    const [next, previousNextTokens, setNext, popNext, clearPreviousTokens] = usePrevious("");
+
+    // const [next, setNext] = useState("");
 
     const [value, setValue] = useContext(SearchContext);
 
@@ -24,14 +30,11 @@ export function Levels({"class": _class}) {
 
     const E = useMitt();
 
-    useEffect(() => {
-        console.log(value);
-    }, [value]);
+    useLog(value);
 
-    useEffect(() => {
-        if (next) {
-            E.emit("startNewSearch");
-        }
+    // if "next" changes (they clicked the next page button), start a new search.
+    useNonInitialEffect(() => {
+        E.emit("startNewSearch");
     }, [next]);
 
     return (
@@ -46,6 +49,17 @@ export function Levels({"class": _class}) {
             {
                 state === "Loaded" && (
                     <ul class="le_list">
+                        {
+                            previousNextTokens.length > 0 && (
+                                <li class="le_item">
+                                    <button
+                                        onClick={popNext}
+                                    >
+                                        prev page
+                                    </button>
+                                </li>
+                            )
+                        }
                         {
                             result.levels.map(level => (
                                 <li class="le_item">

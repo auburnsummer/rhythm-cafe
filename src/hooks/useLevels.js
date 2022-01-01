@@ -60,9 +60,9 @@ export function useLevels(input, next) {
 
     const E = useMitt();
 
-    const [prevNextTokens, clearNextTokens] = usePrevious(next);
-
     const update = useCallback(() => {
+
+        console.log(next);
         setState('Loading');
 
         // first item is the key, second is the value.
