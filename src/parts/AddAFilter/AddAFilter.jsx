@@ -3,6 +3,7 @@ import { useContext } from "preact/hooks";
 import { SearchContext } from "..";
 import { Menu } from "@headlessui/react";
 import cc from "clsx";
+import { usePreference } from "../../hooks/usePreference";
 
 /**
  * @typedef AddAFilterProps
@@ -11,6 +12,8 @@ import cc from "clsx";
 
 export function AddAFilter({"class": _class}) {
     const [ , dispatch] = useContext(SearchContext);
+
+    const [showAdvancedFilters] = usePreference("showAdvancedFilters");
 
     const add = value => dispatch({type: "add", value});
 
@@ -41,11 +44,13 @@ export function AddAFilter({"class": _class}) {
             label: "By author…",
             f: () => add({type: "arraycontains", param: "authors", value: ""})
         },
-        {
-            label: "Approval level...",
-            f: () => add({type: "gte", param: "approval", value: 10})
-        }
-    ]
+        ...showAdvancedFilters
+            ? [{
+                label: "Approval level...",
+                f: () => add({type: "gte", param: "approval", value: 10})
+            }]
+            : []
+    ];
 
     return (
         <Menu as="div" className={cc("af", _class)}>

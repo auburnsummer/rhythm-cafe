@@ -5,6 +5,7 @@ import { SearchToken } from "..";
 import { SearchContext } from "..";
 import { AddAFilter } from "../AddAFilter/AddAFilter";
 import "./Search.css";
+import { usePreference } from "../../hooks/usePreference";
 
 /**
  * @callback SearchTokenFunc
@@ -140,6 +141,8 @@ const TOKEN_PARAMS = {
 export function Search({"class": _class}) {
     const [search, dispatch] = useContext(SearchContext);
 
+    const [showAdvancedFilters] = usePreference("showAdvancedFilters");
+
     const E = useMitt();
 
     /** @param {KeyboardEvent} evt */
@@ -149,11 +152,16 @@ export function Search({"class": _class}) {
         }
     }
 
+    const paramFilter = 
+        showAdvancedFilters
+            ? _ => true
+            : p => !["approval"].includes(p.param) 
+
     return (
         <div class={cc(_class, "se")}>
             <div class="se_bar">
                 {
-                    search.params.map(p => (
+                    search.params.filter(paramFilter).map(p => (
                         <SearchToken class="se_token" {...TOKEN_PARAMS['default'](p, dispatch)} {...TOKEN_PARAMS[p.param](p, dispatch)} />
                     ))
                 }

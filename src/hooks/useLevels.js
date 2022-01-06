@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "preact/hooks";
 import { useMitt } from "./useMitt";
 import axios from "redaxios";
 import { useMittEvent } from "./useMittEvent";
+import { usePreference } from "./usePreference";
 
 /**
  * @typedef Level
@@ -57,6 +58,8 @@ export function useLevels(input, next) {
     const [result, setResult] = useState(initialValue);
     const [error, setError] = useState(null);
 
+    const [levelsPerPage] = usePreference("levelsPerPage");
+
     const E = useMitt();
 
     const update = useCallback(() => {
@@ -83,7 +86,7 @@ export function useLevels(input, next) {
             ["_json", "tags"],
             ["_json", "authors"],
             ["_ttl", "3600"], // 1 hour
-            ["_size", "25"]
+            ["_size", levelsPerPage]
         ];
 
         // "next" param, if it exists.
@@ -129,7 +132,7 @@ export function useLevels(input, next) {
                 setError(err);
             })
 
-    }, [input.params, input.q, next]);
+    }, [input.params, input.q, next, levelsPerPage]);
 
     useMittEvent("startNewSearch", update, []);
 

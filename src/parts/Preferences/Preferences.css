@@ -20,6 +20,43 @@
 .pr_panel {
     position: absolute;
     top: 0;
-    margin-top: 3rem;
+    margin-top: 2.75rem;
     right: 0;
+    z-index: 30;
+    width: 24rem;
+    background-color: var(--violet-300);
+    padding: 1rem;
+}
+
+.pr_list {
+    display: flex;
+    flex-direction: column;
+}
+
+.pr_row {
+    display: flex;
+    flex-direction: row;
+}
+
+.pr_row ~ .pr_row {
+    margin-top: 1rem;
+}
+
+.pr_textline {
+    margin-left: 1rem;
+}
+
+.pr_selectbox {
+    display: inline-flex;
+    background-color: var(--violet-100);
+    padding-left: 0.125rem;
+    padding-right: 0.25rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.pr_selectbox > i {
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
 }

@@ -1,9 +1,11 @@
 import { Header, Levels, SearchContextFactory } from "./parts";
 import "./App.css";
 import { MittContextFactory } from "./parts/MittContext/MittContextFactory";
+import { PreferenceContextFactory } from "./parts/PreferenceContext/PreferenceContextFactory";
 
 export function App() {
     return (
+        <PreferenceContextFactory>
         <MittContextFactory>
         <SearchContextFactory>
             <div class="ap">
@@ -12,5 +14,6 @@ export function App() {
             </div>
         </SearchContextFactory>
         </MittContextFactory>
+        </PreferenceContextFactory>
     )
 }
