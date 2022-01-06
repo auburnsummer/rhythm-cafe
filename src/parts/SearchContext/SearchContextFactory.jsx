@@ -95,7 +95,7 @@ export function SearchContextFactory({children}) {
                 });
             }
             if (action.type === 'remove') {
-                params.filter(({id}) => id !== action.id)
+                return params.filter(({id}) => id !== action.id)
             }
             if (action.type === 'add') {
                 return [
