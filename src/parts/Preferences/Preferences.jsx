@@ -3,8 +3,6 @@ import "./Preferences.css";
 import cc from "clsx";
 import { Menu, Popover } from "@headlessui/react";
 import { usePreference } from "../../hooks/usePreference";
-import { useContext } from "preact/hooks";
-import { PreferenceContext } from "../PreferenceContext/PreferenceContext";
 
 function PreferenceSelect({children, ...props}) {
     return (
@@ -21,6 +19,7 @@ export function Preferences({"class": _class}) {
 
     const [levelsPerPage, setLevelsPerPage] = usePreference("levelsPerPage");
     const [showAdvancedFilters, setShowAdvancedFilters] = usePreference("showAdvancedFilters");
+    const [showMoreLevelDetails, setShowMoreLevelDetails] = usePreference("showMoreLevelDetails");
 
     return (
         <Popover class={cc(_class, "pr")}>
@@ -51,6 +50,16 @@ export function Preferences({"class": _class}) {
                                 <option value="vtrue">Show</option>
                             </PreferenceSelect>
                             <span>advanced filters</span>
+                        </div>
+                    </li>
+                    <li class="pr_row">
+                        <i class="fad fa-prescription-bottle-alt"></i>
+                        <div class="pr_textline">
+                            <PreferenceSelect value={showMoreLevelDetails ? "vtrue" : "vfalse"} onChange={evt => setShowMoreLevelDetails(evt.target.value === "vtrue")}>
+                                <option value="vfalse">Hide</option>
+                                <option value="vtrue">Show</option>
+                            </PreferenceSelect>
+                            <span>level ids</span>
                         </div>
                     </li>
                 </ul>

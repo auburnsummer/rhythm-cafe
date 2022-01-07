@@ -42,6 +42,10 @@
     margin-top: 1rem;
 }
 
+.pr_row > i {
+    width: 1rem;
+}
+
 .pr_textline {
     margin-left: 1rem;
 }

@@ -5,6 +5,7 @@ import { ConjunctionList, SearchContext } from '..';
 import { DifficultyDecorator } from '../DifficultyDecorator/DifficultyDecorator';
 
 import "./LevelBox.css";
+import { usePreference } from '../../hooks/usePreference';
 
 /**
  * @typedef {import("../../hooks/useLevels").Level} Level
@@ -40,7 +41,9 @@ const formatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction
 export function LevelBox({level, "class": _class}) {
     const [, dispatch] = useContext(SearchContext);
 
-    const {song, artist, authors, tags, thumb, min_bpm, max_bpm, source_id, seizure_warning, approval} = level;
+    const [showMoreLevelDetails] = usePreference("showMoreLevelDetails");
+
+    const {id, song, artist, authors, tags, thumb, min_bpm, max_bpm, source_id, seizure_warning, approval} = level;
 
     const canonicalUrl = level.url || level.url2;
 
@@ -157,6 +160,12 @@ export function LevelBox({level, "class": _class}) {
                         ))
                     }
                 </ul>
+
+                {
+                    showMoreLevelDetails && (
+                        <span class="lb_id">{id}</span>
+                    )
+                }
             </div>
         </article>
     )

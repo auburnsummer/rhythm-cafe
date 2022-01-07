@@ -8,7 +8,8 @@ export function PreferenceContextFactory({children}) {
 
     const defaultValues = {
         "levelsPerPage": 25,
-        "showAdvancedFilters": false
+        "showAdvancedFilters": false,
+        "showMoreLevelDetails": false
     }
 
     const [prefs, setPrefs] = useState(() => {
