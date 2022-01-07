@@ -48,15 +48,26 @@
 
 .pr_selectbox {
     display: inline-flex;
+    position: relative;
     background-color: var(--violet-100);
     padding-left: 0.125rem;
-    padding-right: 0.25rem;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
     border-radius: 0.25rem;
 }
 
+.pr_selectbox:first-child {
+    margin-left: 0;
+}
+
+.pr_select {
+    padding-right: 1rem;
+}
+
 .pr_selectbox > i {
+    position: absolute;
+    right: 0.25rem;
     margin-left: 0.25rem;
     font-size: 0.75rem;
+    pointer-events: none;
 }
