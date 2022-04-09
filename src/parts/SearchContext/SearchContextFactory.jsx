@@ -13,21 +13,9 @@ const initialState = {
     params: [
         {
             id: nanoid(),
-            type: "exact",
-            param: "difficulty",
-            value: 2
-        },
-        {
-            id: nanoid(),
             type: "gte",
             param: "approval",
             value: 10
-        },
-        {
-            id: nanoid(),
-            type: "exact",
-            param: "single_player",
-            value: 1
         }
     ],
     q: ""
