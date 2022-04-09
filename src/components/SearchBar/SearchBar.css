@@ -1,0 +1,18 @@
+.se {
+    display: flex;
+}
+
+.se_bar {
+    flex-grow: 1;
+    display: flex;
+    align-items: stretch;
+    background-color: var(--violet-100);
+    color: var(--violet-900);
+    border-radius: 0.5rem;
+}
+
+.se_input {
+    margin-left: 0.5rem;
+    flex-grow: 1;
+    font-size: 0.875rem;
+}

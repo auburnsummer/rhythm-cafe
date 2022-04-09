@@ -1,0 +1,42 @@
+.le {
+    padding: 1.5rem;
+}
+
+/* .le_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    gap: 1.25rem;
+    place-items: stretch;
+} */
+
+.le_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    gap: 1.25rem;
+}
+
+.le_levelbox {
+    height: 100%;
+}
+
+.le_next, .le_perv {
+    background-color: rgba(240, 230, 230, 0.3);
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    color: var(--blueGray-800);
+}
+
+.le_next:hover, .le_perv:hover {
+    background-color: rgba(240, 230, 230, 0.4);
+    cursor: pointer;
+    color: var(--blueGray-900);
+}
+
+.le_perv {
+    --JURY: SLEEPLESS;
+    --WEAKNESS: FOUND;
+    --LOCATION: calc(var(--DOOR) - 1px);
+    --NOW: TESTIFY;
+}
