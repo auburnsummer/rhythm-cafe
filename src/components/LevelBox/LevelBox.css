@@ -118,29 +118,26 @@
 }
 
 /*
-time for the BENFACE MANEUVER!!!!
+The Benface maneuver is no longer required as there is now the column-gap and row-gap
+properties for Flexbox
 
-named after the Patron Saint of CSS, benface
+Benface is still the Patron Saint of CSS though
 */
-
-/* .lb_metadata-wrapper {
-    display: flow-root; 
-} */
-
-/* the Benface Maneuver involves first putting negative margin on this element... */
-/* .lb_metadata {
-    display: flex;
-    align-items: center;
+.lb_metadata {
     margin-top: 0.25rem;
+    display: flex;
     flex-wrap: wrap;
-    margin-left: calc(1.25rem / 2 * -1);
-} */
+    column-gap: 1.25rem;
+    row-gap: 0rem;
+}
 
-/* ...and all the children get a positive margin to "cancel it out". */
-/* this way, any child that's visually "next" to the parent won't have a margin, but elements that are "next" to
-a sibling of the parent will. */
-/* .lb_metaitem {
-    margin-left: calc(1.25rem / 2);
+.lb_metaitem {
+    display: flex;
+}
+
+.lb_metaicon {
+    width: 1rem;
+    height: 1rem;
 }
 
 .lb_authors, .lb_bpm, .lb_source {
@@ -149,6 +146,10 @@ a sibling of the parent will. */
     font-size: 0.75rem;
     line-height: 1.125rem;
     max-width: 100%;
+}
+
+.lb_author-list, .lb_bpm-text, .lb_source-button {
+    margin-left: 0.25rem;
 }
 
 .lb_author-list, .lb_bpm-text, .lb_source-button {
@@ -174,27 +175,16 @@ a sibling of the parent will. */
     color: var(--rose-600);
 }
 
-.umm\!lb_approval {
-    display: none;
-}
-
-.lb_spacer {
-    flex-grow: 1;
-} */
-
-/* another benface maneuver. this time without flow-root wrapper because i'm a daredevil */
-/* .lb_tags {
+.lb_tags {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-left: -0.25rem;
-    margin-top: -0.25rem;
+    column-gap: 0.25rem;
+    row-gap: 0.25rem;
     padding-top: 0.75rem;
 }
 
 .lb_tag {
-    margin-left: 0.25rem;
-    margin-top: 0.25rem;
     font-size: 0.75rem;
     line-height: 1rem;
     background-color: var(--blueGray-200);
@@ -204,6 +194,8 @@ a sibling of the parent will. */
     padding-top: 0.125rem;
     padding-bottom: 0.125rem;
     border-radius: 9999px;
+    display: flex;
+    align-items: center;
 }
 
 .lb_tag:enabled:hover {
@@ -217,14 +209,10 @@ a sibling of the parent will. */
     color: var(--amber-600);
 }
 
+.caution\!lb_tag > .lb_metaicon {
+    color: var(--amber-500);
+}
+
 .caution\!lb_tag span {
     margin-left: 0.25rem;
-} */
-
-.lb_id {
-    position: absolute;
-    bottom: 0;
-    right: 0.25rem;
-    font-size: 0.65rem;
-    color: var(--blueGray-300);
 }

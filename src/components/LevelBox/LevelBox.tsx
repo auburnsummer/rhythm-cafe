@@ -6,7 +6,8 @@ import { DifficultyDecorator } from '@orchard/components/DifficultyDecorator';
 
 import "./LevelBox.css";
 import { Level, WithClass } from '@orchard/types';
-import { ClipboardCopy, Download } from '@orchard/icons';
+import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
+import { Discord } from '@orchard/icons/Discord';
 
 
 function DescriptionText({description}: Pick<Level, "description">) {
@@ -33,16 +34,9 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
 
     const bpmText = min_bpm === max_bpm ? `${min_bpm} BPM` : `${min_bpm}-${max_bpm} BPM`;
 
-    const [sourceIcon, sourceText] = useMemo(() => {
-        if (source === 'rdl' || source === 'yeoldesheet') {
-            return ['fab fa-discord', 'Rhythm Doctor Lounge']
-        }
-        if (source === 'workshop') {
-            return ['fab fa-steam', 'Steam Workshop']
-        }
-        // default
-        return ["fad fa-cauldron", '???']
-    }, [source]);
+    const sourceText = 'Rhythm Doctor Lounge';
+
+    const UsersIcon = authors.length > 1 ? Users : User;
 
     return (
         <article class={cc(_class, "lb")}>
@@ -51,7 +45,7 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                 <img class="lb_image" src={thumb} />
                 <div class="lb_overlay">
                     <div class="lb_description">
-                        <DescriptionText {...level} />
+                        <DescriptionText description={level.description} />
                     </div>
                     <div class="lb_buttons">
                         <button onClick={() => copy(canonicalUrl)} class="lb_button lb_copy">
@@ -72,7 +66,7 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                 </div>
                 <div class="lb_metadata">
                     <div class="lb_metaitem lb_authors">
-                        <i class="lb_metaicon fad fa-pencil-alt" />
+                        <UsersIcon class="lb_metaicon" />
                         <ConjunctionList
                             class="lb_author-list"
                             elementRender={(v) => 
@@ -88,11 +82,11 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                         </ConjunctionList>
                     </div>
                     <div class="lb_metaitem lb_bpm">
-                        <i class="lb_metaicon fad fa-heartbeat fa-swap-opacity" />
+                        <HeartPulse class="lb_metaicon" />
                         <span class="lb_metatext lb_bpm-text">{bpmText}</span>
                     </div>
                     <div class="lb_metaitem lb_source">
-                        <i class={cc("lb_metaicon", sourceIcon)} />
+                        <Discord class="lb_metaicon" />
                         <button class="lb_metabutton lb_source-button">{sourceText}</button>
                     </div>
                     <div
@@ -106,10 +100,10 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                     >
                         {
                             approval >= 10 ? (
-                                <i class="fas fa-check" title={"OK!"} />
-                            ) : (
-                                <i class="fas fa-times" title={"Nope!"} />
-                            )
+                                <BadgeCheck class="lb_metaicon" title={"yup"} />
+                            ) : approval < 0 ? (
+                                <XIcon class="lb_metaicon" title={"Nope!"} />
+                            ) : null
                         }
                     </div>
                 </div>
@@ -121,7 +115,7 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                         seizure_warning && (
                             <li>
                                 <button class="caution!lb_tag lb_tag" disabled>
-                                    <i class="fad fa-exclamation-triangle" />
+                                    <Exclamation class="lb_metaicon" />
                                     <span title="ayaya seizure warning">Seizure warning</span>
                                 </button>
                             </li>

@@ -16,7 +16,7 @@ export default defineConfig(({command, mode}) => {
 
             }
             : {
-                "preact/debug": "@orchard/utils/noop"     
+                "preact/debug": path.resolve(__dirname, './src/utils/noop'),     
             },
         "react": "preact/compat",
         "react-dom": "preact/compat",

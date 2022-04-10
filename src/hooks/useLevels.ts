@@ -1,7 +1,7 @@
 import { Level, SearchParams, SearchResponse } from "@orchard/types";
 import { TYPESENSE_API_KEY, TYPESENSE_URL } from "@orchard/utils/constants";
 import Axios, { Response } from "redaxios";
-import useSWR, { Fetcher } from "swr";
+import useSWR from "swr";
 import usePrevious from "./usePrevious";
 
 // const fetcher: Fetcher<Response<SearchResponse<Level>>, SearchParams> = params => {
