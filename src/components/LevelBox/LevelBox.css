@@ -67,11 +67,19 @@
     border-color: white;
     padding: 0.5rem;
     border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .lb_button:hover {
     background-color: var(--violet-400);
     cursor: pointer;
+}
+
+.lb_overlayicon {
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
 .lb_info {
@@ -115,23 +123,23 @@ time for the BENFACE MANEUVER!!!!
 named after the Patron Saint of CSS, benface
 */
 
-.lb_metadata-wrapper {
-    display: flow-root; /* benface recommends this as part of the Manuever, not sure why tbh */
-}
+/* .lb_metadata-wrapper {
+    display: flow-root; 
+} */
 
 /* the Benface Maneuver involves first putting negative margin on this element... */
-.lb_metadata {
+/* .lb_metadata {
     display: flex;
     align-items: center;
     margin-top: 0.25rem;
     flex-wrap: wrap;
     margin-left: calc(1.25rem / 2 * -1);
-}
+} */
 
 /* ...and all the children get a positive margin to "cancel it out". */
 /* this way, any child that's visually "next" to the parent won't have a margin, but elements that are "next" to
 a sibling of the parent will. */
-.lb_metaitem {
+/* .lb_metaitem {
     margin-left: calc(1.25rem / 2);
 }
 
@@ -172,10 +180,10 @@ a sibling of the parent will. */
 
 .lb_spacer {
     flex-grow: 1;
-}
+} */
 
 /* another benface maneuver. this time without flow-root wrapper because i'm a daredevil */
-.lb_tags {
+/* .lb_tags {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -211,7 +219,7 @@ a sibling of the parent will. */
 
 .caution\!lb_tag span {
     margin-left: 0.25rem;
-}
+} */
 
 .lb_id {
     position: absolute;

@@ -6,6 +6,7 @@ import { DifficultyDecorator } from '@orchard/components/DifficultyDecorator';
 
 import "./LevelBox.css";
 import { Level, WithClass } from '@orchard/types';
+import { ClipboardCopy, Download } from '@orchard/icons';
 
 
 function DescriptionText({description}: Pick<Level, "description">) {
@@ -54,10 +55,10 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                     </div>
                     <div class="lb_buttons">
                         <button onClick={() => copy(canonicalUrl)} class="lb_button lb_copy">
-                            <i class="fas fa-copy"></i>
+                            <ClipboardCopy class="lb_overlayicon" />
                         </button>
                         <a href={canonicalUrl} class="lb_button lb_download">
-                            <i class="fas fa-download"></i>
+                            <Download class="lb_overlayicon" />
                         </a>
                     </div>
                 </div>
@@ -69,49 +70,47 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                     <h1 class="lb_song">{song}</h1>
                     <h2 class="lb_artist">{artist}</h2>
                 </div>
-                <div class="lb_metadata-wrapper">
-                    <div class="lb_metadata">
-                        <div class="lb_metaitem lb_authors">
-                            <i class="lb_metaicon fad fa-pencil-alt" />
-                            <ConjunctionList
-                                class="lb_author-list"
-                                elementRender={(v) => 
-                                    <button
-                                        class="lb_metabutton"
-                                    >
-                                        {v}
-                                    </button>
-                                }
-                                literalRender={(v) => <span class="lb_metatext">{v}</span>}
-                            >
-                                {authors}
-                            </ConjunctionList>
-                        </div>
-                        <div class="lb_metaitem lb_bpm">
-                            <i class="lb_metaicon fad fa-heartbeat fa-swap-opacity" />
-                            <span class="lb_metatext lb_bpm-text">{bpmText}</span>
-                        </div>
-                        <div class="lb_metaitem lb_source">
-                            <i class={cc("lb_metaicon", sourceIcon)} />
-                            <button class="lb_metabutton lb_source-button">{sourceText}</button>
-                        </div>
-                        <div
-                            class={cc(
-                                "lb_metaitem lb_approval",
-                                { "yay!lb_approval" : approval >= 10,
-                                  "nope!lb_approval" : approval < 0,
-                                  "umm!lb_approval" : approval === 0
-                                }
-                            )}
-                        >
-                            {
-                                approval >= 10 ? (
-                                    <i class="fas fa-check" title={"OK!"} />
-                                ) : (
-                                    <i class="fas fa-times" title={"Nope!"} />
-                                )
+                <div class="lb_metadata">
+                    <div class="lb_metaitem lb_authors">
+                        <i class="lb_metaicon fad fa-pencil-alt" />
+                        <ConjunctionList
+                            class="lb_author-list"
+                            elementRender={(v) => 
+                                <button
+                                    class="lb_metabutton"
+                                >
+                                    {v}
+                                </button>
                             }
-                        </div>
+                            literalRender={(v) => <span class="lb_metatext">{v}</span>}
+                        >
+                            {authors}
+                        </ConjunctionList>
+                    </div>
+                    <div class="lb_metaitem lb_bpm">
+                        <i class="lb_metaicon fad fa-heartbeat fa-swap-opacity" />
+                        <span class="lb_metatext lb_bpm-text">{bpmText}</span>
+                    </div>
+                    <div class="lb_metaitem lb_source">
+                        <i class={cc("lb_metaicon", sourceIcon)} />
+                        <button class="lb_metabutton lb_source-button">{sourceText}</button>
+                    </div>
+                    <div
+                        class={cc(
+                            "lb_metaitem lb_approval",
+                            { "yay!lb_approval" : approval >= 10,
+                                "nope!lb_approval" : approval < 0,
+                                "umm!lb_approval" : approval === 0
+                            }
+                        )}
+                    >
+                        {
+                            approval >= 10 ? (
+                                <i class="fas fa-check" title={"OK!"} />
+                            ) : (
+                                <i class="fas fa-times" title={"Nope!"} />
+                            )
+                        }
                     </div>
                 </div>
                 <div class="lb_spacer">

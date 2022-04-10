@@ -12,8 +12,6 @@ import { useStore } from "@orchard/hooks/useStore";
 
 type LevelsProps = {} & WithClass;
 
-const MemoLevelBox = memo(LevelBox, (prev, next) => prev.level.id === next.level.id);
-
 export function Levels({"class": _class}: LevelsProps) {
     const q = useStore(state => state.q);
     const { data: resp, error, isLagging, resetPreviousData } = useLevels(
@@ -40,7 +38,7 @@ export function Levels({"class": _class}: LevelsProps) {
                         <ul class="le_list">
                             {resp.data.hits && resp.data.hits.map(({document}) => (
                                 <li key={document.id}>
-                                    <MemoLevelBox level={document} key={document.id} />
+                                    <LevelBox level={document} key={document.id} />
                                 </li>
                             ))}
                         </ul>
