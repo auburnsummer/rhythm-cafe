@@ -36,7 +36,7 @@ export function Levels({"class": _class}: LevelsProps) {
             }
             {
                 resp && (
-                    <div class="le_loaded">
+                    <div class={cc("le_loaded", {"laggy!le_loaded": isLagging})}>
                         <ul class="le_list">
                             {resp.data.hits && resp.data.hits.map(({document}) => (
                                 <li key={document.id}>

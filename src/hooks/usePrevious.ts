@@ -1,18 +1,19 @@
-// https://github.com/streamich/react-use/blob/master/src/usePrevious.ts
-import { useCallback, useEffect, useRef } from 'preact/hooks';
+import { useCallback, useEffect, useState } from 'preact/hooks';
 
 export default function usePrevious<T>(state: T): [T | undefined, () => void] {
-  const ref = useRef<T>();
+    const [h, setH] = useState<(T | undefined)[]>([]);
 
-  useEffect(() => {
-    if (state !== undefined) {
-        ref.current = state;
-    }
-  });
+    useEffect(() => {
+        if (state !== undefined) {
+            setH(prev => [prev.length ? prev.at(-1) : state, state]);
+        }
+    }, [state]);
 
-  const reset = useCallback(() => {
-    ref.current = undefined;
-  }, []);
+    const reset = useCallback(() => {
+        setH(_ => []);
+    }, []);
 
-  return [ref.current, reset];
+    const prev = h.length > 1 ? h.at(-2) : undefined;
+
+    return [prev, reset];
 }
