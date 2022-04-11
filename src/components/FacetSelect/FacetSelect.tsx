@@ -20,15 +20,20 @@ export function FacetSelect({"class": _class, name}: FacetSelectProps) {
     const facet = resp?.data.facet_counts?.find(v => v.field_name === name);
     const total = facet?.stats.total_values || 0;
 
-    const selected = useStore(state => state.filters[name]?.values || [])
+    const _selected = useStore(state => state.filters[name]?.values);
+    const selected = _selected || new Set([]);
     const setFilter = useStore(state => state.setFilter);
 
     const toggle = (value: string) => {
-        const currentlySelected = selected.includes(value);
+        const currentlySelected = selected.has(value);
         if (currentlySelected) {
-            setFilter(name, {type: "in", values: selected.filter(s => s !== value)});
+            setFilter(name, d => {
+                d.values.delete(value);
+            });
         } else {
-            setFilter(name, {type: "in", values: [...selected, value]});
+            setFilter(name, d => {
+                d.values.add(value);
+            });
         }
     }
 
@@ -48,7 +53,7 @@ export function FacetSelect({"class": _class, name}: FacetSelectProps) {
                                     <input
                                         class="fs_checkbox"
                                         type="checkbox"
-                                        checked={selected.includes(f.value)}
+                                        checked={selected.has(f.value)}
                                         onClick={() => toggle(f.value)}
                                     />
                                     {f.value}

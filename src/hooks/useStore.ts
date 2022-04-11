@@ -1,9 +1,13 @@
 import { Level } from '@orchard/types';
-import create from 'zustand'
+import create from 'zustand';
+import produce, {enableMapSet} from "immer";
+import { WritableDraft } from 'immer/dist/types/types-external';
+
+enableMapSet();
 
 type Filter = {
     type: 'in',
-    values: (string | number)[]
+    values: Set<string | number>
 };
 
 export type OrchardState = {
@@ -13,24 +17,37 @@ export type OrchardState = {
     filters: {
         [s: string]: Filter | undefined;
     }
-    setFilter: (cat: string, to: Filter) => void;
+    setFilter: (cat: string, d: (d: WritableDraft<Filter>) => void) => void;
 }
 
-export const useStore = create<OrchardState>(set => ({
-    q: "",
-    setQuery: (s: string) => set({q: s}),
-    facetBy: ["authors", "tags", "source", "difficulty"],
-    filters: {
-        difficulty: {type: 'in', values: [0, 2]},
-        authors: {type: 'in', values: ['auburnsummer']}
-    },
-    setFilter: (cat: string, to: Filter) => set(state => {
-        return {
-            ...state,
-            filters: {
-                ...state.filters,
-                [cat]: to
+export const useStore = create<OrchardState>(_set => {
+    const set = (func: (draft: WritableDraft<OrchardState>) => void) => {
+        _set(state => produce(state, func))
+    };
+    return {
+        q: "",
+        setQuery: (s: string) => set(draft => {
+            draft.q = s
+        }),
+        facetBy: ["authors", "tags", "source", "difficulty"],
+        filters: {
+            difficulty: {type: 'in', values: new Set([])},
+            authors: {type: 'in', values: new Set([])},
+            tags: {type: 'in', values: new Set([])}
+        },
+        setFilter: (cat: string, func: (d: WritableDraft<Filter>) => void) => set(draft => {
+            const toChange = draft.filters[cat];
+            if (toChange) {
+                func(toChange);
             }
-        }
-    })
-}));
+        })
+    }
+})
+
+// export const useStore = create<OrchardState>(set => ({
+//     q: "",
+//     setQuery: (s: string) => set(state => {
+//         return produce(state, (draft) => {{
+//             draft.q = s;
+//         }});
+//     }),

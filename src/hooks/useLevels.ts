@@ -14,21 +14,13 @@ function useFilterByString() {
             if (!filter) {
                 return null;
             } 
-            if (filter.type === 'in' && filter.values.length > 0) {
-                return `${key}:=[${filter.values.join(',')}]`;
+            if (filter.type === 'in' && filter.values.size > 0) {
+                return `${key}:=[${Array.from(filter.values).join(',')}]`;
             }
         })
         .filter((s): s is string => typeof s === 'string')
         .join(" && ");
 }
-
-// function useFacetQueryString() {
-//     const facetQuery = useStore(state => state.facetQuery);
-//     return getKeys(facetQuery)
-//         .map(key => {
-
-//         })
-// }
 
 type useLevelsProps = {
     facetQuery?: string;
