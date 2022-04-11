@@ -14,7 +14,7 @@ function useFilterByString() {
             if (!filter) {
                 return null;
             } 
-            if (filter.type === 'in') {
+            if (filter.type === 'in' && filter.values.length > 0) {
                 return `${key}:=[${filter.values.join(',')}]`;
             }
         })

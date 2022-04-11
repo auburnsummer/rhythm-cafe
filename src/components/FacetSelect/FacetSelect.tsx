@@ -23,6 +23,15 @@ export function FacetSelect({"class": _class, name}: FacetSelectProps) {
     const selected = useStore(state => state.filters[name]?.values || [])
     const setFilter = useStore(state => state.setFilter);
 
+    const toggle = (value: string) => {
+        const currentlySelected = selected.includes(value);
+        if (currentlySelected) {
+            setFilter(name, {type: "in", values: selected.filter(s => s !== value)});
+        } else {
+            setFilter(name, {type: "in", values: [...selected, value]});
+        }
+    }
+
     return (
         <div class={cc(_class, "fs")}>
             <div class="fs_depo">
@@ -36,7 +45,12 @@ export function FacetSelect({"class": _class, name}: FacetSelectProps) {
                         return (
                             <li class="fs_item">
                                 <label class="fs_control">
-                                    <input class="fs_checkbox" type="checkbox" checked={selected.includes(f.value)} />
+                                    <input
+                                        class="fs_checkbox"
+                                        type="checkbox"
+                                        checked={selected.includes(f.value)}
+                                        onClick={() => toggle(f.value)}
+                                    />
                                     {f.value}
                                 </label>
                                 <span class="fs_count">({f.count})</span>
