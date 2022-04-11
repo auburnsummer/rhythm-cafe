@@ -88,6 +88,7 @@ export type SearchResponseFacetCountSchema<T> = {
         max?: number;
         min?: number;
         sum?: number;
+        total_values?: number;
     };
 }
 

@@ -13,14 +13,7 @@ import { useStore } from "@orchard/hooks/useStore";
 type LevelsProps = {} & WithClass;
 
 export function Levels({"class": _class}: LevelsProps) {
-    const q = useStore(state => state.q);
-    const { data: resp, error, isLagging, resetPreviousData } = useLevels(
-        {
-            q: q,
-            query_by: "song, authors, artist, description",
-            facet_by: "authors, tags, source"
-        }
-    );
+    const { data: resp, error, isLagging, resetPreviousData } = useLevels();
 
     return (
         <main class={cc(_class, "le")}>

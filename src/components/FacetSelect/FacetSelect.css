@@ -1,0 +1,70 @@
+.fs {
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.fs_name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.fs_total, .fs_count{
+    color: var(--blueGray-500);
+    font-size: 0.875rem;
+    margin-left: 0.125rem;
+}
+
+.fs_input  {
+    background-color: var(--blueGray-50);
+    color: var(--blueGray-800);
+    padding-left: 0.25rem;
+    font-size: 0.875rem;
+    font-style: italic;
+    border-radius: 0.25rem;
+}
+
+.fs_list {
+    margin-top: 0.25rem;
+}
+
+.fs_item {
+    display: flex;
+}
+
+.fs_control {
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;  
+    align-items: center;
+}
+
+.fs_checkbox {
+    width: 1.15rem;
+    height: 1.15rem;
+    background-color: var(--violet-200);
+    font: inherit;
+    color: var(--violet-500);
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.1em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.1em);
+    display: grid;
+    place-content: center;
+}
+
+.fs_checkbox::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--violet-500);
+}
+
+.fs_checkbox:checked::before {
+    transform: scale(1);
+  }
+  
