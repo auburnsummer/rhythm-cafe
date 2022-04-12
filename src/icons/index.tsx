@@ -7,3 +7,4 @@ export * from "./Discord";
 export * from "./XIcon";
 export * from "./BadgeCheck";
 export * from "./Exclamation";
+export * from "./Spinny";

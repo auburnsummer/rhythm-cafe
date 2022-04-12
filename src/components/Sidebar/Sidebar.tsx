@@ -14,11 +14,19 @@ export function Sidebar({"class": _class}: SidebarProps) {
     return (
         <aside class={cc(_class, "sb")}>
             {
-                facets && facets.map(facet => {
-                    return facet && (
-                        <FacetSelect class="sb_facet" name={facet.field_name}/>
-                    )
-                })
+                // facets && facets.map(facet => {
+                //     return facet && (
+                //         <FacetSelect class="sb_facet" name={facet.field_name}/>
+                //     )
+                // })
+                facets && (
+                    <>
+                        <FacetSelect class="sb_facet" facetName="tags" />
+                        <FacetSelect class="sb_facet" facetName="authors" />
+                        <FacetSelect class="sb_facet" facetName="artist" />
+                        <FacetSelect class="sb_facet" facetName="difficulty" />
+                    </>
+                )
             }
         </aside>
     )

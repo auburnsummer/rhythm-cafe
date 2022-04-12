@@ -29,11 +29,12 @@ export const useStore = create<OrchardState>(_set => {
         setQuery: (s: string) => set(draft => {
             draft.q = s
         }),
-        facetBy: ["authors", "tags", "source", "difficulty"],
+        facetBy: ["authors", "tags", "source", "difficulty", "artist"],
         filters: {
             difficulty: {type: 'in', values: new Set([])},
             authors: {type: 'in', values: new Set([])},
-            tags: {type: 'in', values: new Set([])}
+            tags: {type: 'in', values: new Set([])},
+            artist: {type: 'in', values: new Set([])}
         },
         setFilter: (cat: string, func: (d: WritableDraft<Filter>) => void) => set(draft => {
             const toChange = draft.filters[cat];
@@ -41,13 +42,5 @@ export const useStore = create<OrchardState>(_set => {
                 func(toChange);
             }
         })
-    }
-})
-
-// export const useStore = create<OrchardState>(set => ({
-//     q: "",
-//     setQuery: (s: string) => set(state => {
-//         return produce(state, (draft) => {{
-//             draft.q = s;
-//         }});
-//     }),
+    };
+});

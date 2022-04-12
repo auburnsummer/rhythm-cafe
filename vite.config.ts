@@ -36,11 +36,16 @@ export default defineConfig(({command, mode}) => {
 
     const build = {
         cssCodeSplit: false
-    }
+    };
+
+    const server = {
+        port: 3001
+    };
 
     return {
         build,
         plugins,
+        server,
         resolve: {
             alias: aliases
         }
