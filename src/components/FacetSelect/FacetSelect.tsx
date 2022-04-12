@@ -8,8 +8,10 @@ import "./FacetSelect.css";
 
 type FacetSelectProps = {
     facetName: string;
+    showSwitch?: boolean;
 } & WithClass;
-export function FacetSelect({"class": _class, facetName}: FacetSelectProps) {
+
+export function FacetSelect({"class": _class, facetName, showSwitch = true}: FacetSelectProps) {
     const [input, setInput] = useState("")
     const { data: resp, isLagging } = useLevels(
         {
@@ -26,6 +28,7 @@ export function FacetSelect({"class": _class, facetName}: FacetSelectProps) {
     const _selected = useStore(state => state.filters[facetName]?.values);
     const selected = _selected || new Set([]);
     const setFilter = useStore(state => state.setFilter);
+    const filterType = useStore(state => state.filters[facetName]?.type);
 
     const toggle = (value: string) => {
         const currentlySelected = selected.has(value);
@@ -40,6 +43,13 @@ export function FacetSelect({"class": _class, facetName}: FacetSelectProps) {
         }
     };
 
+    const toggleType = () => {
+        const newType = filterType === 'in' ? 'all' : 'in';
+        setFilter(facetName, d => {
+            d.type = newType;
+        });
+    }
+
 
     return (
         <div class={cc(_class, "fs", {"laggy!fs": isLagging})}>
@@ -47,6 +57,19 @@ export function FacetSelect({"class": _class, facetName}: FacetSelectProps) {
                 <span class="fs_name">{facetName}</span>
                 {total > 0 && <span class="fs_total">({total})</span>}
                 {isLagging && <Spinny class="fs_spinny" />}
+                <div class="fs_spacer" />
+                {
+                    filterType && showSwitch && (
+                        <div class="fs_switch">
+                            <button
+                                class="fs_switchbutton"
+                                onClick={toggleType}
+                            >
+                                {filterType === 'in' ? "or" : "and"}
+                            </button>
+                        </div>
+                    )
+                }
             </div>
             <input placeholder="Filter..." class="fs_input" type="text" onInput={evt => setInput(evt.currentTarget.value)}/>
             <ul class="fs_list">

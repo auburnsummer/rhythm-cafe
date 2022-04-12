@@ -9,16 +9,21 @@ import { getKeys } from "@orchard/utils/grabbag";
 function useFilterByString() {
     const filters = useStore(state => state.filters);
     return getKeys(filters)
-        .map(key => {
+        .reduce((prev, key) => {
             const filter = filters[key];
             if (!filter) {
-                return null;
+                return prev;
             } 
             if (filter.type === 'in' && filter.values.size > 0) {
-                return `${key}:=[${Array.from(filter.values).join(',')}]`;
+                const next = `${key}:=[${Array.from(filter.values).join(',')}]`;
+                return [...prev, next];
             }
-        })
-        .filter((s): s is string => typeof s === 'string')
+            if (filter.type === 'all' && filter.values.size > 0) {
+                const nexts = Array.from(filter.values).map(v => `${key}:=${v}`);
+                return [...prev, ...nexts];
+            }
+            return prev;
+        }, [] as string[])
         .join(" && ");
 }
 

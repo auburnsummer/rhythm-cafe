@@ -22,6 +22,30 @@
     margin-left: 0.125rem;
 }
 
+.fs_spacer {
+    flex-grow: 1;
+}
+
+.fs_switch {
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+}
+
+.fs_switchbutton {
+    font-variant: small-caps;
+    font-size: 0.75rem;
+    font-weight: 300;
+    transform: translate(0, -0.125rem);
+    padding-left: 0.125rem;
+    padding-right: 0.125rem;
+    border-radius: 0.25rem;
+}
+
+.fs_switchbutton:hover {
+    cursor: pointer;
+    background-color: var(--blueGray-200);
+}
+
 @keyframes spin {
     from {
       transform: rotate(0deg);
