@@ -24,7 +24,7 @@ export function Sidebar({"class": _class}: SidebarProps) {
                         <FacetSelect class="sb_facet" facetName="tags" />
                         <FacetSelect class="sb_facet" facetName="authors" />
                         <FacetSelect class="sb_facet" facetName="artist" />
-                        <FacetSelect class="sb_facet" facetName="difficulty" showSwitch={false} />
+                        <FacetSelect class="sb_facet" facetName="difficulty" showSwitch={false} showFilter={false} />
                     </>
                 )
             }

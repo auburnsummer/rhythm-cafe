@@ -9,9 +9,10 @@ import "./FacetSelect.css";
 type FacetSelectProps = {
     facetName: string;
     showSwitch?: boolean;
+    showFilter?: boolean;
 } & WithClass;
 
-export function FacetSelect({"class": _class, facetName, showSwitch = true}: FacetSelectProps) {
+export function FacetSelect({"class": _class, facetName, showSwitch = true, showFilter = true}: FacetSelectProps) {
     const [input, setInput] = useState("")
     const { data: resp, isLagging } = useLevels(
         {
@@ -71,7 +72,16 @@ export function FacetSelect({"class": _class, facetName, showSwitch = true}: Fac
                     )
                 }
             </div>
-            <input placeholder="Filter..." class="fs_input" type="text" onInput={evt => setInput(evt.currentTarget.value)}/>
+            {
+                showFilter && (
+                    <input
+                        placeholder="Filter..."
+                        class="fs_input"
+                        type="text"
+                        onInput={evt => setInput(evt.currentTarget.value)}
+                    />
+                )
+            }
             <ul class="fs_list">
                 {
                     facet && facet.counts.map(f => {
