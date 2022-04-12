@@ -1,13 +1,13 @@
 import { useLevels } from "@orchard/hooks/useLevels";
 import { Spinny } from "@orchard/icons";
-import { FacetFilter, OrchardState, useStore } from "@orchard/store";
+import { FacetFilter, FilterMap, useFilter } from "@orchard/store";
 import { KeyOfType, WithClass } from "@orchard/utils/types";
 import cc from "clsx";
 import { useMemo, useState } from "preact/hooks";
 import "./FacetSelect.css";
 
 type FacetSelectProps = {
-    facetName: KeyOfType<OrchardState['filters'], FacetFilter>;
+    facetName: KeyOfType<FilterMap, FacetFilter>;
     humanName: string;
     showSwitch?: boolean;
     showFilter?: boolean;
@@ -30,29 +30,24 @@ export function FacetSelect(
             facetQuery: input ? `${facetName}:${input.trim()}` : undefined
         }
     );
-
     const facet = useMemo(() => {
         return resp?.data.facet_counts?.find(v => v.field_name === facetName);
     }, [resp]);
+
+    const [filter, setFilter] = useFilter(facetName);
+
+    const selected = filter.values || new Set([]);
+    const filterType = filter.type;
     const total = facet?.stats.total_values || 0;
-
-    const filter = useStore(state => state.filters[facetName]);
-
-    const _selected = useMemo(() => {
-        return filter.values;
-    }, [filter]);
-    const selected = _selected || new Set([]);
-    const setFilter = useStore(state => state.setFilter);
-    const filterType = useStore(state => state.filters[facetName]?.type);
 
     const toggle = (value: string) => {
         const currentlySelected = selected.has(value);
         if (currentlySelected) {
-            setFilter(facetName, d => {
+            setFilter(d => {
                 (d as FacetFilter).values.delete(value);
             });
         } else {
-            setFilter(facetName, d => {
+            setFilter(d => {
                 (d as FacetFilter).values.add(value);
             });
         }
@@ -60,11 +55,10 @@ export function FacetSelect(
 
     const toggleType = () => {
         const newType = filterType === 'in' ? 'all' : 'in';
-        setFilter(facetName, d => {
+        setFilter(d => {
             d.type = newType;
         });
     }
-
 
     return (
         <div class={cc(_class, "fs", {"laggy!fs": isLagging})}>

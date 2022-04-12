@@ -37,3 +37,5 @@ export type OrchardState = {
     }
     setFilter: (cat: keyof OrchardState['filters'], d: (d: WritableDraft<Filter>) => void) => void;
 }
+
+export type FilterMap = OrchardState['filters'];

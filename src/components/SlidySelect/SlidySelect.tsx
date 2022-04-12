@@ -4,35 +4,36 @@ import "./SlidySelect.css";
 import cc from "clsx";
 import { useState } from "preact/hooks";
 import { clamp } from "@orchard/utils/grabbag";
-import { OrchardState, RangeFilter, useStore } from "@orchard/store";
+import { FilterMap, RangeFilter, useFilter, useStore } from "@orchard/store";
 
 type SlidySelectProps = {
+    facetName: KeyOfType<FilterMap, RangeFilter>;
     humanName: string;
-    facetName: KeyOfType<OrchardState['filters'], RangeFilter>;
 } & WithClass;
 
 // version 1 of SlidySelect is just two number boxes lol
 // eventually I want to have an actual slidy thing
 export function SlidySelect({"class": _class, facetName, humanName}: SlidySelectProps) {
-    const [active, setActive] = useState(false); // show placeholders at beginning.
+    const [showingPlaceholders, setShowingPlaceholders] = useState(true); // show placeholders at beginning.
     const [min, setMin] = useState(0);
     const [max, setMax] = useState(500);
-    const setFilter = useStore(state => state.setFilter);
 
-    const isActive = useStore(state => state.filters[facetName].active);
+    const [filter, setFilter] = useFilter(facetName);
+
+    const isActive = filter.active;
 
     const onMinInput = (n: number) => {
-        setActive(true);
+        setShowingPlaceholders(false);
         setMin(clamp(n, 0, max));
     }
 
     const onMaxInput = (n: number) => {
-        setActive(true);
+        setShowingPlaceholders(false);
         setMax(clamp(n, min, 500));
     }
 
     const onClick: JSX.MouseEventHandler<HTMLButtonElement> = _ => {
-        setFilter(facetName, draft => {
+        setFilter(draft => {
             if (draft.type != 'range') {
                 return;
             }
@@ -43,7 +44,7 @@ export function SlidySelect({"class": _class, facetName, humanName}: SlidySelect
     };
 
     const clear: JSX.MouseEventHandler<HTMLButtonElement> = _ => {
-        setFilter(facetName, draft => {
+        setFilter(draft => {
             if (draft.type != 'range') {
                 return;
             }
@@ -64,7 +65,7 @@ export function SlidySelect({"class": _class, facetName, humanName}: SlidySelect
                     step={10}
                     min={0}
                     max={max}
-                    value={active ? min : undefined}
+                    value={!showingPlaceholders ? min : undefined}
                     placeholder="0"
                     onInput={evt => onMinInput(parseInt(evt.currentTarget.value))}
                 />
@@ -75,7 +76,7 @@ export function SlidySelect({"class": _class, facetName, humanName}: SlidySelect
                     step={10}
                     min={min}
                     max={500}
-                    value={active ? max : undefined}
+                    value={!showingPlaceholders ? max : undefined}
                     placeholder="500"
                     onInput={evt => onMaxInput(parseInt(evt.currentTarget.value))}
                 />

@@ -1,4 +1,4 @@
-import { useStore } from "@orchard/store";
+import { useQuery } from "@orchard/store";
 import { WithClass } from "@orchard/utils/types";
 import cc from "clsx";
 import "./SearchBar.css";
@@ -6,8 +6,7 @@ import "./SearchBar.css";
 type SearchBarProps = {} & WithClass;
 
 export function SearchBar({"class": _class}: SearchBarProps) {
-    const q = useStore(state => state.q);
-    const setQuery = useStore(state => state.setQuery);
+    const [q, setQuery] = useQuery();
 
     return (
         <div class={cc(_class, "se")}>

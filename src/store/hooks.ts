@@ -1,7 +1,9 @@
 import create from 'zustand';
 import produce, {enableMapSet} from "immer";
 import { WritableDraft } from 'immer/dist/types/types-external';
-import { FacetFilter, RangeFilter, Filter, OrchardState } from './types';
+import { OrchardState, FilterMap } from './types';
+import { tuple } from '@orchard/utils/grabbag';
+import { curry } from 'lodash-es';
 
 enableMapSet();
 
@@ -22,7 +24,7 @@ export const useStore = create<OrchardState>(_set => {
             artist: {type: 'in', active: true, values: new Set([])},
             bpm: {type: 'range', active: false, min: 0, max: 0}
         },
-        setFilter: <T extends keyof OrchardState['filters'],>(cat: T, func: (d: OrchardState['filters'][T]) => void) => set(draft => {
+        setFilter: <T extends keyof FilterMap,>(cat: T, func: (d: FilterMap[T]) => void) => set(draft => {
             const toChange = draft.filters[cat];
             if (toChange) {
                 func(toChange);
@@ -30,3 +32,16 @@ export const useStore = create<OrchardState>(_set => {
         })
     };
 });
+
+export const useQuery = () => {
+    const q = useStore(state => state.q);
+    const setQuery = useStore(state => state.setQuery);
+    return tuple(q, setQuery);
+};
+
+export const useFilter = <T extends keyof FilterMap>(name: T) => {
+    const filter = useStore(state => state.filters[name]);
+    const _setFilter = useStore(state => state.setFilter);
+    const setFilter = curry(_setFilter)(name);
+    return tuple(filter, setFilter);
+}

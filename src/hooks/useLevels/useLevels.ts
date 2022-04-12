@@ -50,7 +50,6 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const q = useStore(state => state.q);
     const facetBy = useStore(state => state.facetBy);
     const filterByString = useFilterByString();
-    // const filters = useStore(state => state.filters);
 
     const processed: SearchParams = {
         q: q.trim(),
