@@ -1,4 +1,4 @@
-import { WithClass } from "@orchard/types";
+import { WithClass } from "@orchard/utils/types";
 import cc from "clsx";
 import { JSX } from "preact";
 import { useMemo } from "preact/hooks";

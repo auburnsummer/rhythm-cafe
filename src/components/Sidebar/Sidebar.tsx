@@ -1,6 +1,6 @@
 import "./Sidebar.css";
 import cc from "clsx";
-import { WithClass } from "@orchard/types";
+import { WithClass } from "@orchard/utils/types";
 import { useLevels } from "@orchard/hooks/useLevels";
 
 import { FacetSelect } from "@orchard/components/FacetSelect";

@@ -1,4 +1,5 @@
-import { Level, WithClass } from "@orchard/types";
+import { WithClass } from "@orchard/utils/types";
+import { Level } from "@orchard/hooks/useLevels/types";
 import cc from "clsx";
 import "./DifficultyDecorator.css";
 

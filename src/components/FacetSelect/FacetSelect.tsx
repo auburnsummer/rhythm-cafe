@@ -1,7 +1,7 @@
 import { useLevels } from "@orchard/hooks/useLevels";
-import { useStore, OrchardState, FacetFilter } from "@orchard/hooks/useStore";
 import { Spinny } from "@orchard/icons";
-import { KeyOfType, WithClass } from "@orchard/types";
+import { FacetFilter, OrchardState, useStore } from "@orchard/store";
+import { KeyOfType, WithClass } from "@orchard/utils/types";
 import cc from "clsx";
 import { useMemo, useState } from "preact/hooks";
 import "./FacetSelect.css";

@@ -1,46 +1,9 @@
 import create from 'zustand';
 import produce, {enableMapSet} from "immer";
 import { WritableDraft } from 'immer/dist/types/types-external';
+import { FacetFilter, RangeFilter, Filter, OrchardState } from './types';
 
 enableMapSet();
-
-type BaseFilter = {
-    type: string;
-    active: boolean;
-}
-
-type InFilter = BaseFilter & {
-    type: 'in',
-    values: Set<string | number>
-};
-
-type AllFilter = BaseFilter & {
-    type: 'all',
-    values: Set<string | number>
-}
-
-export type RangeFilter = BaseFilter & {
-    type: 'range',
-    min: number,
-    max: number
-}
-
-export type FacetFilter = InFilter | AllFilter;
-type Filter = InFilter | AllFilter | RangeFilter;
-
-export type OrchardState = {
-    q: string;
-    setQuery: (to: string) => void;
-    facetBy: string[];
-    filters: {
-        difficulty: FacetFilter,
-        authors: FacetFilter,
-        tags: FacetFilter,
-        artist: FacetFilter,
-        bpm: RangeFilter
-    }
-    setFilter: (cat: keyof OrchardState['filters'], d: (d: WritableDraft<Filter>) => void) => void;
-}
 
 export const useStore = create<OrchardState>(_set => {
     const set = (func: (draft: WritableDraft<OrchardState>) => void) => {

@@ -1,10 +1,10 @@
-import { KeyOfType, WithClass } from "@orchard/types";
+import { KeyOfType, WithClass } from "@orchard/utils/types";
 import "./SlidySelect.css";
 
 import cc from "clsx";
 import { useState } from "preact/hooks";
 import { clamp } from "@orchard/utils/grabbag";
-import { OrchardState, RangeFilter, useStore } from "@orchard/hooks/useStore";
+import { OrchardState, RangeFilter, useStore } from "@orchard/store";
 
 type SlidySelectProps = {
     humanName: string;

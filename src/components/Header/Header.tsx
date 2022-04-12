@@ -1,5 +1,5 @@
 import cc from 'clsx';
-import { WithClass } from '@orchard/types';
+import { WithClass } from '@orchard/utils/types';
 import "./Header.css";
 import { SearchBar } from '@orchard/components/SearchBar';
 

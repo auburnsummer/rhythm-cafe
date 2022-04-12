@@ -1,4 +1,4 @@
-import { WithClass } from "@orchard/types";
+import { WithClass } from "@orchard/utils/types";
 import { useLevels } from "@orchard/hooks/useLevels";
 import cc from "clsx";
 

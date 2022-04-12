@@ -1,11 +1,11 @@
 import cc from 'clsx';
 import copy from 'clipboard-copy';
-import { useMemo } from 'preact/hooks';
 import { ConjunctionList } from "@orchard/components/ConjunctionList";
 import { DifficultyDecorator } from '@orchard/components/DifficultyDecorator';
 
 import "./LevelBox.css";
-import { Level, WithClass } from '@orchard/types';
+import { WithClass } from '@orchard/utils/types';
+import { Level } from '@orchard/hooks/useLevels/types';
 import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
 import { Discord } from '@orchard/icons/Discord';
 

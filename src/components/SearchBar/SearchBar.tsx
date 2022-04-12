@@ -1,5 +1,5 @@
-import { useStore } from "@orchard/hooks/useStore";
-import { WithClass } from "@orchard/types";
+import { useStore } from "@orchard/store";
+import { WithClass } from "@orchard/utils/types";
 import cc from "clsx";
 import "./SearchBar.css";
 

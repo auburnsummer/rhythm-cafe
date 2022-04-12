@@ -1,9 +1,9 @@
-import { Level, SearchParams, SearchResponse } from "@orchard/types";
+import { Level, SearchParams, SearchResponse } from "@orchard/hooks/useLevels/types";
 import { TYPESENSE_API_KEY, TYPESENSE_URL } from "@orchard/utils/constants";
 import Axios, { Response } from "redaxios";
 import useSWR from "swr";
 import usePrevious from "@orchard/hooks/usePrevious";
-import { useStore } from "@orchard/hooks/useStore";
+import { useStore } from "@orchard/store";
 import { getKeys } from "@orchard/utils/grabbag";
 
 function useFilterByString() {

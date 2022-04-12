@@ -1,9 +1,3 @@
-import { ClassValue } from "clsx"
-
-export type WithClass = {
-    class?: ClassValue
-}
-
 export type SearchParams = {
     q: string;
     query_by?: string;
@@ -120,7 +114,3 @@ export type SearchResponse<T> = {
         hits: SearchResponseHit<T>[];
     }[];
 }
-
-export type KeyOfType<T, V> = keyof {
-    [P in keyof T as (T[P] extends V? P: never)]: any
-};
