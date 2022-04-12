@@ -1,19 +1,29 @@
 import { useLevels } from "@orchard/hooks/useLevels";
-import { useStore, OrchardState } from "@orchard/hooks/useStore";
+import { useStore, OrchardState, FacetFilter } from "@orchard/hooks/useStore";
 import { Spinny } from "@orchard/icons";
-import { Level, SearchResponseFacetCountSchema, WithClass } from "@orchard/types";
+import { KeyOfType, WithClass } from "@orchard/types";
 import cc from "clsx";
 import { useMemo, useState } from "preact/hooks";
 import "./FacetSelect.css";
 
 type FacetSelectProps = {
-    facetName: string;
+    facetName: KeyOfType<OrchardState['filters'], FacetFilter>;
+    humanName: string;
     showSwitch?: boolean;
     showFilter?: boolean;
+    valueTransformFunc?: (s: string) => string;
 } & WithClass;
 
-export function FacetSelect({"class": _class, facetName, showSwitch = true, showFilter = true}: FacetSelectProps) {
-    const [input, setInput] = useState("")
+export function FacetSelect(
+    {
+        "class": _class,
+        facetName,
+        humanName,
+        showSwitch = true,
+        showFilter = true,
+        valueTransformFunc = s => `${s}`
+    }: FacetSelectProps) {
+    const [input, setInput] = useState("");
     const { data: resp, isLagging } = useLevels(
         {
             maxFacetValues: 10,
@@ -26,7 +36,11 @@ export function FacetSelect({"class": _class, facetName, showSwitch = true, show
     }, [resp]);
     const total = facet?.stats.total_values || 0;
 
-    const _selected = useStore(state => state.filters[facetName]?.values);
+    const filter = useStore(state => state.filters[facetName]);
+
+    const _selected = useMemo(() => {
+        return filter.values;
+    }, [filter]);
     const selected = _selected || new Set([]);
     const setFilter = useStore(state => state.setFilter);
     const filterType = useStore(state => state.filters[facetName]?.type);
@@ -35,11 +49,11 @@ export function FacetSelect({"class": _class, facetName, showSwitch = true, show
         const currentlySelected = selected.has(value);
         if (currentlySelected) {
             setFilter(facetName, d => {
-                d.values.delete(value);
+                (d as FacetFilter).values.delete(value);
             });
         } else {
             setFilter(facetName, d => {
-                d.values.add(value);
+                (d as FacetFilter).values.add(value);
             });
         }
     };
@@ -55,7 +69,7 @@ export function FacetSelect({"class": _class, facetName, showSwitch = true, show
     return (
         <div class={cc(_class, "fs", {"laggy!fs": isLagging})}>
             <div class="fs_depo">
-                <span class="fs_name">{facetName}</span>
+                <span class="fs_name">{humanName}</span>
                 {total > 0 && <span class="fs_total">({total})</span>}
                 {isLagging && <Spinny class="fs_spinny" />}
                 <div class="fs_spacer" />
@@ -94,7 +108,7 @@ export function FacetSelect({"class": _class, facetName, showSwitch = true, show
                                         checked={selected.has(f.value)}
                                         onClick={() => toggle(f.value)}
                                     />
-                                    {f.value}
+                                    {valueTransformFunc(f.value)}
                                 </label>
                                 <span class="fs_count">({f.count})</span>
                             </li>

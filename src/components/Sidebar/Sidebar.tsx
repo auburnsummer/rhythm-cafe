@@ -4,6 +4,7 @@ import { WithClass } from "@orchard/types";
 import { useLevels } from "@orchard/hooks/useLevels";
 
 import { FacetSelect } from "@orchard/components/FacetSelect";
+import { SlidySelect } from "@orchard/components/SlidySelect";
 
 type SidebarProps = {} & WithClass;
 export function Sidebar({"class": _class}: SidebarProps) {
@@ -11,20 +12,25 @@ export function Sidebar({"class": _class}: SidebarProps) {
 
     const facets = resp?.data.facet_counts;
 
+    const difficultyName = (v: string) => ["Easy", "Medium", "Tough", "Very Tough"][parseInt(v)];
+
     return (
         <aside class={cc(_class, "sb")}>
             {
-                // facets && facets.map(facet => {
-                //     return facet && (
-                //         <FacetSelect class="sb_facet" name={facet.field_name}/>
-                //     )
-                // })
                 facets && (
                     <>
-                        <FacetSelect class="sb_facet" facetName="tags" />
-                        <FacetSelect class="sb_facet" facetName="authors" />
-                        <FacetSelect class="sb_facet" facetName="artist" />
-                        <FacetSelect class="sb_facet" facetName="difficulty" showSwitch={false} showFilter={false} />
+                        <FacetSelect class="sb_facet" facetName="tags" humanName="Tags" />
+                        <FacetSelect class="sb_facet" facetName="authors" humanName="Authors" />
+                        <FacetSelect class="sb_facet" facetName="artist" humanName="Artist" />
+                        <FacetSelect
+                            class="sb_facet"
+                            facetName="difficulty"
+                            humanName="Difficulty"
+                            valueTransformFunc={difficultyName}
+                            showSwitch={false}
+                            showFilter={false}
+                        />
+                        <SlidySelect class="sb_facet" humanName="BPM" facetName="bpm" />
                     </>
                 )
             }

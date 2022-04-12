@@ -1,5 +1,3 @@
-import { memo } from 'preact/compat';
-
 import { WithClass } from "@orchard/types";
 import { useLevels } from "@orchard/hooks/useLevels";
 import cc from "clsx";
@@ -7,7 +5,6 @@ import cc from "clsx";
 
 import "./Levels.css";
 import { LevelBox } from "@orchard/components/LevelBox";
-import { useStore } from "@orchard/hooks/useStore";
 
 
 type LevelsProps = {} & WithClass;
@@ -19,7 +16,7 @@ export function Levels({"class": _class}: LevelsProps) {
         <main class={cc(_class, "le")}>
             {
                 error && (
-                    <div>An error occured: {error.data.message}, {error.status}</div>
+                    <div>An error occured: {error.data.message}, {error.status}. If you keep seeing this, please ping auburn now!!!!!</div>
                 )
             }
             {

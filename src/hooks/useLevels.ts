@@ -14,12 +14,26 @@ function useFilterByString() {
             if (!filter) {
                 return prev;
             } 
+            if (!filter.active) {
+                return prev;
+            }
             if (filter.type === 'in' && filter.values.size > 0) {
                 const next = `${key}:=[${Array.from(filter.values).join(',')}]`;
                 return [...prev, next];
             }
             if (filter.type === 'all' && filter.values.size > 0) {
                 const nexts = Array.from(filter.values).map(v => `${key}:=${v}`);
+                return [...prev, ...nexts];
+            }
+            // special handling of bpm...
+            if (filter.type === 'range' && key === 'bpm') {
+                const { min, max } = filter;
+                // both the min_bpm and the max_bpm need to be within specified range.
+                // mostly because the "or" version requires typesense to do funky stuff i'm not sure yet...
+                const nexts = [
+                    `max_bpm:=[${min}..${max}]`,
+                    `min_bpm:=[${min}..${max}]`
+                ];
                 return [...prev, ...nexts];
             }
             return prev;

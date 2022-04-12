@@ -1,0 +1,60 @@
+.ss {
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+
+.ss_depo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ss_name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.ss_anne {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.ss_input {
+    width: 2rem;
+    flex-grow: 1;
+    padding: 0.25rem;
+    background-color: var(--violet-200);
+    border-radius: 0.25rem;
+}
+
+.ss_input::placeholder {
+    color: var(--violet-400);
+}
+
+.ss_input:focus {
+    box-shadow: inset 0 0 0 2px var(--violet-300);
+}
+
+.ss_to {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+.ss_go {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    background-color: var(--violet-300);
+    border-radius: 0.25rem;
+}
+
+.ss_go:hover {
+    cursor: pointer;
+    background-color: var(--violet-200);
+}
+
