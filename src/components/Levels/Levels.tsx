@@ -28,7 +28,7 @@ export function Levels({"class": _class}: LevelsProps) {
                         <ul class="le_list">
                             {resp.data.hits && resp.data.hits.map(({document}) => (
                                 <li key={document.id}>
-                                    <LevelBox level={document} key={document.id} />
+                                    <LevelBox level={document} />
                                 </li>
                             ))}
                         </ul>
