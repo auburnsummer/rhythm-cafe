@@ -36,6 +36,12 @@ function useFilterByString() {
                 ];
                 return [...prev, ...nexts];
             }
+            // other range filters.
+            if (filter.type === 'range') {
+                const { min, max } = filter;
+                const next = `${key}:=[${min}..${max}]`;
+                return [...prev, next];
+            }
             return prev;
         }, [] as string[])
         .join(" && ");
