@@ -11,6 +11,7 @@ writers (I want to add the ability to add custom stylesheets at some point.)
  - `Header`: `he`
  - `LevelBox`: `lb`
  - `Levels`: `le`
+ - `Preferences`: `pr`
  - `SearchBar`: `se`
  - `Sidebar`: `sb`
  - `SlidySelect`: `ss`

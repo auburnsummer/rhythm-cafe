@@ -1,9 +1,8 @@
 import create from 'zustand';
 import produce, {enableMapSet} from "immer";
 import { WritableDraft } from 'immer/dist/types/types-external';
-import { OrchardState, FilterMap } from './types';
+import { OrchardState, FilterMap, PreferenceKey, Filter } from './types';
 import { tuple } from '@orchard/utils/grabbag';
-import { curry } from 'lodash-es';
 
 enableMapSet();
 
@@ -13,7 +12,7 @@ export const useStore = create<OrchardState>(_set => {
     };
     return {
         q: "",
-        setQuery: (s: string) => set(draft => {
+        setQuery: s => set(draft => {
             draft.q = s
         }),
         facetBy: ["authors", "tags", "source", "difficulty", "artist"],
@@ -30,6 +29,14 @@ export const useStore = create<OrchardState>(_set => {
             if (toChange) {
                 func(toChange);
             }
+        }),
+        preferences: {
+            "levels per page": "15",
+            "show advanced filters": "false",
+            "show more level details": "false"
+        },
+        setPreference: (pref: PreferenceKey, value: string) => set(draft => {
+            draft.preferences[pref] = value;
         })
     };
 });
@@ -43,6 +50,20 @@ export const useQuery = () => {
 export const useFilter = <T extends keyof FilterMap>(name: T) => {
     const filter = useStore(state => state.filters[name]);
     const _setFilter = useStore(state => state.setFilter);
-    const setFilter = curry(_setFilter)(name);
+    const setFilter = (f: (d: WritableDraft<Filter>) => void) => _setFilter(name, f);
     return tuple(filter, setFilter);
+}
+
+// api is like this: [pref, setPref] = usePreference(key, As.BOOLEAN)
+export const usePreference = <T,>(key: PreferenceKey, func: (s: string) => T) => {
+    const pref = useStore(state => state.preferences[key]);
+    const _setPreference = useStore(state => state.setPreference);
+    const setPreference = (s: string) => _setPreference(key, s);
+    return tuple(func(pref), setPreference);
+};
+
+export const As = {
+    STRING  : (s: string) => s,
+    NUMBER : (s: string) => parseInt(s),
+    BOOLEAN : (s: string) => s === "true"
 }

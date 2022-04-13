@@ -8,3 +8,8 @@ export * from "./XIcon";
 export * from "./BadgeCheck";
 export * from "./Exclamation";
 export * from "./Spinny";
+export * from "./ChevronDown";
+export * from "./Key";
+export * from "./Pager";
+export * from "./PrescriptionBottle";
+export * from "./CogOutline";

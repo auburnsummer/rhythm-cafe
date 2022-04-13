@@ -1,0 +1,92 @@
+.pr {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+}
+
+.pr_button {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    color: var(--violet-500);
+}
+
+.pr_button:hover {
+    background-color: var(--violet-400);
+    color: var(--violet-800);
+    cursor: pointer;
+}
+
+.pr_bicon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.pr_panel {
+    position: absolute;
+    top: 0;
+    margin-top: 2.75rem;
+    right: 0;
+    z-index: 30;
+    width: 24rem;
+    background-color: var(--violet-300);
+    padding: 1rem;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.showing\!pr_panel {
+    visibility: visible;
+    pointer-events: all;
+}
+
+.pr_list {
+    display: flex;
+    flex-direction: column;
+}
+
+.pr_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.pr_row ~ .pr_row {
+    margin-top: 1rem;
+}
+
+.pr_icon {
+    width: 1rem;
+    max-height: 1rem;
+}
+
+.pr_textline {
+    margin-left: 1rem;
+}
+
+.pr_selectbox {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    background-color: var(--violet-100);
+    padding-left: 0.125rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.pr_selectbox:first-child {
+    margin-left: 0;
+}
+
+.pr_selectbox_icon {
+    height: 1.25rem;
+    pointer-events: none;
+    position: absolute;
+    right: 0.25rem;
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.pr_select {
+    padding-right: 1.5rem;
+}

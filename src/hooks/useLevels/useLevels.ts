@@ -3,7 +3,7 @@ import { TYPESENSE_API_KEY, TYPESENSE_URL } from "@orchard/utils/constants";
 import Axios, { Response } from "redaxios";
 import useSWR from "swr";
 import usePrevious from "@orchard/hooks/usePrevious";
-import { useStore } from "@orchard/store";
+import { As, usePreference, useStore } from "@orchard/store";
 import { getKeys } from "@orchard/utils/grabbag";
 
 function useFilterByString() {
@@ -57,10 +57,13 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const facetBy = useStore(state => state.facetBy);
     const filterByString = useFilterByString();
 
+    const [numberOfLevels] = usePreference("levels per page", As.NUMBER);
+
     const processed: SearchParams = {
         q: q.trim(),
         query_by: "song, authors, artist, description",
         facet_by: facetBy.join(","),
+        per_page: numberOfLevels,
         max_facet_values: maxFacetValues || 10,
         filter_by: filterByString,
     };
