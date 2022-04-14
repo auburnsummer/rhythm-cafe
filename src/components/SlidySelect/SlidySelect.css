@@ -17,6 +17,17 @@
     font-weight: 600;
 }
 
+.ss_clear {
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+    color: var(--blueGray-500);
+}
+
+.ss_clear:hover {
+    cursor: pointer;
+    color: var(--blueGray-700);
+}
+
 .ss_anne {
     display: flex;
     flex-direction: row;

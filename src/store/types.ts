@@ -30,7 +30,8 @@ export type FilterMap = {
     authors: FacetFilter,
     tags: FacetFilter,
     artist: FacetFilter,
-    bpm: RangeFilter
+    bpm: RangeFilter,
+    approval: RangeFilter
 };
 
 export type PreferenceKey = "show advanced filters" | "show more level details" | "levels per page"

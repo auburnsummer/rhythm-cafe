@@ -9,14 +9,17 @@ import { FilterMap, RangeFilter, useFilter, useStore } from "@orchard/store";
 type SlidySelectProps = {
     facetName: KeyOfType<FilterMap, RangeFilter>;
     humanName: string;
+    min: number;
+    max: number;
+    step: number;
 } & WithClass;
 
 // version 1 of SlidySelect is just two number boxes lol
 // eventually I want to have an actual slidy thing
-export function SlidySelect({"class": _class, facetName, humanName}: SlidySelectProps) {
+export function SlidySelect({"class": _class, facetName, min, max, step, humanName}: SlidySelectProps) {
     const [showingPlaceholders, setShowingPlaceholders] = useState(true); // show placeholders at beginning.
-    const [min, setMin] = useState(0);
-    const [max, setMax] = useState(500);
+    const [currMin, setCurrMin] = useState(min);
+    const [currMax, setCurrMax] = useState(max);
 
     const [filter, setFilter] = useFilter(facetName);
 
@@ -24,12 +27,12 @@ export function SlidySelect({"class": _class, facetName, humanName}: SlidySelect
 
     const onMinInput = (n: number) => {
         setShowingPlaceholders(false);
-        setMin(clamp(n, 0, max));
+        setCurrMin(clamp(n, min, currMax));
     }
 
     const onMaxInput = (n: number) => {
         setShowingPlaceholders(false);
-        setMax(clamp(n, min, 500));
+        setCurrMax(clamp(n, currMin, max));
     }
 
     const onClick: JSX.MouseEventHandler<HTMLButtonElement> = _ => {
@@ -38,8 +41,8 @@ export function SlidySelect({"class": _class, facetName, humanName}: SlidySelect
                 return;
             }
             draft.active = true;
-            draft.min = min;
-            draft.max = max;
+            draft.min = currMin;
+            draft.max = currMax;
         })
     };
 
@@ -55,29 +58,29 @@ export function SlidySelect({"class": _class, facetName, humanName}: SlidySelect
     return (
         <div class={cc(_class, "ss")}>
             <div class="ss_depo">
-                <span class="fs_name">{humanName}</span>
-                {isActive && <button onClick={clear}>clear</button>}
+                <span class="ss_name">{humanName}</span>
+                {isActive && <button class="ss_clear" onClick={clear}>clear</button>}
             </div>
             <div class="ss_anne">
                 <input
                     class="ss_input"
                     type="number"
-                    step={10}
-                    min={0}
-                    max={max}
-                    value={!showingPlaceholders ? min : undefined}
-                    placeholder="0"
+                    step={step}
+                    min={min}
+                    max={currMax}
+                    value={!showingPlaceholders ? currMin : undefined}
+                    placeholder={`${min}`}
                     onInput={evt => onMinInput(parseInt(evt.currentTarget.value))}
                 />
                 <span class="ss_to">to</span>
                 <input
                     class="ss_input"
                     type="number"
-                    step={10}
-                    min={min}
-                    max={500}
-                    value={!showingPlaceholders ? max : undefined}
-                    placeholder="500"
+                    step={step}
+                    min={currMin}
+                    max={max}
+                    value={!showingPlaceholders ? currMax : undefined}
+                    placeholder={`${500}`}
                     onInput={evt => onMaxInput(parseInt(evt.currentTarget.value))}
                 />
                 <button

@@ -42,6 +42,7 @@ export function Preferences({"class": _class} : PreferencesProps) {
     });
 
     const [levelsPerPage, setLevelsPerPage] = usePreference("levels per page", As.NUMBER);
+    const [advancedFilters, setAdvancedFilters] = usePreference("show advanced filters", As.STRING);
     // const [showAdvancedFilters, setShowAdvancedFilters] = usePreference("showAdvancedFilters");
     // const [showMoreLevelDetails, setShowMoreLevelDetails] = usePreference("showMoreLevelDetails");
 
@@ -76,9 +77,12 @@ export function Preferences({"class": _class} : PreferencesProps) {
                     <li class="pr_row">
                         <Key class="pr_icon" />
                         <div class="pr_textline">
-                            <PreferenceSelect>
-                                <option value="vfalse">Hide</option>
-                                <option value="vtrue">Show</option>
+                            <PreferenceSelect
+                                value={advancedFilters}
+                                onChange={e => setAdvancedFilters(e.currentTarget.value)}
+                            >
+                                <option value="false">Hide</option>
+                                <option value="true">Show</option>
                             </PreferenceSelect>
                             <span>advanced filters</span>
                         </div>

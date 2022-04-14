@@ -5,6 +5,7 @@ import { useLevels } from "@orchard/hooks/useLevels";
 
 import { FacetSelect } from "@orchard/components/FacetSelect";
 import { SlidySelect } from "@orchard/components/SlidySelect";
+import { As, usePreference } from "@orchard/store";
 
 type SidebarProps = {} & WithClass;
 export function Sidebar({"class": _class}: SidebarProps) {
@@ -13,6 +14,8 @@ export function Sidebar({"class": _class}: SidebarProps) {
     const facets = resp?.data.facet_counts;
 
     const difficultyName = (v: string) => ["Easy", "Medium", "Tough", "Very Tough"][parseInt(v)];
+
+    const [advancedFilters] = usePreference("show advanced filters", As.BOOLEAN);
 
     return (
         <aside class={cc(_class, "sb")}>
@@ -30,7 +33,12 @@ export function Sidebar({"class": _class}: SidebarProps) {
                             showSwitch={false}
                             showFilter={false}
                         />
-                        <SlidySelect class="sb_facet" humanName="BPM" facetName="bpm" />
+                        <SlidySelect class="sb_facet" humanName="BPM" facetName="bpm" min={0} max={1000} step={10} />
+                        {
+                            advancedFilters && (
+                                <SlidySelect class="sb_facet" humanName="Peer Review" facetName="approval" min={-10} max={20} step={1}/>
+                            )
+                        }
                     </>
                 )
             }

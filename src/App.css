@@ -20,6 +20,6 @@
 }
 
 .ap_levels, .ap_sidebar {
-  max-height: calc(100vh - 2.75rem - 1rem);
+  max-height: calc(100vh - 2.75rem);
   overflow-y: auto;
 }

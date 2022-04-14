@@ -1,6 +1,6 @@
 import { useLevels } from "@orchard/hooks/useLevels";
 import { Spinny } from "@orchard/icons";
-import { FacetFilter, FilterMap, useFilter } from "@orchard/store";
+import { As, FacetFilter, FilterMap, useFilter, usePreference } from "@orchard/store";
 import { KeyOfType, WithClass } from "@orchard/utils/types";
 import cc from "clsx";
 import { useMemo, useState } from "preact/hooks";
@@ -19,7 +19,7 @@ export function FacetSelect(
         "class": _class,
         facetName,
         humanName,
-        showSwitch = true,
+        "showSwitch": _showSwitch = true,
         showFilter = true,
         valueTransformFunc = s => `${s}`
     }: FacetSelectProps) {
@@ -35,6 +35,8 @@ export function FacetSelect(
     }, [resp]);
 
     const [filter, setFilter] = useFilter(facetName);
+    const [advancedFilters] = usePreference("show advanced filters", As.BOOLEAN);
+    const showSwitch = advancedFilters && _showSwitch;
 
     const selected = filter.values || new Set([]);
     const filterType = filter.type;
