@@ -101,6 +101,9 @@ export function Preferences({"class": _class} : PreferencesProps) {
                         </div>
                     </li>
                 </ul>
+                <div class="pr_disclaimer">
+                    Note: Settings are saved to your cookies.
+                </div>
             </div>
         </div>
     )

@@ -93,3 +93,9 @@
 .pr_select {
     padding-right: 1.5rem;
 }
+
+.pr_disclaimer {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--violet-600);
+}

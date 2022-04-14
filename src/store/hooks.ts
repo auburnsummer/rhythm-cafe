@@ -1,8 +1,8 @@
 import create from 'zustand';
 import produce, {enableMapSet} from "immer";
 import { WritableDraft } from 'immer/dist/types/types-external';
-import { OrchardState, FilterMap, PreferenceKey, Filter } from './types';
-import { tuple } from '@orchard/utils/grabbag';
+import { OrchardState, FilterMap, PreferenceKey, Filter, Preferences } from './types';
+import { getKeys, tuple } from '@orchard/utils/grabbag';
 
 enableMapSet();
 
@@ -10,6 +10,27 @@ export const useStore = create<OrchardState>(_set => {
     const set = (func: (draft: WritableDraft<OrchardState>) => void) => {
         _set(state => produce(state, func))
     };
+
+    const defaultPrefs : Preferences = {
+        "levels per page": "25",
+        "show advanced filters": "false",
+        "show more level details": "false"
+    };
+
+    const localStoragePrefs = getKeys(defaultPrefs).reduce((prev, curr) => {
+        const key = `pref:${curr}`;
+        const prefMaybe = localStorage.getItem(key);
+        return prefMaybe ? {
+            ...prev,
+            [curr]: prefMaybe
+        } : prev;
+    }, {} as Partial<Preferences>);
+
+    const prefs = {
+        ...defaultPrefs,
+        ...localStoragePrefs
+    };
+
     return {
         q: "",
         setQuery: s => set(draft => {
@@ -30,12 +51,14 @@ export const useStore = create<OrchardState>(_set => {
                 func(toChange);
             }
         }),
-        preferences: {
-            "levels per page": "15",
-            "show advanced filters": "false",
-            "show more level details": "false"
-        },
+        preferences: prefs,
         setPreference: (pref: PreferenceKey, value: string) => set(draft => {
+            const key = `pref:${pref}`;
+            try {
+                localStorage.setItem(key, value);
+            } catch (err) {
+                // ignore it. if we can't use localStorage that's fine, it just means the pref won't persist.
+            }
             draft.preferences[pref] = value;
         })
     };
