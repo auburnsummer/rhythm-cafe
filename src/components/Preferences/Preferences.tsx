@@ -43,7 +43,7 @@ export function Preferences({"class": _class} : PreferencesProps) {
 
     const [levelsPerPage, setLevelsPerPage] = usePreference("levels per page", As.NUMBER);
     const [advancedFilters, setAdvancedFilters] = usePreference("show advanced filters", As.STRING);
-    // const [showAdvancedFilters, setShowAdvancedFilters] = usePreference("showAdvancedFilters");
+    const [levelDetails, setLevelDetails] = usePreference("show more level details", As.STRING);
     // const [showMoreLevelDetails, setShowMoreLevelDetails] = usePreference("showMoreLevelDetails");
 
     return (
@@ -90,9 +90,12 @@ export function Preferences({"class": _class} : PreferencesProps) {
                     <li class="pr_row">
                         <PrescriptionBottle class="pr_icon" />
                         <div class="pr_textline">
-                            <PreferenceSelect>
-                                <option value="vfalse">Hide</option>
-                                <option value="vtrue">Show</option>
+                            <PreferenceSelect
+                                value={levelDetails}
+                                onChange={e => setLevelDetails(e.currentTarget.value)}
+                            >
+                                <option value="false">Hide</option>
+                                <option value="true">Show</option>
                             </PreferenceSelect>
                             <span>level ids</span>
                         </div>

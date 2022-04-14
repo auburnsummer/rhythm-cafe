@@ -220,3 +220,11 @@ Benface is still the Patron Saint of CSS though
 .caution\!lb_tag span {
     margin-left: 0.25rem;
 }
+
+.lb_id {
+    position: absolute;
+    bottom: 0;
+    right: 0.25rem;
+    font-size: 0.65rem;
+    color: var(--blueGray-300);
+}

@@ -8,6 +8,7 @@ import { WithClass } from '@orchard/utils/types';
 import { Level } from '@orchard/hooks/useLevels/types';
 import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
 import { Discord } from '@orchard/icons/Discord';
+import { As, usePreference } from '@orchard/store';
 
 
 function DescriptionText({description}: Pick<Level, "description">) {
@@ -35,6 +36,8 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
     const bpmText = min_bpm === max_bpm ? `${min_bpm} BPM` : `${min_bpm}-${max_bpm} BPM`;
     const sourceText = 'Rhythm Doctor Lounge';
     const UsersIcon = authors.length > 1 ? Users : User;
+
+    const [showMoreLevelDetails] = usePreference("show more level details", As.BOOLEAN);
 
     return (
         <article class={cc(_class, "lb")}>
@@ -129,6 +132,11 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                         ))
                     }
                 </ul>
+                {
+                    showMoreLevelDetails && (
+                        <span class="lb_id">{id}</span>
+                    )
+                }
             </div>
         </article>
     )
