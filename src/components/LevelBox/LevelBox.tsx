@@ -87,7 +87,7 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                     </div>
                     <div class="lb_metaitem lb_source">
                         <Discord class="lb_metaicon" />
-                        <button class="lb_metabutton lb_source-button">{sourceText}</button>
+                        <button disabled class="lb_metabutton lb_source-button">{sourceText}</button>
                     </div>
                     <div
                         class={cc(
