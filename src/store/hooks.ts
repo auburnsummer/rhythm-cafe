@@ -22,7 +22,7 @@ export const useStore = create<OrchardState>(_set => {
             tags: {type: 'all', active: true, values: new Set([])},
             artist: {type: 'in', active: true, values: new Set([])},
             bpm: {type: 'range', active: false, min: 0, max: 0},
-            approval: {type: 'range', active: true, min: 10, max: 9999999}
+            approval: {type: 'range', active: true, min: 10, max: 20}
         },
         setFilter: <T extends keyof FilterMap,>(cat: T, func: (d: FilterMap[T]) => void) => set(draft => {
             const toChange = draft.filters[cat];

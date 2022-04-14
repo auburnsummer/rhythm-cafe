@@ -17,13 +17,14 @@ type SlidySelectProps = {
 // version 1 of SlidySelect is just two number boxes lol
 // eventually I want to have an actual slidy thing
 export function SlidySelect({"class": _class, facetName, min, max, step, humanName}: SlidySelectProps) {
-    const [showingPlaceholders, setShowingPlaceholders] = useState(true); // show placeholders at beginning.
-    const [currMin, setCurrMin] = useState(min);
-    const [currMax, setCurrMax] = useState(max);
-
     const [filter, setFilter] = useFilter(facetName);
 
     const isActive = filter.active;
+
+    const [showingPlaceholders, setShowingPlaceholders] = useState(!isActive); // show placeholders at beginning.
+
+    const [currMin, setCurrMin] = useState(isActive ? filter.min : min);
+    const [currMax, setCurrMax] = useState(isActive ? filter.max : max);
 
     const onMinInput = (n: number) => {
         setShowingPlaceholders(false);
