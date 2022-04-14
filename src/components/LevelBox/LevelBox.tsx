@@ -100,9 +100,13 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                     >
                         {
                             approval >= 10 ? (
-                                <BadgeCheck class="lb_metaicon" title={"yup"} />
+                                <span title={"Peer-Reviewed: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability."}>
+                                    <BadgeCheck class="lb_metaicon" />
+                                </span>
                             ) : approval < 0 ? (
-                                <XIcon class="lb_metaicon" title={"Nope!"} />
+                                <span title={"Non-Referred: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability, and has found that this level does not meet standards."}>
+                                    <XIcon class="lb_metaicon" />
+                                </span>
                             ) : null
                         }
                     </div>
