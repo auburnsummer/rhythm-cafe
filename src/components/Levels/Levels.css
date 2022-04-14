@@ -11,22 +11,31 @@
 
 
 
-.le_list {
+/* .le_list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
     gap: 1.25rem;
     transition-property: opacity;
     transition-duration: 150ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-}
+} */
 
 .laggy\!le_loaded > .le_list {
     opacity: 0.6;
 }
 
-.le_levelbox {
-    height: 100%;
+.le_row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 1rem;
 }
+
+.le_vrow ~ .le_vrow {
+    padding-top: 1rem;
+}
+
 
 .le_next, .le_perv {
     background-color: rgba(240, 230, 230, 0.3);

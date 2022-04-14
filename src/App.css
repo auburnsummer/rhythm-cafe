@@ -1,6 +1,6 @@
 .ap {
-    background-color: var(--blueGray-400);
-    min-height: 100vh;
+  background-color: var(--blueGray-400);
+  min-height: 100vh;
 }
 
 .ap_layout {
@@ -17,4 +17,9 @@
 
 .ap_levels {
   flex-grow: 1;
+}
+
+.ap_levels, .ap_sidebar {
+  max-height: calc(100vh - 2.75rem - 1rem);
+  overflow-y: auto;
 }

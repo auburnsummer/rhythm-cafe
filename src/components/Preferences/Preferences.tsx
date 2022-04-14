@@ -68,6 +68,7 @@ export function Preferences({"class": _class} : PreferencesProps) {
                                 <option value={15}>15</option>
                                 <option value={25}>25</option>
                                 <option value={50}>50</option>
+                                <option value={120}>120</option>
                             </PreferenceSelect>
                             <span>levels per page</span>
                         </div>

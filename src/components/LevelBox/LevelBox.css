@@ -1,5 +1,5 @@
 .lb {
-    max-width: 26rem;
+    width: 26rem;
     background-color: var(--blueGray-100);
     border-radius: 0.5rem;
     display: flex;
@@ -173,6 +173,10 @@ Benface is still the Patron Saint of CSS though
 
 .nope\!lb_approval {
     color: var(--rose-600);
+}
+
+.lb_spacer {
+    flex-grow: 1;
 }
 
 .lb_tags {
