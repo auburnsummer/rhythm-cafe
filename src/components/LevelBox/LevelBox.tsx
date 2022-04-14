@@ -20,7 +20,7 @@ function DescriptionText({description}: Pick<Level, "description">) {
 
     const colorFiltered = description.replaceAll(re, "");
 
-    return <>{colorFiltered.split("\n").map(p => <p>{p}</p>)}</>
+    return <>{colorFiltered.split("\\n").map(p => <p>{p}</p>)}</>
 }
 
 type LevelBoxProps = {
