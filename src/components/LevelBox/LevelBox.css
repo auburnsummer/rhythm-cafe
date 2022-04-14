@@ -143,6 +143,7 @@ Benface is still the Patron Saint of CSS though
 .lb_authors, .lb_bpm, .lb_source {
     color: var(--blueGray-700);
     display: flex;
+    align-items: center;
     font-size: 0.75rem;
     line-height: 1.125rem;
     max-width: 100%;
