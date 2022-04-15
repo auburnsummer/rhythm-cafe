@@ -168,6 +168,11 @@ Benface is still the Patron Saint of CSS though
     cursor: pointer;
 }
 
+.lb_approval > span {
+    display: flex;
+    align-items: center;
+}
+
 .yay\!lb_approval {
     color: var(--green-400);
 }

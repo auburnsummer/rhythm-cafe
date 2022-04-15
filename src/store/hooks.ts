@@ -1,7 +1,7 @@
 import create from 'zustand';
 import produce, {enableMapSet} from "immer";
 import { WritableDraft } from 'immer/dist/types/types-external';
-import { OrchardState, FilterMap, PreferenceKey, Filter, Preferences } from './types';
+import { OrchardState, FilterMap, PreferenceKey, Filter, Preferences, SetFilterFunc } from './types';
 import { getKeys, tuple } from '@orchard/utils/grabbag';
 
 enableMapSet();
@@ -45,7 +45,7 @@ export const useStore = create<OrchardState>(_set => {
             bpm: {type: 'range', active: false, min: 0, max: 0},
             approval: {type: 'range', active: true, min: 10, max: 20}
         },
-        setFilter: <T extends keyof FilterMap,>(cat: T, func: (d: FilterMap[T]) => void) => set(draft => {
+        setFilter: <T extends keyof FilterMap,>(cat: T, func: SetFilterFunc) => set(draft => {
             const toChange = draft.filters[cat];
             if (toChange) {
                 func(toChange);
@@ -72,10 +72,15 @@ export const useQuery = () => {
 
 export const useFilter = <T extends keyof FilterMap>(name: T) => {
     const filter = useStore(state => state.filters[name]);
+    const setFilter = useSetFilter(name);
+    return tuple(filter, setFilter);
+};
+
+export const useSetFilter = <T extends keyof FilterMap>(name: T) => {
     const _setFilter = useStore(state => state.setFilter);
     const setFilter = (f: (d: WritableDraft<Filter>) => void) => _setFilter(name, f);
-    return tuple(filter, setFilter);
-}
+    return setFilter;
+};
 
 // api is like this: [pref, setPref] = usePreference(key, As.BOOLEAN)
 export const usePreference = <T,>(key: PreferenceKey, func: (s: string) => T) => {

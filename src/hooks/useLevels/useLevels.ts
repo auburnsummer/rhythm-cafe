@@ -62,6 +62,7 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const processed: SearchParams = {
         q: q.trim(),
         query_by: "song, authors, artist, description",
+        query_by_weights: "12, 8, 6, 4",
         facet_by: facetBy.join(","),
         per_page: numberOfLevels,
         max_facet_values: maxFacetValues || 10,

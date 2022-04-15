@@ -8,7 +8,7 @@ import { WithClass } from '@orchard/utils/types';
 import { Level } from '@orchard/hooks/useLevels/types';
 import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
 import { Discord } from '@orchard/icons/Discord';
-import { As, usePreference } from '@orchard/store';
+import { As, SetFilterFunc, usePreference, useSetFilter } from '@orchard/store';
 
 
 function DescriptionText({description}: Pick<Level, "description">) {
@@ -38,6 +38,24 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
     const UsersIcon = authors.length > 1 ? Users : User;
 
     const [showMoreLevelDetails] = usePreference("show more level details", As.BOOLEAN);
+    const setAuthorFilter = useSetFilter("authors");
+    const setTagFilter = useSetFilter("tags");
+
+    const setAuthor = (s: string) => {
+        setAuthorFilter(d => {
+            if (d.type === 'in' || d.type === 'all') {
+                d.values.add(s);
+            }
+        })
+    };
+
+    const setTag = (s: string) => {
+        setTagFilter(d => {
+            if (d.type === 'in' || d.type === 'all') {
+                d.values.add(s);
+            }
+        })
+    };
 
     return (
         <article class={cc(_class, "lb")}>
@@ -70,11 +88,13 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                         <ConjunctionList
                             class="lb_author-list"
                             elementRender={(v) => 
-                                <button
+                                typeof v === 'string' 
+                                ? <button
+                                    onClick={() => setAuthor(v)}
                                     class="lb_metabutton"
                                 >
                                     {v}
-                                </button>
+                                </button> : <></>
                             }
                             literalRender={(v) => <span class="lb_metatext">{v}</span>}
                         >
@@ -129,6 +149,7 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                         tags.map(tag => (
                             <li>
                                 <button
+                                    onClick={() => setTag(tag)}
                                     class="lb_tag">
                                     {tag}
                                 </button>

@@ -37,7 +37,7 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
 
     const estimateSize = useCallback(() => {
         return 365; // by experiment
-    }, []);
+    }, [hits]); // recompute the list if hits changes
 
     const {
         virtualItems,
