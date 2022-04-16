@@ -1,8 +1,8 @@
-.le {
+/* .le {
     padding-top: 1.5rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-}
+} */
 
 /* .le_list {
     display: grid;
@@ -21,6 +21,12 @@
     transition-duration: 150ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 } */
+
+.le_loaded {
+    padding-left: 2rem;
+    padding-top: 1.5rem;
+    padding-right: 2rem;
+}
 
 .laggy\!le_loaded > .le_list {
     opacity: 0.6;

@@ -67,6 +67,7 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
         per_page: numberOfLevels,
         max_facet_values: maxFacetValues || 10,
         filter_by: filterByString,
+        // sort_by: "last_updated:asc"
     };
     if (facetQuery) {
         processed.facet_query = facetQuery;
