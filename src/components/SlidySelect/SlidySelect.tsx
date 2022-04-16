@@ -38,9 +38,6 @@ export function SlidySelect({"class": _class, facetName, min, max, step, humanNa
 
     const onClick: JSX.MouseEventHandler<HTMLButtonElement> = _ => {
         setFilter(draft => {
-            if (draft.type != 'range') {
-                return;
-            }
             draft.active = true;
             draft.min = currMin;
             draft.max = currMax;
@@ -49,9 +46,6 @@ export function SlidySelect({"class": _class, facetName, min, max, step, humanNa
 
     const clear: JSX.MouseEventHandler<HTMLButtonElement> = _ => {
         setFilter(draft => {
-            if (draft.type != 'range') {
-                return;
-            }
             draft.active = false;
         })
     };

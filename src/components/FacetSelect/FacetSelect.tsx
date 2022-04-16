@@ -46,11 +46,11 @@ export function FacetSelect(
         const currentlySelected = selected.has(value);
         if (currentlySelected) {
             setFilter(d => {
-                (d as FacetFilter).values.delete(value);
+                d.values.delete(value);
             });
         } else {
             setFilter(d => {
-                (d as FacetFilter).values.add(value);
+                d.values.add(value);
             });
         }
     };

@@ -8,7 +8,7 @@ import { WithClass } from '@orchard/utils/types';
 import { Level } from '@orchard/hooks/useLevels/types';
 import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
 import { Discord } from '@orchard/icons/Discord';
-import { As, SetFilterFunc, usePreference, useSetFilter } from '@orchard/store';
+import { As, usePreference, useSetFilter } from '@orchard/store';
 
 
 function DescriptionText({description}: Pick<Level, "description">) {
@@ -43,17 +43,13 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
 
     const setAuthor = (s: string) => {
         setAuthorFilter(d => {
-            if (d.type === 'in' || d.type === 'all') {
-                d.values.add(s);
-            }
+            d.values.add(s);
         })
     };
 
     const setTag = (s: string) => {
         setTagFilter(d => {
-            if (d.type === 'in' || d.type === 'all') {
-                d.values.add(s);
-            }
+            d.values.add(s);
         })
     };
 

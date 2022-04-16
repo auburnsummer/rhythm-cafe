@@ -1,3 +1,4 @@
+import { VoidFunc } from "@orchard/utils/types";
 import { WritableDraft } from "immer/dist/types/types-external";
 
 export type BaseFilter = {
@@ -34,7 +35,7 @@ export type FilterMap = {
     approval: RangeFilter
 };
 
-export type SetFilterFunc = (d: WritableDraft<Filter>) => void;
+export type FilterKey = keyof FilterMap;
 
 export type PreferenceKey = "show advanced filters" | "show more level details" | "levels per page"
 
@@ -47,7 +48,7 @@ export type OrchardState = {
     setQuery: (to: string) => void;
     facetBy: string[];
     filters: FilterMap;
-    setFilter: (cat: keyof OrchardState['filters'], d: SetFilterFunc) => void;
+    setFilter: <T extends FilterKey>(cat: T, d: VoidFunc<WritableDraft<FilterMap>[T]>) => void;
     preferences: Preferences;
     setPreference: (pref: PreferenceKey, value: string) => void;
 }

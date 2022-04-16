@@ -7,3 +7,5 @@ export type WithClass = {
 export type KeyOfType<T, V> = keyof {
     [P in keyof T as (T[P] extends V? P: never)]: any
 };
+
+export type VoidFunc<T> = (arg: T) => void;
