@@ -1,6 +1,8 @@
 .le {
     display: flex;
     flex-direction: column;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 /* .le_list {
@@ -22,39 +24,13 @@
 } */
 
 .le_controls {
-    padding-top: 1.5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
     display: flex;
     align-items: center;
 }
 
-.le_announcements {
-    font-size: 0.875rem;
-    color: var(--blueGray-700);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+.le_announcements ~ .le_controls {
+    padding-top: 0.5rem;
 }
-
-.le_announcement {
-    border-radius: 0.5rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    background-color: rgba(51, 65, 85, 0.1);
-}
-
-.le_announcement a {
-    text-decoration: underline;
-}
-
-.le_announcement a:hover {
-    color: var(--blueGray-600);
-    text-decoration: none;
-}
-
 
 .le_spacer {
     flex-grow: 1; 
@@ -98,8 +74,17 @@
 }
 
 .le_loaded {
-    padding-left: 2rem;
     padding-top: 0.5rem;
+    /*
+    Normally, the padding is provided by the top-level .le element.
+    however, we would like the area to the left and right of .le_loaded to be considered part of .le_loaded...
+    ...so that scrolling in these areas scrolls the list.
+    The hack here is a variation of the Benface maneuver. We add negative margins to the element to make it
+    extend further than it normally would, then re-add the padding as part of this element.
+    */
+    margin-left: -2rem;
+    margin-right: -2rem;
+    padding-left: 2rem;
     padding-right: 2rem;
 }
 

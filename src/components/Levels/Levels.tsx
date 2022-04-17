@@ -10,6 +10,7 @@ import { useCallback, useMemo, useRef } from "preact/hooks";
 import { useMeasure } from "react-use";
 import { useForkRef } from "@orchard/hooks/useForkRef";
 import { As, usePage, usePreference } from "@orchard/store";
+import { Announcements } from "@orchard/components/Announcements";
 
 
 type LevelsProps = {} & WithClass;
@@ -56,7 +57,6 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
             ref={whatIsEvenHappeningNowRef}
             style={{
                 height: '100%',
-                width: '100%',
                 overflow: 'auto'
             }}
         >
@@ -112,18 +112,6 @@ function LevelHeader({"class": _class}: LevelControlsProps) {
 
     return (
         <div class={cc(_class)}>
-            <ul class="le_announcements">
-                <li class="le_announcement">
-                    Not sure where to start? Try the <a href="https://docs.google.com/spreadsheets/d/1acZltH8MKs81Nu-BOsaupeWfjJVDiDVoVzbIKepPdYQ/edit?usp=sharing">RDL Setlists!</a>
-                </li>
-                <li class="le_announcement">
-                    <a href="https://rhythm-doctor.gitbook.io/level-editor/">Level editor tutorial</a> by Klyzx et al
-                </li>
-                <li class="le_announcement">
-                    This site is still WIP; please message me @auburnsummer if you notice anything off
-                </li>
-            </ul>
-            <div class="le_spacer" />
             {hasPreviousPage && <button onClick={() => setPage(page - 1)} class="le_perv">prev</button>}
             <span class="le_page">page {page}</span>
             {hasNextPage && <button onClick={() => setPage(page + 1)} class="le_next">next</button>}
@@ -133,6 +121,7 @@ function LevelHeader({"class": _class}: LevelControlsProps) {
 
 export function Levels({"class": _class}: LevelsProps) {
     const { data: resp, error, isLagging, resetPreviousData } = useLevels();
+    const [page, setPage] = usePage();
 
     return (
         <main class={cc(_class, "le")}>
@@ -147,6 +136,7 @@ export function Levels({"class": _class}: LevelsProps) {
             {
                 resp && resp.data.hits && (
                     <>
+                        {page === 1 && <Announcements class="le_announcements" />}
                         <LevelHeader class="le_controls" />
                         <LevelsList hits={resp.data.hits} isLagging={isLagging}/>
                     </>

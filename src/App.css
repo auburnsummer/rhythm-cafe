@@ -10,7 +10,6 @@
 
 .ap_sidebar {
   width: 20rem;
-  margin-top: 1.5rem;
   margin-left: 1.25rem;
 }
 
@@ -21,4 +20,5 @@
 .ap_levels, .ap_sidebar {
   max-height: calc(100vh - 2.75rem);
   overflow-y: auto;
+  margin-top: 1.5rem;
 }

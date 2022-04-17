@@ -5,6 +5,7 @@ Each of these are notated in this list, so that I don't accidentally use the
 same prefix for a component. This also acts as documentation for custom CSS
 writers (I want to add the ability to add custom stylesheets at some point.)
 
+ - `Announcements`: `an`
  - `ConjunctionList`: `cl`
  - `DifficultyDecorator`: `dd`
  - `FacetSelect`: `fs`

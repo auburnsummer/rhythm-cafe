@@ -1,0 +1,26 @@
+
+.an {
+    font-size: 0.875rem;
+    color: var(--blueGray-700);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.an_announcement {
+    border-radius: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: rgba(51, 65, 85, 0.1);
+}
+
+.an_announcement a {
+    text-decoration: underline;
+}
+
+.an_announcement a:hover {
+    color: var(--blueGray-600);
+    text-decoration: none;
+}
