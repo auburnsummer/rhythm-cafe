@@ -37,6 +37,10 @@ export const useStore = create<OrchardState>(_set => {
         setQuery: s => set(draft => {
             draft.q = s
         }),
+        page: 1,
+        setPage: n => set(draft => {
+            draft.page = n
+        }),
         facetBy: ["authors", "tags", "source", "difficulty", "artist"],
         filters: {
             difficulty: {type: 'in', active: true, values: new Set([])},
@@ -69,6 +73,12 @@ export const useQuery = () => {
     const q = useStore(state => state.q);
     const setQuery = useStore(state => state.setQuery);
     return tuple(q, setQuery);
+};
+
+export const usePage = () => {
+    const page = useStore(state => state.page);
+    const setPage = useStore(state => state.setPage);
+    return tuple(page, setPage);
 };
 
 export const useFilter = <T extends FilterKey>(name: T) => {

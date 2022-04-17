@@ -15,7 +15,7 @@ export function SearchBar({"class": _class}: SearchBarProps) {
                     value={q}
                     onInput={evt => setQuery(evt.currentTarget.value)}
                     class="se_input"
-                    placeholder="Search..."
+                    placeholder="What do you feel like playing today?"
                 />
             </div>
         </div>

@@ -11,8 +11,14 @@
     border-radius: 0.5rem;
 }
 
+
 .se_input {
     margin-left: 0.5rem;
     flex-grow: 1;
     font-size: 0.875rem;
+}
+
+
+.se_input::placeholder {
+    color: var(--violet-400);
 }

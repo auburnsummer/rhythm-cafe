@@ -243,7 +243,7 @@
       -0.8px 63.5px 55.7px -3.6px hsl(var(--shadow-color) / 0.28),
       -1.3px 98px 86px -4.1px hsl(var(--shadow-color) / 0.21);
 
-    --sans: 'Nunito', sans-serif;
+    --sans: 'Nunito Sans', sans-serif;
 }
 
 body {

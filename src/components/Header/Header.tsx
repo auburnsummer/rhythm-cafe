@@ -26,6 +26,12 @@ export function Header({"class": _class}: HeaderProps) {
                 </svg>
             </div>
             <SearchBar class="he_search" />
+            <a class="he_link" href="https://rhythmdr.com/">Get RD</a>
+            <a class="he_link" href="https://giacomopc.itch.io/rdle">Standalone editor</a>
+            <a class="he_link" href="https://discord.gg/rhythmdr">Discord</a>
+            <a class="he_link" href="https://github.com/auburnsummer/rhythm-cafe">Git</a>
+            <a class="he_link" href="https://wiki.rhythm.cafe">Wiki</a>
+            <a class="he_link" href="https://chorus.fightthe.pw/">chorus</a>
             <Preferences />
         </header>
     )

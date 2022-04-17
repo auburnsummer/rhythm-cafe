@@ -102,7 +102,7 @@ export function Preferences({"class": _class} : PreferencesProps) {
                     </li>
                 </ul>
                 <div class="pr_disclaimer">
-                    Note: Settings are saved to your cookies.
+                    Note: Settings are saved to a cookie.
                 </div>
             </div>
         </div>

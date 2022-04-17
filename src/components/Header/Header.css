@@ -21,6 +21,23 @@
 	flex-grow: 1;
 }
 
+.he_link {
+	margin-left: 1.5rem;
+	display: flex;
+	align-items: center;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--indigo-600);
+}
+
+.he_link:hover {
+	color: var(--indigo-400);
+}
+
+.he_link:last-of-type {
+	margin-right: 1rem;
+}
+
 .he_temp {
 	margin-left: 5rem;
 }
