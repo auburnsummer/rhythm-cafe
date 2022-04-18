@@ -7,17 +7,27 @@
 }
 
 .lb_imagebox {
-    position: relative;
-    padding-bottom: calc(900%/16); /* 16:9 ratio */
+    aspect-ratio: 16 / 9;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     overflow: hidden;
 }
 
 .lb_image, .lb_overlay {
-    position: absolute;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.lb_image {
     width: 100%;
     height: 100%;
+}
+
+.lb_overlay {
+    z-index: 10;
 }
 
 .lb_image {
@@ -50,6 +60,7 @@
     font-size: 0.875rem;
     line-height: 1rem;
     flex-grow: 1;
+    overflow-y: auto;
 }
 
 .lb_buttons {
@@ -233,4 +244,17 @@ Benface is still the Patron Saint of CSS though
     right: 0.25rem;
     font-size: 0.65rem;
     color: var(--blueGray-300);
+}
+
+.row\!lb {
+    flex-direction: row;
+}
+
+.row\!lb .lb_imagebox {
+    position: relative;
+    padding-right: calc(900%/16); /* 16:9 ratio */
+    padding-bottom: 0;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    overflow: hidden;
 }

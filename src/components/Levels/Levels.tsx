@@ -35,10 +35,12 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
                                           // blaze it
         return Math.max(Math.ceil(width / 420), 1);
     }, [width]);
+    // const columns = 1;
 
 
     const estimateSize = useCallback(() => {
         return 365; // by experiment
+        // return 180;
     }, [hits]); // recompute the list if hits changes
 
     const {
