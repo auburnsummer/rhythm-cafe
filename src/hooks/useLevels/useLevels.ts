@@ -59,6 +59,7 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const filterByString = useFilterByString();
 
     const [numberOfLevels] = usePreference("levels per page", As.NUMBER);
+    const [useCfCache] = usePreference("use cf cache", As.BOOLEAN);
 
     const processed: SearchParams = {
         q: q.trim(),
@@ -77,6 +78,10 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
 
 
     const {data, error} = useSWR<Response<SearchResponse<Level>>, Response<any>>(processed, (params: SearchParams) => {
+        if (!useCfCache) {
+            // set it in here to avoid SWR cache miss.
+            params.__fake_value_for_cache = `${Date.now()}`;
+        }
         return Axios({
             url: `${TYPESENSE_URL}/collections/levels/documents/search`,
             headers: {

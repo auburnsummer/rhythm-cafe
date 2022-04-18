@@ -37,7 +37,11 @@ export type FilterMap = {
 
 export type FilterKey = keyof FilterMap;
 
-export type PreferenceKey = "show advanced filters" | "show more level details" | "levels per page"
+export type PreferenceKey =
+    "show advanced filters" | 
+    "show more level details" | 
+    "levels per page" |
+    "use cf cache";
 
 export type Preferences = {
     [k in PreferenceKey]: string;

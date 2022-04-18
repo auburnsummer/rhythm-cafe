@@ -15,7 +15,8 @@ export const useStore = create<OrchardState>(_set => {
     const defaultPrefs : Preferences = {
         "levels per page": "25",
         "show advanced filters": "false",
-        "show more level details": "false"
+        "show more level details": "false",
+        "use cf cache": "true"
     };
 
     const localStoragePrefs = getKeys(defaultPrefs).reduce((prev, curr) => {
