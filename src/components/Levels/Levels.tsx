@@ -27,21 +27,23 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
     // @ts-ignore
     const whatIsEvenHappeningNowRef = useForkRef<HTMLDivElement>(parentRef, ref);
 
+    const [rowView] = usePreference("row view", As.BOOLEAN);
+
     // now we have the width, we can calculate how many columns to put in...
     const columns = useMemo(() => {
+        if (rowView) {
+            return 1;
+        }
         if (width === 0) {
             return 1;
         }
                                           // blaze it
         return Math.max(Math.ceil(width / 420), 1);
-    }, [width]);
-    // const columns = 1;
-
+    }, [width, rowView]);
 
     const estimateSize = useCallback(() => {
-        return 365; // by experiment
-        // return 180;
-    }, [hits]); // recompute the list if hits changes
+        return rowView ? 192 : 365;
+    }, [hits, rowView]); // recompute the list if hits changes
 
     const {
         virtualItems,
