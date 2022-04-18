@@ -6,6 +6,7 @@ import { ChevronDown, CogOutline, Key, Pager, PrescriptionBottle } from "@orchar
 import { useRef, useState } from "preact/hooks";
 import { useClickAway } from "@orchard/hooks/useClickAway";
 import { As, usePreference } from "@orchard/store";
+import { useSearchParam } from "react-use";
 
 type PreferenceSelectProps = JSX.HTMLAttributes<HTMLSelectElement>
 function PreferenceSelect({children, ...props}: PreferenceSelectProps) {
@@ -24,6 +25,11 @@ type PreferencesProps = {
 } & WithClass;
 
 export function Preferences({"class": _class} : PreferencesProps) {
+
+    // we can provide ?secret to enable some secret options.
+    // they're not """"that"""" secret, but i don't want them to be used by people too much.
+    // e.g. if too many people disable cf cache, that will increase my bandwidth costs
+    const secretPreferencesEnabled = useSearchParam('secret');
 
     const panelRef = useRef<HTMLDivElement>(null);
     const [expanded, setExpanded] = useState(false);
@@ -44,7 +50,7 @@ export function Preferences({"class": _class} : PreferencesProps) {
     const [levelsPerPage, setLevelsPerPage] = usePreference("levels per page", As.NUMBER);
     const [advancedFilters, setAdvancedFilters] = usePreference("show advanced filters", As.STRING);
     const [levelDetails, setLevelDetails] = usePreference("show more level details", As.STRING);
-    // const [showMoreLevelDetails, setShowMoreLevelDetails] = usePreference("showMoreLevelDetails");
+    const [useCfCache, setUseCfCache] = usePreference("use cf cache", As.STRING);
 
     return (
         <div class={cc(_class, "pr")}>
@@ -100,6 +106,22 @@ export function Preferences({"class": _class} : PreferencesProps) {
                             <span>level ids</span>
                         </div>
                     </li>
+                    {                      
+                        secretPreferencesEnabled != null && (<li class="pr_row">
+                                <PrescriptionBottle class="pr_icon" />
+                                <div class="pr_textline">
+                                    <PreferenceSelect
+                                        value={useCfCache}
+                                        onChange={e => setUseCfCache(e.currentTarget.value)}
+                                    >
+                                        <option value="false">Disable</option>
+                                        <option value="true">Enable</option>
+                                    </PreferenceSelect>
+                                    <span>Cloudflare cache</span>
+                                </div>
+                            </li>
+                        )
+                    }
                 </ul>
                 <div class="pr_disclaimer">
                     Note: Settings are saved to a cookie.

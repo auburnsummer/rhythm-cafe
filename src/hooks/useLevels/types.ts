@@ -34,6 +34,8 @@ export type SearchParams = {
     prioritize_exact_match?: boolean;
     search_cutoff_ms?: number;
     use_cache?: boolean;
+    // CF will cache the response if the params match. The cache ttl is set to 1 day.
+    __fake_value_for_cache?: string;
 }
 
 export type Level = {
