@@ -36,6 +36,7 @@ export const useStore = create<OrchardState>(_set => {
         q: "",
         setQuery: s => set(draft => {
             draft.q = s
+            draft.page = 1
         }),
         page: 1,
         setPage: n => set(draft => {
