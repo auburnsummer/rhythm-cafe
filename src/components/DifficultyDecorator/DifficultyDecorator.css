@@ -35,6 +35,7 @@
 	padding-right: 0.25rem;
 	text-transform: lowercase;
     font-weight: 300;
+    border-radius: inherit;
 }
 
 .dd_triangle {

@@ -41,6 +41,8 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
     const setAuthorFilter = useSetFilter("authors");
     const setTagFilter = useSetFilter("tags");
 
+    const [rowView] = usePreference("row view", As.BOOLEAN);
+
     const setAuthor = (s: string) => {
         setAuthorFilter(d => {
             d.values.add(s);
@@ -54,7 +56,7 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
     };
 
     return (
-        <article class={cc(_class, "lb")}>
+        <article class={cc(_class, "lb", {"row!lb": rowView})}>
             <div class="lb_imagebox">
                 <img class="lb_image" src={thumb} />
                 <div class="lb_overlay">

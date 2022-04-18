@@ -248,13 +248,15 @@ Benface is still the Patron Saint of CSS though
 
 .row\!lb {
     flex-direction: row;
+    width: 100%;
+    height: 12rem;
 }
 
 .row\!lb .lb_imagebox {
-    position: relative;
-    padding-right: calc(900%/16); /* 16:9 ratio */
-    padding-bottom: 0;
-    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-top-right-radius: 0;
+}
+
+.row\!lb .lb_decorator {
     border-top-right-radius: 0.5rem;
-    overflow: hidden;
 }
