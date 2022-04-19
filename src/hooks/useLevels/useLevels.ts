@@ -69,8 +69,9 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
         per_page: numberOfLevels,
         max_facet_values: maxFacetValues || 10,
         filter_by: filterByString,
-        page: page
-        // sort_by: "last_updated:asc"
+        page: page,
+        // todo: when typesense 0.23 comes out, implement configurable sort
+        sort_by: "_text_match:desc,indexed:desc,last_updated:desc"
     };
     if (facetQuery) {
         processed.facet_query = facetQuery;
