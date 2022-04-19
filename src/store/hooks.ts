@@ -57,6 +57,7 @@ export const useStore = create<OrchardState>(_set => {
             const toChange = draft.filters[cat];
             if (toChange) {
                 func(toChange);
+                draft.page = 1;
             }
         }),
         preferences: prefs,
