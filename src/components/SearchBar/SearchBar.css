@@ -25,6 +25,10 @@
     box-shadow: inset 0 0 0 2px var(--indigo-100);
 }
 
+.live\!se_bar > .se_input {
+    border-radius: 0.5rem;
+}
+
 
 .se_input::placeholder {
     color: var(--violet-400);
@@ -40,6 +44,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.live\!se_bar > .se_button {
+    display: none;
 }
 
 .se_button:hover {
