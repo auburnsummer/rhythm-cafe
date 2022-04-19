@@ -5,24 +5,6 @@
     padding-right: 2rem;
 }
 
-/* .le_list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
-    gap: 1.25rem;
-    place-items: stretch;
-} */
-
-
-
-/* .le_list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
-    gap: 1.25rem;
-    transition-property: opacity;
-    transition-duration: 150ms;
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-} */
-
 .le_controls {
     display: flex;
     align-items: center;
@@ -30,6 +12,12 @@
 
 .le_announcements ~ .le_controls {
     padding-top: 0.5rem;
+}
+
+@media only screen and (max-device-width: 640px) {
+    .le_controls {
+        padding-top: 0.5rem;
+    }
 }
 
 .le_spacer {
