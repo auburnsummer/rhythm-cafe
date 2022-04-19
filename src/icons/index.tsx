@@ -15,3 +15,4 @@ export * from "./PrescriptionBottle";
 export * from "./CogOutline";
 export * from "./Template";
 export * from "./Filter";
+export * from "./Search";
