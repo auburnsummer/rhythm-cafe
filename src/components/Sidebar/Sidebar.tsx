@@ -18,7 +18,7 @@ export function Sidebar({"class": _class}: SidebarProps) {
     const [advancedFilters] = usePreference("show advanced filters", As.BOOLEAN);
 
     return (
-        <aside class={cc(_class, "sb")}>
+        <aside class={cc("sb", _class)}>
             {
                 facets && (
                     <>

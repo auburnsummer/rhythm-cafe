@@ -4,12 +4,22 @@ import "./Header.css";
 import { SearchBar } from '@orchard/components/SearchBar';
 import { Preferences } from '@orchard/components/Preferences';
 import { useEbooks } from '@orchard/hooks/useEbooks';
+import { useRef, useState } from 'preact/hooks';
+import { useClickAway } from '@orchard/hooks/useClickAway';
 
 type HeaderProps = {} & WithClass;
 
 export function Header({"class": _class}: HeaderProps) {
 
     const ebook = useEbooks();
+    const [showLinks, setShowLinks] = useState(false);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    const onClick = () => {
+        setShowLinks(prev => !prev);
+    }
+
+    useClickAway(buttonRef, () => setShowLinks(false));
     
     return (
         <header class={cc(_class, "he")}>
@@ -26,11 +36,16 @@ export function Header({"class": _class}: HeaderProps) {
                 </svg>
             </div>
             <SearchBar class="he_search" />
-            <a class="he_link" href="https://rhythmdr.com/">Get RD</a>
-            <a class="he_link" href="https://giacomopc.itch.io/rdle">Standalone editor</a>
-            <a class="he_link" href="https://discord.gg/rhythmdr">Discord</a>
-            <a class="he_link" href="https://wiki.rhythm.cafe">Wiki</a>
-            <a class="he_link" href="https://chorus.fightthe.pw/">chorus</a>
+            <button class="he_linktoggle" onClick={onClick} onMouseDown={e => e.stopPropagation()} ref={buttonRef}>
+                Links
+            </button>
+            <ul class={cc("he_links", {"visible!he_links" : showLinks})} onMouseDown={e => e.stopPropagation()}>
+                <a class="he_link" href="https://rhythmdr.com/">Get RD</a>
+                <a class="he_link" href="https://giacomopc.itch.io/rdle">Standalone editor</a>
+                <a class="he_link" href="https://discord.gg/rhythmdr">Discord</a>
+                <a class="he_link" href="https://wiki.rhythm.cafe">Wiki</a>
+                <a class="he_link" href="https://chorus.fightthe.pw/">chorus</a>
+            </ul>
             <Preferences />
         </header>
     )
