@@ -2,7 +2,7 @@ import "./Preferences.css";
 
 import cc from "clsx";
 import { WithClass } from "@orchard/utils/types";
-import { ChevronDown, CogOutline, Key, Pager, PrescriptionBottle, Template } from "@orchard/icons";
+import { ChevronDown, CogOutline, Key, Pager, PrescriptionBottle, Search, Template } from "@orchard/icons";
 import { useRef, useState } from "preact/hooks";
 import { useClickAway } from "@orchard/hooks/useClickAway";
 import { As, usePreference } from "@orchard/store";
@@ -52,6 +52,7 @@ export function Preferences({"class": _class} : PreferencesProps) {
     const [levelDetails, setLevelDetails] = usePreference("show more level details", As.STRING);
     const [useCfCache, setUseCfCache] = usePreference("use cf cache", As.STRING);
     const [rowView, setRowView] = usePreference("row view", As.STRING);
+    const [liveSearch, setLiveSearch] = usePreference("search as you type", As.STRING);
 
     return (
         <div class={cc(_class, "pr")}>
@@ -94,6 +95,19 @@ export function Preferences({"class": _class} : PreferencesProps) {
                             <span>levels per page</span>
                         </div>
                     </li>
+                    <li class="pr_row">
+                        <Search class="pr_icon" />
+                        <div class="pr_textline">
+                            <span>Search style:</span>
+                            <PreferenceSelect
+                                value={liveSearch}
+                                onChange={e => setLiveSearch(e.currentTarget.value)}
+                            >
+                                <option value="false">with a button</option>
+                                <option value="true">as I type</option>
+                            </PreferenceSelect>
+                        </div>
+                    </li>                   
                     <li class="pr_row">
                         <Key class="pr_icon" />
                         <div class="pr_textline">

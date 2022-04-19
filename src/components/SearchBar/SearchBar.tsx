@@ -3,6 +3,7 @@ import { As, usePreference, useQuery } from "@orchard/store";
 import { WithClass } from "@orchard/utils/types";
 import cc from "clsx";
 import { useEffect, useState } from "preact/hooks";
+import { useDebounce } from "react-use";
 import "./SearchBar.css";
 
 type SearchBarProps = {} & WithClass;
@@ -12,27 +13,35 @@ export function SearchBar({"class": _class}: SearchBarProps) {
     const [text, setText] = useState("");
     const [liveSearch] = usePreference("search as you type", As.BOOLEAN);
 
-    const doSearch = () => {
-        setQuery(text);
+    const doSearch = (e: Event) => {
+        e.preventDefault();
+        if (!liveSearch) {
+            setQuery(text);
+        }
     };
 
-    useEffect(() => {
-        setText(q);
-    }, [q]);
+    useDebounce(() => {
+            if (liveSearch) {
+                setQuery(text);
+            }
+        },
+        100,
+        [text]
+    );
 
     return (
         <div class={cc(_class, "se")}>
-            <div class="se_bar">
+            <form class={cc("se_bar", {"live!se_bar": liveSearch})} onSubmit={doSearch}>
                 <input
                     value={text}
                     onInput={evt => setText(evt.currentTarget.value)}
                     class="se_input"
                     placeholder="What do you feel like playing today?"
                 />
-                <button onClick={doSearch} aria-label="Search" class="se_button">
+                <button type="submit" aria-label="Search" class="se_button">
                     <Search class="se_mag" />
                 </button>
-            </div>
+            </form>
         </div>
     )
 }
