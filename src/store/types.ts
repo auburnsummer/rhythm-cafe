@@ -42,7 +42,8 @@ export type PreferenceKey =
     "show more level details" | 
     "levels per page" |
     "use cf cache" | 
-    "row view"
+    "row view" |
+    "search as you type"
 
 export type Preferences = {
     [k in PreferenceKey]: string;

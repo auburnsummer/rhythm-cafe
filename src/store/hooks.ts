@@ -17,7 +17,8 @@ export const useStore = create<OrchardState>(_set => {
         "show advanced filters": "false",
         "show more level details": "false",
         "use cf cache": "true",
-        "row view": "false"
+        "row view": "false",
+        "search as you type": "false"
     };
 
     const localStoragePrefs = getKeys(defaultPrefs).reduce((prev, curr) => {
