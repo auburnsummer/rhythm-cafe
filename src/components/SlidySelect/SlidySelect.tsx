@@ -27,13 +27,17 @@ export function SlidySelect({"class": _class, facetName, min, max, step, humanNa
     const [currMax, setCurrMax] = useState(isActive ? filter.max : max);
 
     const onMinInput = (n: number) => {
-        setShowingPlaceholders(false);
-        setCurrMin(clamp(n, min, currMax));
+        if (!Object.is(NaN, n)) {
+            setShowingPlaceholders(false);
+            setCurrMin(clamp(n, min, currMax));
+        }
     }
 
     const onMaxInput = (n: number) => {
-        setShowingPlaceholders(false);
-        setCurrMax(clamp(n, currMin, max));
+        if (!Object.is(NaN, n)) {
+            setShowingPlaceholders(false);
+            setCurrMax(clamp(n, currMin, max));
+        }
     }
 
     const onClick: JSX.MouseEventHandler<HTMLButtonElement> = _ => {
