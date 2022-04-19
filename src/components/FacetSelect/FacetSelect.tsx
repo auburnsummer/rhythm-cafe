@@ -1,10 +1,11 @@
-import { useLevels } from "@orchard/hooks/useLevels";
+import { SearchResponseFacetCountSchema, useLevels } from "@orchard/hooks/useLevels";
 import { Spinny } from "@orchard/icons";
 import { As, FacetFilter, FilterMap, useFilter, usePreference } from "@orchard/store";
 import { KeyOfType, WithClass } from "@orchard/utils/types";
 import cc from "clsx";
 import { useMemo, useState } from "preact/hooks";
 import "./FacetSelect.css";
+import { identity, sortBy } from "lodash-es";
 
 type FacetSelectProps = {
     facetName: KeyOfType<FilterMap, FacetFilter>;
@@ -12,6 +13,7 @@ type FacetSelectProps = {
     showSwitch?: boolean;
     showFilter?: boolean;
     valueTransformFunc?: (s: string) => string;
+    sortByFunc?: (s: SearchResponseFacetCountSchema<any>["counts"][number]) => any;
 } & WithClass;
 
 export function FacetSelect(
@@ -21,7 +23,8 @@ export function FacetSelect(
         humanName,
         "showSwitch": _showSwitch = true,
         showFilter = true,
-        valueTransformFunc = s => `${s}`
+        valueTransformFunc = s => `${s}`,
+        sortByFunc = identity
     }: FacetSelectProps) {
     const [input, setInput] = useState("");
     const { data: resp, isLagging } = useLevels(
@@ -94,7 +97,7 @@ export function FacetSelect(
             }
             <ul class="fs_list">
                 {
-                    facet && facet.counts.map(f => {
+                    facet && sortBy(facet.counts, sortByFunc).map(f => {
                         return (
                             <li class="fs_item" key={f.value}>
                                 <label class="fs_control">

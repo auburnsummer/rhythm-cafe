@@ -30,6 +30,7 @@ export function Sidebar({"class": _class}: SidebarProps) {
                             facetName="difficulty"
                             humanName="Difficulty"
                             valueTransformFunc={difficultyName}
+                            sortByFunc={s => s.value}
                             showSwitch={false}
                             showFilter={false}
                         />
