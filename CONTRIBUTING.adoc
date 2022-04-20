@@ -1,0 +1,73 @@
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Contributing Guide
+
+WARNING: This is a work-in-progress document.
+
+This document describes how to contribute to Rhythm Cafe. Contributing to an open
+source project can be a daunting task. It is my hope that this will make the process
+easier.
+
+If you are new to this, I recommend using the CodeSandbox based approach which is 
+described below. The CodeSandbox based approach allows you to run
+the app and make edits without installing anything on your computer.
+
+TIP: This document is formatted in Asciidoc. The easiest way to read it is in the GitHub
+preview. If you see a little lightbulb to the left of this, you're reading it in GitHub!
+
+== CodeSandbox Installation
+
+:imgwidth: 256
+
+TIP: You can right click the screenshots and open them in a new tab to view them bigger.
+
+|===
+|Step|Instruction|Screenshot
+
+|{counter:seq}.
+|Open this link in a new tab: https://codesandbox.io/s/github/auburnsummer/rhythm-cafe[CodeSandbox]
+|
+
+|{counter:seq}.
+|Click the "Fork" button on the left panel.
+|image:https://user-images.githubusercontent.com/37142182/164240325-a29a4cce-0e32-4383-8d64-04d903118343.png[width={imgwidth}]
+
+|{counter:seq}.
+|You may be prompted to sign in. Sign in with your GitHub account, if you have one.
+If you don't have one yet, that's fine too; you can sign in with Google and these instructions will still work.
+
+If you already have an account, this step does not apply.
+|
+
+|{counter:seq}.
+|CodeSandbox will whirr away for a bit, and then you will see the Rhythm Cafe page again. Note that the top
+bar now displays a different project name.
+|image:https://user-images.githubusercontent.com/37142182/164244914-7d936408-fd05-467d-916e-97b9fb8003cd.png[width={imgwidth}]
+
+|{counter:seq}.
+|*Optional*: The default view is quite cramped, in my opinion. Click the "Open in New Window" button in the Browser panel
+to open the browser in its own window.
+|image:https://user-images.githubusercontent.com/37142182/164245465-cad412d5-1d6a-47e1-abb7-ede709231328.png[width={imgwidth}]
+
+|{counter:seq}.
+|*Optional*: After opening the browser in its own window, you can click on the "Toggle Preview" button to collapse the right panel.
+|image:https://user-images.githubusercontent.com/37142182/164245985-35c4cf36-5516-44d2-9381-eec4fa19f90c.png[width={imgwidth}]
+
+|{counter:seq}.
+|Make file edits as you please. When you edit, changes are automatically reflected in the browser window.
+
+There are a lot of files. For guidance for how to find the thing you want to edit, please look at the below section (WIP)
+|
+|===
+
+{counter:seq}
+
+. Open this link in a new tab: https://codesandbox.io/s/github/auburnsummer/rhythm-cafe[CodeSandbox]
+. Click the "Fork" button on the left:
+
