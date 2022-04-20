@@ -1,11 +1,8 @@
 import "./SimplePeerReviewSelect.css";
 import cc from "clsx";
 import { WithClass } from "@orchard/utils/types";
-import { useLevels } from "@orchard/hooks/useLevels";
 
-import { FacetSelect } from "@orchard/components/FacetSelect";
-import { SlidySelect } from "@orchard/components/SlidySelect";
-import { As, useFilter, usePreference } from "@orchard/store";
+import { useFilter } from "@orchard/store";
 import { useMemo } from "preact/hooks";
 
 type SimplePeerReviewSelectProps = {} & WithClass;
