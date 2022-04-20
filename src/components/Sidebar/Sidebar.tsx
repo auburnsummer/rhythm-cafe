@@ -6,6 +6,7 @@ import { useLevels } from "@orchard/hooks/useLevels";
 import { FacetSelect } from "@orchard/components/FacetSelect";
 import { SlidySelect } from "@orchard/components/SlidySelect";
 import { As, usePreference } from "@orchard/store";
+import { SimplePeerReviewSelect } from "@orchard/components/SimplePeerReviewSelect";
 
 type SidebarProps = {} & WithClass;
 export function Sidebar({"class": _class}: SidebarProps) {
@@ -35,6 +36,11 @@ export function Sidebar({"class": _class}: SidebarProps) {
                             showFilter={false}
                         />
                         <SlidySelect class="sb_facet" humanName="BPM" facetName="bpm" min={0} max={1000} step={10} />
+                        {
+                            !advancedFilters && (
+                                <SimplePeerReviewSelect class="sb_facet" />
+                            )
+                        }
                         {
                             advancedFilters && (
                                 <SlidySelect class="sb_facet" humanName="Peer Review" facetName="approval" min={-10} max={20} step={1}/>
