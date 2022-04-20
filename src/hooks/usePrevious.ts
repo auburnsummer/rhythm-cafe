@@ -10,7 +10,7 @@ export default function usePrevious<T>(state: T): [T | undefined, () => void] {
     }, [state]);
 
     const reset = useCallback(() => {
-        setH(_ => []);
+        setH(() => []);
     }, []);
 
     const prev = h.length > 1 ? h.at(-2) : undefined;

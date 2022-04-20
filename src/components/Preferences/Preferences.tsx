@@ -1,12 +1,12 @@
-import "./Preferences.css";
+import './Preferences.css';
 
-import cc from "clsx";
-import { WithClass } from "@orchard/utils/types";
-import { ChevronDown, CogOutline, Key, Pager, PrescriptionBottle, Search, Template } from "@orchard/icons";
-import { useRef, useState } from "preact/hooks";
-import { useClickAway } from "@orchard/hooks/useClickAway";
-import { As, usePreference } from "@orchard/store";
-import { useSearchParam } from "react-use";
+import cc from 'clsx';
+import { WithClass } from '@orchard/utils/types';
+import { ChevronDown, CogOutline, Key, Pager, PrescriptionBottle, Search, Template } from '@orchard/icons';
+import { useRef, useState } from 'preact/hooks';
+import { useClickAway } from '@orchard/hooks/useClickAway';
+import { As, usePreference } from '@orchard/store';
+import { useSearchParam } from 'react-use';
 
 type PreferenceSelectProps = JSX.HTMLAttributes<HTMLSelectElement>
 function PreferenceSelect({children, ...props}: PreferenceSelectProps) {
@@ -17,14 +17,11 @@ function PreferenceSelect({children, ...props}: PreferenceSelectProps) {
             </select>
             <ChevronDown class="pr_selectbox_icon"/>
         </div>
-    )
+    );
 }
 
-type PreferencesProps = {
-
-} & WithClass;
-
-export function Preferences({"class": _class} : PreferencesProps) {
+type PreferencesProps = WithClass;
+export function Preferences({'class': _class} : PreferencesProps) {
 
     // we can provide ?secret to enable some secret options.
     // they're not """"that"""" secret, but i don't want them to be used by people too much.
@@ -34,37 +31,37 @@ export function Preferences({"class": _class} : PreferencesProps) {
     const panelRef = useRef<HTMLDivElement>(null);
     const [expanded, setExpanded] = useState(false);
 
-    const onClick = (e: Event) => {
+    const onClick = (_: Event) => {
         setExpanded(prev => !prev);
     };
 
     const onMouseDown = (e: Event) => {
         e.stopPropagation();
-        console.log("mouse downnnnnnn");
+        console.log('mouse downnnnnnn');
     };
 
     useClickAway(panelRef, _ => {
         setExpanded(false);
     });
 
-    const [levelsPerPage, setLevelsPerPage] = usePreference("levels per page", As.NUMBER);
-    const [advancedFilters, setAdvancedFilters] = usePreference("show advanced filters", As.STRING);
-    const [levelDetails, setLevelDetails] = usePreference("show more level details", As.STRING);
-    const [useCfCache, setUseCfCache] = usePreference("use cf cache", As.STRING);
-    const [rowView, setRowView] = usePreference("row view", As.STRING);
-    const [liveSearch, setLiveSearch] = usePreference("search as you type", As.STRING);
+    const [levelsPerPage, setLevelsPerPage] = usePreference('levels per page', As.NUMBER);
+    const [advancedFilters, setAdvancedFilters] = usePreference('show advanced filters', As.STRING);
+    const [levelDetails, setLevelDetails] = usePreference('show more level details', As.STRING);
+    const [useCfCache, setUseCfCache] = usePreference('use cf cache', As.STRING);
+    const [rowView, setRowView] = usePreference('row view', As.STRING);
+    const [liveSearch, setLiveSearch] = usePreference('search as you type', As.STRING);
 
     return (
-        <div class={cc(_class, "pr")}>
+        <div class={cc(_class, 'pr')}>
             <button
-                class={cc(_class, "pr_button")}
+                class={cc(_class, 'pr_button')}
                 onClick={onClick}
                 onMouseDown={onMouseDown}
             >
                 <CogOutline class="pr_bicon" />
             </button>
 
-            <div class={cc("pr_panel", {"showing\!pr_panel": expanded})} ref={panelRef}>
+            <div class={cc('pr_panel', {'showing!pr_panel': expanded})} ref={panelRef}>
                 <ul class="pr_list">
                     <li class="pr_row">
                         <Template class="pr_icon" />
@@ -136,18 +133,18 @@ export function Preferences({"class": _class} : PreferencesProps) {
                     </li>
                     {                      
                         secretPreferencesEnabled != null && (<li class="pr_row">
-                                <PrescriptionBottle class="pr_icon" />
-                                <div class="pr_textline">
-                                    <PreferenceSelect
-                                        value={useCfCache}
-                                        onChange={e => setUseCfCache(e.currentTarget.value)}
-                                    >
-                                        <option value="false">Disable</option>
-                                        <option value="true">Enable</option>
-                                    </PreferenceSelect>
-                                    <span>Cloudflare cache</span>
-                                </div>
-                            </li>
+                            <PrescriptionBottle class="pr_icon" />
+                            <div class="pr_textline">
+                                <PreferenceSelect
+                                    value={useCfCache}
+                                    onChange={e => setUseCfCache(e.currentTarget.value)}
+                                >
+                                    <option value="false">Disable</option>
+                                    <option value="true">Enable</option>
+                                </PreferenceSelect>
+                                <span>Cloudflare cache</span>
+                            </div>
+                        </li>
                         )
                     }
                 </ul>
@@ -156,5 +153,5 @@ export function Preferences({"class": _class} : PreferencesProps) {
                 </div>
             </div>
         </div>
-    )
+    );
 }

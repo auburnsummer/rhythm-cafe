@@ -1,1 +1,1 @@
-export { ConjunctionList } from "./ConjunctionList";
+export { ConjunctionList } from './ConjunctionList';

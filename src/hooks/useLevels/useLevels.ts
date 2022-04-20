@@ -1,10 +1,10 @@
-import { Level, SearchParams, SearchResponse } from "@orchard/hooks/useLevels/types";
-import { TYPESENSE_API_KEY, TYPESENSE_URL } from "@orchard/utils/constants";
-import Axios, { Response } from "redaxios";
-import useSWR from "swr";
-import usePrevious from "@orchard/hooks/usePrevious";
-import { As, useFilter, usePage, usePreference, useStore } from "@orchard/store";
-import { getKeys } from "@orchard/utils/grabbag";
+import { Level, SearchParams, SearchResponse } from '@orchard/hooks/useLevels/types';
+import { TYPESENSE_API_KEY, TYPESENSE_URL } from '@orchard/utils/constants';
+import Axios, { Response } from 'redaxios';
+import useSWR from 'swr';
+import usePrevious from '@orchard/hooks/usePrevious';
+import { As, useFilter, usePage, usePreference, useStore } from '@orchard/store';
+import { getKeys } from '@orchard/utils/grabbag';
 
 function useFilterByString() {
     const filters = useStore(state => state.filters);
@@ -44,7 +44,7 @@ function useFilterByString() {
             }
             return prev;
         }, [] as string[])
-        .join(" && ");
+        .join(' && ');
 }
 
 type useLevelsProps = {
@@ -58,18 +58,18 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const [page] = usePage();
     const filterByString = useFilterByString();
 
-    const [numberOfLevels] = usePreference("levels per page", As.NUMBER);
-    const [useCfCache] = usePreference("use cf cache", As.BOOLEAN);
+    const [numberOfLevels] = usePreference('levels per page', As.NUMBER);
+    const [useCfCache] = usePreference('use cf cache', As.BOOLEAN);
 
-    const [prFilter] = useFilter("approval");
+    const [prFilter] = useFilter('approval');
 
     const showingNonPRLevels = prFilter.min <= -1;
 
     const processed: SearchParams = {
         q: q.trim(),
-        query_by: "song, authors, artist, description",
-        query_by_weights: "12, 8, 6, 4",
-        facet_by: facetBy.join(","),
+        query_by: 'song, authors, artist, description',
+        query_by_weights: '12, 8, 6, 4',
+        facet_by: facetBy.join(','),
         per_page: numberOfLevels,
         max_facet_values: maxFacetValues || 10,
         filter_by: filterByString,
@@ -78,15 +78,15 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
         // note: not PR'ed levels do not have the `indexed` property set. so if non pr'd levels are allowed,
         // only sort by last_updated directly.
         sort_by: showingNonPRLevels
-            ? "_text_match:desc,last_updated:desc"
-            : "_text_match:desc,indexed:desc,last_updated:desc"
+            ? '_text_match:desc,last_updated:desc'
+            : '_text_match:desc,indexed:desc,last_updated:desc'
     };
     if (facetQuery) {
         processed.facet_query = facetQuery;
     }
 
 
-    const {data, error} = useSWR<Response<SearchResponse<Level>>, Response<any>>(processed, (params: SearchParams) => {
+    const {data, error} = useSWR<Response<SearchResponse<Level>>, Response<unknown>>(processed, (params: SearchParams) => {
         if (!useCfCache) {
             // set it in here to avoid SWR cache miss.
             params.__fake_value_for_cache = `${Date.now()}`;
@@ -97,13 +97,13 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
                 'x-typesense-api-key': TYPESENSE_API_KEY
             },
             params
-        })
+        });
     });
 
     const [previousData, resetPreviousData] = usePrevious(data);
     const dataOrPrevious = data === undefined ? previousData : data;
-    const isLagging = data === undefined && previousData !== undefined
+    const isLagging = data === undefined && previousData !== undefined;
 
 
-    return { data: dataOrPrevious, error, isLagging, resetPreviousData}
+    return { data: dataOrPrevious, error, isLagging, resetPreviousData};
 }

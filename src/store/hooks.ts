@@ -1,7 +1,7 @@
 import create from 'zustand';
-import produce, {enableMapSet} from "immer";
+import produce, {enableMapSet} from 'immer';
 import { WritableDraft } from 'immer/dist/types/types-external';
-import { OrchardState, FilterMap, PreferenceKey, Filter, Preferences, FilterKey } from './types';
+import { OrchardState, FilterMap, PreferenceKey, Preferences, FilterKey } from './types';
 import { getKeys, tuple } from '@orchard/utils/grabbag';
 import { VoidFunc } from '@orchard/utils/types';
 
@@ -9,16 +9,16 @@ enableMapSet();
 
 export const useStore = create<OrchardState>(_set => {
     const set = (func: (draft: WritableDraft<OrchardState>) => void) => {
-        _set(state => produce(state, func))
+        _set(state => produce(state, func));
     };
 
     const defaultPrefs : Preferences = {
-        "levels per page": "25",
-        "show advanced filters": "false",
-        "show more level details": "false",
-        "use cf cache": "true",
-        "row view": "false",
-        "search as you type": "false"
+        'levels per page': '25',
+        'show advanced filters': 'false',
+        'show more level details': 'false',
+        'use cf cache': 'true',
+        'row view': 'false',
+        'search as you type': 'false'
     };
 
     const localStoragePrefs = getKeys(defaultPrefs).reduce((prev, curr) => {
@@ -36,16 +36,16 @@ export const useStore = create<OrchardState>(_set => {
     };
 
     return {
-        q: "",
+        q: '',
         setQuery: s => set(draft => {
-            draft.q = s
-            draft.page = 1
+            draft.q = s;
+            draft.page = 1;
         }),
         page: 1,
         setPage: n => set(draft => {
-            draft.page = n
+            draft.page = n;
         }),
-        facetBy: ["authors", "tags", "source", "difficulty", "artist"],
+        facetBy: ['authors', 'tags', 'source', 'difficulty', 'artist'],
         filters: {
             difficulty: {type: 'in', active: true, values: new Set([])},
             authors: {type: 'all', active: true, values: new Set([])},
@@ -109,5 +109,5 @@ export const usePreference = <T,>(key: PreferenceKey, func: (s: string) => T) =>
 export const As = {
     STRING  : (s: string) => s,
     NUMBER : (s: string) => parseInt(s),
-    BOOLEAN : (s: string) => s === "true"
-}
+    BOOLEAN : (s: string) => s === 'true'
+};

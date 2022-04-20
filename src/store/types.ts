@@ -1,5 +1,5 @@
-import { VoidFunc } from "@orchard/utils/types";
-import { WritableDraft } from "immer/dist/types/types-external";
+import { VoidFunc } from '@orchard/utils/types';
+import { WritableDraft } from 'immer/dist/types/types-external';
 
 export type BaseFilter = {
     type: string;
@@ -38,12 +38,12 @@ export type FilterMap = {
 export type FilterKey = keyof FilterMap;
 
 export type PreferenceKey =
-    "show advanced filters" | 
-    "show more level details" | 
-    "levels per page" |
-    "use cf cache" | 
-    "row view" |
-    "search as you type"
+    'show advanced filters' | 
+    'show more level details' | 
+    'levels per page' |
+    'use cf cache' | 
+    'row view' |
+    'search as you type'
 
 export type Preferences = {
     [k in PreferenceKey]: string;

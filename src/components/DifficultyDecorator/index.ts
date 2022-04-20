@@ -1,1 +1,1 @@
-export { DifficultyDecorator } from "./DifficultyDecorator";
+export { DifficultyDecorator } from './DifficultyDecorator';

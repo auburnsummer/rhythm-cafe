@@ -1,25 +1,25 @@
-import "./Sidebar.css";
-import cc from "clsx";
-import { WithClass } from "@orchard/utils/types";
-import { useLevels } from "@orchard/hooks/useLevels";
+import './Sidebar.css';
+import cc from 'clsx';
+import { WithClass } from '@orchard/utils/types';
+import { useLevels } from '@orchard/hooks/useLevels';
 
-import { FacetSelect } from "@orchard/components/FacetSelect";
-import { SlidySelect } from "@orchard/components/SlidySelect";
-import { As, usePreference } from "@orchard/store";
-import { SimplePeerReviewSelect } from "@orchard/components/SimplePeerReviewSelect";
+import { FacetSelect } from '@orchard/components/FacetSelect';
+import { SlidySelect } from '@orchard/components/SlidySelect';
+import { As, usePreference } from '@orchard/store';
+import { SimplePeerReviewSelect } from '@orchard/components/SimplePeerReviewSelect';
 
-type SidebarProps = {} & WithClass;
-export function Sidebar({"class": _class}: SidebarProps) {
+type SidebarProps = WithClass;
+export function Sidebar({'class': _class}: SidebarProps) {
     const { data: resp } = useLevels();
 
     const facets = resp?.data.facet_counts;
 
-    const difficultyName = (v: string) => ["Easy", "Medium", "Tough", "Very Tough"][parseInt(v)];
+    const difficultyName = (v: string) => ['Easy', 'Medium', 'Tough', 'Very Tough'][parseInt(v)];
 
-    const [advancedFilters] = usePreference("show advanced filters", As.BOOLEAN);
+    const [advancedFilters] = usePreference('show advanced filters', As.BOOLEAN);
 
     return (
-        <aside class={cc("sb", _class)}>
+        <aside class={cc('sb', _class)}>
             {
                 facets && (
                     <>
@@ -50,5 +50,5 @@ export function Sidebar({"class": _class}: SidebarProps) {
                 )
             }
         </aside>
-    )
+    );
 }

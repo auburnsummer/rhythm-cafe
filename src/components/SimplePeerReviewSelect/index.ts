@@ -1,1 +1,1 @@
-export { SimplePeerReviewSelect } from "./SimplePeerReviewSelect";
+export { SimplePeerReviewSelect } from './SimplePeerReviewSelect';

@@ -1,1 +1,1 @@
-export { SlidySelect } from "./SlidySelect";
+export { SlidySelect } from './SlidySelect';

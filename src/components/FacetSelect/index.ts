@@ -1,1 +1,1 @@
-export { FacetSelect } from "./FacetSelect";
+export { FacetSelect } from './FacetSelect';
