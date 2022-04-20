@@ -8,6 +8,10 @@
   flex-direction: row;
 }
 
+.ap_header {
+  max-width: 100%;
+}
+
 
 .ap_sidebar {
   width: 20rem;
