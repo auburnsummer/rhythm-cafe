@@ -3,7 +3,7 @@ import { TYPESENSE_API_KEY, TYPESENSE_URL } from "@orchard/utils/constants";
 import Axios, { Response } from "redaxios";
 import useSWR from "swr";
 import usePrevious from "@orchard/hooks/usePrevious";
-import { As, usePage, usePreference, useStore } from "@orchard/store";
+import { As, useFilter, usePage, usePreference, useStore } from "@orchard/store";
 import { getKeys } from "@orchard/utils/grabbag";
 
 function useFilterByString() {
@@ -61,6 +61,10 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const [numberOfLevels] = usePreference("levels per page", As.NUMBER);
     const [useCfCache] = usePreference("use cf cache", As.BOOLEAN);
 
+    const [prFilter] = useFilter("approval");
+
+    const showingNonPRLevels = prFilter.min <= -1;
+
     const processed: SearchParams = {
         q: q.trim(),
         query_by: "song, authors, artist, description",
@@ -71,7 +75,11 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
         filter_by: filterByString,
         page: page,
         // todo: when typesense 0.23 comes out, implement configurable sort
-        sort_by: "_text_match:desc,indexed:desc,last_updated:desc"
+        // note: not PR'ed levels do not have the `indexed` property set. so if non pr'd levels are allowed,
+        // only sort by last_updated directly.
+        sort_by: showingNonPRLevels
+            ? "_text_match:desc,last_updated:desc"
+            : "_text_match:desc,indexed:desc,last_updated:desc"
     };
     if (facetQuery) {
         processed.facet_query = facetQuery;
