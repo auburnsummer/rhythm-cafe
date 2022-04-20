@@ -1,7 +1,7 @@
 
 
 import { Ref } from 'preact';
-import { useCallback } from "preact/hooks";
+import { useCallback } from 'preact/hooks';
 
 function setRef<T extends Element>(ref: Ref<T>, value: T | null): void {
     if (typeof ref === 'object') {

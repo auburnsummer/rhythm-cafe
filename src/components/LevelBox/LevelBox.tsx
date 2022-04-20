@@ -1,9 +1,9 @@
 import cc from 'clsx';
 import copy from 'clipboard-copy';
-import { ConjunctionList } from "@orchard/components/ConjunctionList";
+import { ConjunctionList } from '@orchard/components/ConjunctionList';
 import { DifficultyDecorator } from '@orchard/components/DifficultyDecorator';
 
-import "./LevelBox.css";
+import './LevelBox.css';
 import { WithClass } from '@orchard/utils/types';
 import { Level } from '@orchard/hooks/useLevels/types';
 import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
@@ -11,7 +11,7 @@ import { Discord } from '@orchard/icons/Discord';
 import { As, usePreference, useSetFilter } from '@orchard/store';
 
 
-function DescriptionText({description}: Pick<Level, "description">) {
+function DescriptionText({description}: Pick<Level, 'description'>) {
     // match either an opening color tag or an ending color tag.
     // rhythm doctor doesn't require ending color tags, so you can't rely on
     // there always being a matching end tag.
@@ -19,9 +19,9 @@ function DescriptionText({description}: Pick<Level, "description">) {
     // TODO: instead of stripping out the color tags, actually use them
     const re = /<color=#[0-9a-fA-F]+?>|<\/color>/g;
 
-    const colorFiltered = description.replaceAll(re, "");
+    const colorFiltered = description.replaceAll(re, '');
 
-    return <>{colorFiltered.split("\\n").map(p => <p>{p}</p>)}</>
+    return <>{colorFiltered.split('\\n').map(p => <p>{p}</p>)}</>;
 }
 
 type LevelBoxProps = {
@@ -29,34 +29,34 @@ type LevelBoxProps = {
 } & WithClass;
 
 
-export function LevelBox({level, "class": _class}: LevelBoxProps) {
-    const {id, song, artist, authors, tags, thumb, min_bpm, max_bpm, source, seizure_warning, approval} = level;
+export function LevelBox({level, 'class': _class}: LevelBoxProps) {
+    const {id, song, artist, authors, tags, thumb, min_bpm, max_bpm, seizure_warning, approval} = level;
 
     const canonicalUrl = level.url || level.url2;
     const bpmText = min_bpm === max_bpm ? `${min_bpm} BPM` : `${min_bpm}-${max_bpm} BPM`;
     const sourceText = 'Rhythm Doctor Lounge';
     const UsersIcon = authors.length > 1 ? Users : User;
 
-    const [showMoreLevelDetails] = usePreference("show more level details", As.BOOLEAN);
-    const setAuthorFilter = useSetFilter("authors");
-    const setTagFilter = useSetFilter("tags");
+    const [showMoreLevelDetails] = usePreference('show more level details', As.BOOLEAN);
+    const setAuthorFilter = useSetFilter('authors');
+    const setTagFilter = useSetFilter('tags');
 
-    const [rowView] = usePreference("row view", As.BOOLEAN);
+    const [rowView] = usePreference('row view', As.BOOLEAN);
 
     const setAuthor = (s: string) => {
         setAuthorFilter(d => {
             d.values.add(s);
-        })
+        });
     };
 
     const setTag = (s: string) => {
         setTagFilter(d => {
             d.values.add(s);
-        })
+        });
     };
 
     return (
-        <article class={cc(_class, "lb", {"row!lb": rowView})}>
+        <article class={cc(_class, 'lb', {'row!lb': rowView})}>
             <div class="lb_imagebox">
                 <img class="lb_image" src={thumb} />
                 <div class="lb_overlay">
@@ -87,12 +87,12 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                             class="lb_author-list"
                             elementRender={(v) => 
                                 typeof v === 'string' 
-                                ? <button
-                                    onClick={() => setAuthor(v)}
-                                    class="lb_metabutton"
-                                >
-                                    {v}
-                                </button> : <></>
+                                    ? <button
+                                        onClick={() => setAuthor(v)}
+                                        class="lb_metabutton"
+                                    >
+                                        {v}
+                                    </button> : <></>
                             }
                             literalRender={(v) => <span class="lb_metatext">{v}</span>}
                         >
@@ -109,20 +109,20 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                     </div>
                     <div
                         class={cc(
-                            "lb_metaitem lb_approval",
-                            { "yay!lb_approval" : approval >= 10,
-                                "nope!lb_approval" : approval < 0,
-                                "umm!lb_approval" : approval === 0
+                            'lb_metaitem lb_approval',
+                            { 'yay!lb_approval' : approval >= 10,
+                                'nope!lb_approval' : approval < 0,
+                                'umm!lb_approval' : approval === 0
                             }
                         )}
                     >
                         {
                             approval >= 10 ? (
-                                <span title={"Peer-Reviewed: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability."}>
+                                <span title={'Peer-Reviewed: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability.'}>
                                     <BadgeCheck class="lb_metaicon" />
                                 </span>
                             ) : approval < 0 ? (
-                                <span title={"Non-Referred: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability, and has found that this level does not meet standards."}>
+                                <span title={'Non-Referred: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability, and has found that this level does not meet standards.'}>
                                     <XIcon class="lb_metaicon" />
                                 </span>
                             ) : null
@@ -162,6 +162,6 @@ export function LevelBox({level, "class": _class}: LevelBoxProps) {
                 }
             </div>
         </article>
-    )
+    );
 }
 

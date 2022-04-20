@@ -1,10 +1,10 @@
-import { KeyOfType, WithClass } from "@orchard/utils/types";
-import "./SlidySelect.css";
+import { KeyOfType, WithClass } from '@orchard/utils/types';
+import './SlidySelect.css';
 
-import cc from "clsx";
-import { useState } from "preact/hooks";
-import { clamp } from "@orchard/utils/grabbag";
-import { FilterMap, RangeFilter, useFilter, useStore } from "@orchard/store";
+import cc from 'clsx';
+import { useState } from 'preact/hooks';
+import { clamp } from '@orchard/utils/grabbag';
+import { FilterMap, RangeFilter, useFilter } from '@orchard/store';
 
 type SlidySelectProps = {
     facetName: KeyOfType<FilterMap, RangeFilter>;
@@ -16,7 +16,7 @@ type SlidySelectProps = {
 
 // version 1 of SlidySelect is just two number boxes lol
 // eventually I want to have an actual slidy thing
-export function SlidySelect({"class": _class, facetName, min, max, step, humanName}: SlidySelectProps) {
+export function SlidySelect({'class': _class, facetName, min, max, step, humanName}: SlidySelectProps) {
     const [filter, setFilter] = useFilter(facetName);
 
     const isActive = filter.active;
@@ -31,31 +31,31 @@ export function SlidySelect({"class": _class, facetName, min, max, step, humanNa
             setShowingPlaceholders(false);
             setCurrMin(clamp(n, min, currMax));
         }
-    }
+    };
 
     const onMaxInput = (n: number) => {
         if (!Object.is(NaN, n)) {
             setShowingPlaceholders(false);
             setCurrMax(clamp(n, currMin, max));
         }
-    }
+    };
 
     const onClick: JSX.MouseEventHandler<HTMLButtonElement> = _ => {
         setFilter(draft => {
             draft.active = true;
             draft.min = currMin;
             draft.max = currMax;
-        })
+        });
     };
 
     const clear: JSX.MouseEventHandler<HTMLButtonElement> = _ => {
         setFilter(draft => {
             draft.active = false;
-        })
+        });
     };
 
     return (
-        <div class={cc(_class, "ss")}>
+        <div class={cc(_class, 'ss')}>
             <div class="ss_depo">
                 <span class="ss_name">{humanName}</span>
                 {isActive && <button class="ss_clear" onClick={clear}>clear</button>}
@@ -90,5 +90,5 @@ export function SlidySelect({"class": _class, facetName, min, max, step, humanNa
                 </button>
             </div>
         </div>
-    )
+    );
 }

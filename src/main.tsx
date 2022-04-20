@@ -1,8 +1,12 @@
-import "preact/debug";
-import { render } from 'preact'
-import { App } from './App'
+import 'preact/debug';
+import { render } from 'preact';
+import { App } from './App';
 
-import "the-new-css-reset/css/reset.css"
-import "@orchard/base.css"
+import 'the-new-css-reset/css/reset.css';
+import '@orchard/base.css';
 
-render(<App />, document.getElementById('orchard')!)
+const orchard = document.getElementById('orchard');
+if (orchard) {
+    render(<App />, orchard);
+}
+

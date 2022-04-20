@@ -1,19 +1,19 @@
-import { WithClass } from "@orchard/utils/types";
-import { Level, SearchResponseHit, useLevels } from "@orchard/hooks/useLevels";
-import cc from "clsx";
+import { WithClass } from '@orchard/utils/types';
+import { Level, SearchResponseHit, useLevels } from '@orchard/hooks/useLevels';
+import cc from 'clsx';
 
 
-import "./Levels.css";
-import { LevelBox } from "@orchard/components/LevelBox";
-import { useVirtual } from "react-virtual";
-import { useCallback, useMemo, useRef } from "preact/hooks";
-import { useMeasure } from "react-use";
-import { useForkRef } from "@orchard/hooks/useForkRef";
-import { As, usePage, usePreference } from "@orchard/store";
-import { Announcements } from "@orchard/components/Announcements";
+import './Levels.css';
+import { LevelBox } from '@orchard/components/LevelBox';
+import { useVirtual } from 'react-virtual';
+import { useCallback, useMemo, useRef } from 'preact/hooks';
+import { useMeasure } from 'react-use';
+import { useForkRef } from '@orchard/hooks/useForkRef';
+import { As, usePage, usePreference } from '@orchard/store';
+import { Announcements } from '@orchard/components/Announcements';
 
 
-type LevelsProps = {} & WithClass;
+type LevelsProps = WithClass;
 type LevelsListProps = {
     hits: SearchResponseHit<Level>[];
     isLagging: boolean;
@@ -24,10 +24,10 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
     const parentRef = useRef<HTMLDivElement>(null);
     const [ref, {width}] = useMeasure<HTMLDivElement>();
 
-    // @ts-ignore
+    // @ts-ignore this is bc of type differences between React and Preact refs, but it works in practice
     const whatIsEvenHappeningNowRef = useForkRef<HTMLDivElement>(parentRef, ref);
 
-    const [rowView] = usePreference("row view", As.BOOLEAN);
+    const [rowView] = usePreference('row view', As.BOOLEAN);
 
     // now we have the width, we can calculate how many columns to put in...
     const columns = useMemo(() => {
@@ -37,7 +37,7 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
         if (width === 0) {
             return 1;
         }
-                                          // blaze it
+        // blaze it
         return Math.max(Math.ceil(width / 420), 1);
     }, [width, rowView]);
 
@@ -48,7 +48,7 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
     const {
         virtualItems,
         totalSize
-      } = useVirtual({
+    } = useVirtual({
         size: Math.ceil(hits.length / columns),
         parentRef,
         estimateSize
@@ -57,7 +57,7 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
 
     return (
         <div
-            class={cc("le_loaded", {"laggy!le_loaded": isLagging})}
+            class={cc('le_loaded', {'laggy!le_loaded': isLagging})}
             ref={whatIsEvenHappeningNowRef}
             style={{
                 height: '100%',
@@ -102,15 +102,13 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
                 }
             </ul>
         </div>
-    )
+    );
 }
-type LevelControlsProps = {
-
-} & WithClass;
-function LevelHeader({"class": _class}: LevelControlsProps) {
-    const { data: resp, isLagging } = useLevels();
+type LevelControlsProps = WithClass;
+function LevelHeader({'class': _class}: LevelControlsProps) {
+    const { data: resp } = useLevels();
     const [page, setPage] = usePage();
-    const [levelsPerPage] = usePreference("levels per page", As.NUMBER);
+    const [levelsPerPage] = usePreference('levels per page', As.NUMBER);
     const hasPreviousPage = page > 1;
     const hasNextPage = resp && ((page) * levelsPerPage) < resp.data.found;
 
@@ -120,18 +118,18 @@ function LevelHeader({"class": _class}: LevelControlsProps) {
             <span class="le_page">page {page}</span>
             {hasNextPage && <button onClick={() => setPage(page + 1)} class="le_next">next</button>}
         </div>
-    )
+    );
 }
 
-export function Levels({"class": _class}: LevelsProps) {
-    const { data: resp, error, isLagging, resetPreviousData } = useLevels();
-    const [page, setPage] = usePage();
+export function Levels({'class': _class}: LevelsProps) {
+    const { data: resp, error, isLagging } = useLevels();
+    const [ page ] = usePage();
 
     return (
-        <main class={cc(_class, "le")}>
+        <main class={cc(_class, 'le')}>
             {
-                error && (
-                    <div>An error occured: {error.data.message}, {error.status}. If you keep seeing this, please ping auburn now!!!!!</div>
+                error && error.data && (
+                    <div>An error occured: {JSON.stringify(error.data)}, {error.status}. If you keep seeing this, please ping auburn now!!!!!</div>
                 )
             }
             {
@@ -147,5 +145,5 @@ export function Levels({"class": _class}: LevelsProps) {
                 )
             }
         </main>
-    )
+    );
 }
