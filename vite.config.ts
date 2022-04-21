@@ -5,7 +5,7 @@ import * as path from 'path'
 
 // https://vitejs.dev/config/
 
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfig } from 'vite'
 
 export default defineConfig(({command, mode}) => {
     const dev = mode === 'development';
@@ -38,9 +38,16 @@ export default defineConfig(({command, mode}) => {
         cssCodeSplit: false
     };
 
-    const server = {
-        port: 3001
-    };
+    const server: UserConfig['server'] = 
+        'CODESANDBOX_SSE' in process.env
+            ? {
+                port: 3000,
+                hmr: {
+                    clientPort: 443
+                }
+            } : {
+                port: 3001
+            };
 
     return {
         build,
