@@ -21,11 +21,15 @@ the app and make edits without installing anything on your computer.
 TIP: This document is formatted in Asciidoc. The easiest way to read it is in the GitHub
 preview. If you see a little lightbulb to the left of this, you're reading it in GitHub!
 
+== You will need:
+
+ - **A GitHub account**. This is required to open pull requests, and at the time of writing CodeSandbox requires GitHub for sandboxes.
+
 == CodeSandbox Installation
 
 :imgwidth: 256
 
-TIP: You can right click the screenshots and open them in a new tab to view them bigger.
+TIP: You can click the screenshots to open them in a new tab to view them bigger.
 
 |===
 |Step|Instruction|Screenshot
