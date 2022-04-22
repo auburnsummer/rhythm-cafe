@@ -9,6 +9,7 @@ import { Level } from '@orchard/hooks/useLevels/types';
 import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
 import { Discord } from '@orchard/icons/Discord';
 import { As, usePreference, useSetFilter } from '@orchard/store';
+import { useLog } from '@orchard/hooks/useLog';
 
 
 function DescriptionText({description}: Pick<Level, 'description'>) {
@@ -20,8 +21,8 @@ function DescriptionText({description}: Pick<Level, 'description'>) {
     const re = /<color=#[0-9a-fA-F]+?>|<\/color>/g;
 
     const colorFiltered = description.replaceAll(re, '');
-
-    return <>{colorFiltered.split('\\n').map(p => <p>{p}</p>)}</>;
+    
+    return <>{colorFiltered.split('\n').map(p => <p>{p}</p>)}</>;
 }
 
 type LevelBoxProps = {
