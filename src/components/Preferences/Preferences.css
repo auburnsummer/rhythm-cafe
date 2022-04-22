@@ -91,9 +91,10 @@
     font-size: 0.75rem;
 }
 
-.pr_select {
-    padding-right: 1.5rem;
+html[data-darkreader-scheme="dark"] .pr_select {
+    background-color: revert;
 }
+
 
 .pr_disclaimer {
     margin-top: 1rem;

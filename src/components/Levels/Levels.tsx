@@ -42,7 +42,7 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
     }, [width, rowView]);
 
     const estimateSize = useCallback(() => {
-        return rowView ? 192 : 365;
+        return rowView ? 192 : 395;
     }, [hits, rowView]); // recompute the list if hits changes
 
     const {
