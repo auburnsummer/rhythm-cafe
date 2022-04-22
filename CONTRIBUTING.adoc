@@ -31,11 +31,15 @@ preview. If you see a little lightbulb to the left of this, you're reading it in
 
 TIP: You can click the screenshots to open them in a new tab to view them bigger.
 
+[cols=",a,",options="header"]
 |===
 |Step|Instruction|Screenshot
 
 |{counter:seq}.
 |Open this link in a new tab: https://codesandbox.io/s/github/auburnsummer/rhythm-cafe[CodeSandbox]
+
+WARNING: On some browsers, you may need to allow CodeSandbox HTML5 canvas permissions.
+
 |
 
 |{counter:seq}.
@@ -43,10 +47,7 @@ TIP: You can click the screenshots to open them in a new tab to view them bigger
 |image:https://user-images.githubusercontent.com/37142182/164240325-a29a4cce-0e32-4383-8d64-04d903118343.png[width={imgwidth}]
 
 |{counter:seq}.
-|You may be prompted to sign in. Sign in with your GitHub account, if you have one.
-If you don't have one yet, that's fine too; you can sign in with Google and these instructions will still work.
-
-If you already have an account, this step does not apply.
+|If you are prompted to sign in, sign in with your GitHub account. 
 |
 
 |{counter:seq}.
@@ -61,17 +62,30 @@ to open the browser in its own window.
 
 |{counter:seq}.
 |*Optional*: After opening the browser in its own window, you can click on the "Toggle Preview" button to collapse the right panel.
+
+TIP: if you are a light theme user like me, you can adjust the colour theme at File -> Preferences -> Color Theme
+
 |image:https://user-images.githubusercontent.com/37142182/164245985-35c4cf36-5516-44d2-9381-eec4fa19f90c.png[width={imgwidth}]
+
 
 |{counter:seq}.
 |Make file edits as you please. When you edit, changes are automatically reflected in the browser window.
 
 There are a lot of files. For guidance for how to find the thing you want to edit, please look at the below section (WIP)
 |
+
+|{counter:seq}.
+|Go to the GitHub tab on the left and click on "Sign In"
+|image:https://user-images.githubusercontent.com/37142182/164589860-86405311-7314-4cc7-a0f8-8fa74d140c2f.png[width={imgwidth}]
+
+|{counter:seq}.
+|Click on the "Link Sandbox" button
+|image:https://user-images.githubusercontent.com/37142182/164590321-7842cc65-f4ac-418e-b180-a3e06617c23c.png[width={imgwidth}]
+
+|{counter:seq}.
+|Now you can make a PR by filling in the "Summary" and "Optional description" boxes, then click on "Commit changes"
+|
+
 |===
 
-{counter:seq}
-
-. Open this link in a new tab: https://codesandbox.io/s/github/auburnsummer/rhythm-cafe[CodeSandbox]
-. Click the "Fork" button on the left:
 
