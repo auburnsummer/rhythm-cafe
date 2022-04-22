@@ -84,6 +84,7 @@
 
 .pr_selectbox_icon {
     height: 1.25rem;
+    width: 1.25rem;
     pointer-events: none;
     position: absolute;
     right: 0.25rem;
@@ -91,9 +92,16 @@
     font-size: 0.75rem;
 }
 
+.pr_select {
+    padding-right: 1.5rem;
+}
+
+/* "Dark Reader" extension */
 html[data-darkreader-scheme="dark"] .pr_select {
     background-color: revert;
 }
+
+
 
 
 .pr_disclaimer {
