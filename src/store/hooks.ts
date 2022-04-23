@@ -1,40 +1,20 @@
 import create from 'zustand';
-import produce, {enableMapSet} from 'immer';
+import {enableMapSet, enablePatches} from 'immer';
+import { immer } from "zustand/middleware/immer";
+import { persist } from "zustand/middleware";
 import { WritableDraft } from 'immer/dist/types/types-external';
-import { OrchardState, FilterMap, PreferenceKey, Preferences, FilterKey } from './types';
-import { getKeys, tuple } from '@orchard/utils/grabbag';
+import { OrchardState, FilterMap, PreferenceKey, FilterKey } from './types';
+import { tuple } from '@orchard/utils/grabbag';
 import { VoidFunc } from '@orchard/utils/types';
+// @ts-ignore: This is JavaScript for now, typechecking JSON is hard :()
+import { stringify, parse } from '@orchard/utils/json_map_set.js';
+import { merge } from 'lodash-es';
 
 enableMapSet();
 
-export const useStore = create<OrchardState>(_set => {
-    const set = (func: (draft: WritableDraft<OrchardState>) => void) => {
-        _set(state => produce(state, func));
-    };
+// todo: this is the messiest part of the codebase, clean it up
 
-    const defaultPrefs : Preferences = {
-        'levels per page': '25',
-        'show advanced filters': 'false',
-        'show more level details': 'false',
-        'use cf cache': 'true',
-        'row view': 'false',
-        'search as you type': 'false'
-    };
-
-    const localStoragePrefs = getKeys(defaultPrefs).reduce((prev, curr) => {
-        const key = `pref:${curr}`;
-        const prefMaybe = localStorage.getItem(key);
-        return prefMaybe ? {
-            ...prev,
-            [curr]: prefMaybe
-        } : prev;
-    }, {} as Partial<Preferences>);
-
-    const prefs = {
-        ...defaultPrefs,
-        ...localStoragePrefs
-    };
-
+export const useStore = create<OrchardState>()(persist(immer(set => {
     return {
         q: '',
         setQuery: s => set(draft => {
@@ -61,18 +41,32 @@ export const useStore = create<OrchardState>(_set => {
                 draft.page = 1;
             }
         }),
-        preferences: prefs,
+        preferences: {
+            'levels per page': '25',
+            'show advanced filters': 'false',
+            'show more level details': 'false',
+            'use cf cache': 'true',
+            'row view': 'false',
+            'search as you type': 'false'
+        },
         setPreference: (pref: PreferenceKey, value: string) => set(draft => {
-            const key = `pref:${pref}`;
-            try {
-                localStorage.setItem(key, value);
-            } catch (err) {
-                // ignore it. if we can't use localStorage that's fine, it just means the pref won't persist.
-            }
             draft.preferences[pref] = value;
         })
     };
-});
+}), {
+    name: "orchard_persist",
+    version: 4,
+    partialize: state => ({
+        q: state.q,
+        preferences: state.preferences,
+        filters: {
+            approval: state.filters.approval
+        }
+    }),
+    serialize: stringify,
+    deserialize: parse,
+    merge: (per, curr) => merge(curr, per)
+}));
 
 export const useQuery = () => {
     const q = useStore(state => state.q);
