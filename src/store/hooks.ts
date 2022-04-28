@@ -55,9 +55,8 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
     };
 }), {
     name: "orchard_persist",
-    version: 4,
+    version: 5,
     partialize: state => ({
-        q: state.q,
         preferences: state.preferences,
         filters: {
             approval: state.filters.approval

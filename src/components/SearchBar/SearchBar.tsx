@@ -9,8 +9,8 @@ import './SearchBar.css';
 type SearchBarProps = WithClass;
 
 export function SearchBar({'class': _class}: SearchBarProps) {
-    const [, setQuery] = useQuery();
-    const [text, setText] = useState('');
+    const [q, setQuery] = useQuery();
+    const [text, setText] = useState(q);
     const [liveSearch] = usePreference('search as you type', As.BOOLEAN);
 
     const doSearch = (e: Event) => {
