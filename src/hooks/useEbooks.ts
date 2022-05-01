@@ -18,7 +18,10 @@ const EBOOKS = [
     'notDonte: screw kpop in this discord we stan xeno',
     'CV35W: Then the teacher was talking about Maple Leaf Rag and said "so this is that era\'s equivalent of a slap" and I woke up again',
     'plastermaster: chat is going so fast nobody will realize I love you guys',
-    'lugi: lucia has been trapped in the RDCube™️\nlugi: she must atone'
+    'lugi: lucia has been trapped in the RDCube™️\nlugi: she must atone',
+    'Szprycha: dang that fall looked real nasty\nsquareshots? insomniac cues? freezeshots? the hell are you talking about? come on let\'s go play Unwell and see who survives the longest',
+    'noche: if i could pin "MORE DEATH, MORE BLOOD, MORE COWBELL" without using up 3 pin slots i would',
+    'megaminerzero: The animator falls over like 𝚎𝚊𝚜𝚎: 𝚕𝚒𝚗𝚎𝚊𝚛'
 ];
 
 export function useEbooks() {
