@@ -10,6 +10,8 @@ import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Use
 import { Discord } from '@orchard/icons/Discord';
 import { As, usePreference, useSetFilter } from '@orchard/store';
 import { useLog } from '@orchard/hooks/useLog';
+import { useState } from 'preact/hooks';
+import { useExcite } from '@orchard/hooks/useExcite';
 
 
 function DescriptionText({description}: Pick<Level, 'description'>) {
@@ -56,6 +58,13 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
         });
     };
 
+    const [copyEffect, exciteCopyEffect] = useExcite(1000);
+
+    const onCopyClick = () => {
+        copy(canonicalUrl);
+        exciteCopyEffect();
+    };
+
     return (
         <article class={cc(_class, 'lb', {'row!lb': rowView})}>
             <div class="lb_imagebox">
@@ -65,7 +74,7 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
                         <DescriptionText description={level.description} />
                     </div>
                     <div class="lb_buttons">
-                        <button onClick={() => copy(canonicalUrl)} class="lb_button lb_copy">
+                        <button onClick={onCopyClick} class={cc("lb_button lb_copy", {"clicked!lb_copy": copyEffect})}>
                             <ClipboardCopy class="lb_overlayicon" />
                         </button>
                         <a href={canonicalUrl} class="lb_button lb_download">
