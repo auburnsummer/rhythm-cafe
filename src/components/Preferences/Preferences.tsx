@@ -171,7 +171,7 @@ export function Preferences({ class: _class }: PreferencesProps) {
                         </div>
                     </li>
                     <li class="pr_row">
-                        <PrescriptionBottle class="pr_icon" />
+                        <Search class="pr_icon" />
                         <div class="pr_textline">
                             <span>Show</span>
                             <PreferenceSelect
