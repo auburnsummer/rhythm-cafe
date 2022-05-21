@@ -47,7 +47,8 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
             'show more level details': 'false',
             'use cf cache': 'true',
             'row view': 'false',
-            'search as you type': 'false'
+            'search as you type': 'false',
+            'exact search': 'false'
         },
         setPreference: (pref: PreferenceKey, value: string) => set(draft => {
             draft.preferences[pref] = value;
@@ -55,7 +56,7 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
     };
 }), {
     name: "orchard_persist",
-    version: 5,
+    version: 6,
     partialize: state => ({
         preferences: state.preferences,
         filters: {

@@ -39,7 +39,7 @@ export default defineConfig(({command, mode}) => {
     };
 
     const server: UserConfig['server'] = 
-        'CODESANDBOX_SSE' in process.env
+        'GITPOD_WORKSPACE_ID' in process.env
             ? {
                 port: 3000,
                 hmr: {

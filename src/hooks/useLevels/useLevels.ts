@@ -62,6 +62,7 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const [useCfCache] = usePreference('use cf cache', As.BOOLEAN);
 
     const [prFilter] = useFilter('approval');
+    const [exactSearch] = usePreference('exact search', As.BOOLEAN);
 
     const showingNonPRLevels = prFilter.min <= -1;
 
@@ -79,7 +80,10 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
         // only sort by last_updated directly.
         sort_by: showingNonPRLevels
             ? '_text_match:desc,last_updated:desc'
-            : '_text_match:desc,indexed:desc,last_updated:desc'
+            : '_text_match:desc,indexed:desc,last_updated:desc',
+        num_typos: exactSearch
+            ? '0, 0, 0, 0, 0'
+            : '2, 1, 1, 1, 0'
     };
     if (facetQuery) {
         processed.facet_query = facetQuery;

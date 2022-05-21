@@ -51,6 +51,8 @@ export function Preferences({'class': _class} : PreferencesProps) {
     const [rowView, setRowView] = usePreference('row view', As.STRING);
     const [liveSearch, setLiveSearch] = usePreference('search as you type', As.STRING);
 
+    const [exactSearch, setExactSearch] = usePreference('exact search', As.STRING);
+
     return (
         <div class={cc(_class, 'pr')}>
             <button
@@ -129,6 +131,22 @@ export function Preferences({'class': _class} : PreferencesProps) {
                                 <option value="true">Show</option>
                             </PreferenceSelect>
                             <span>level ids</span>
+                        </div>
+                    </li>
+
+                    <li class="pr_row">
+                        <Search class="pr_icon" />
+                        <div class="pr_textline">
+                            <span>Show</span>
+                            <PreferenceSelect
+                                value={exactSearch}
+                                onChange={(e) =>
+                                    setExactSearch(e.currentTarget.value)
+                                }
+                            >
+                                <option value="false">close results</option>
+                                <option value="true">only exact results</option>
+                            </PreferenceSelect>
                         </div>
                     </li>
                     {                      

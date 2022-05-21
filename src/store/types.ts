@@ -43,7 +43,8 @@ export type PreferenceKey =
     'levels per page' |
     'use cf cache' | 
     'row view' |
-    'search as you type'
+    'search as you type' |
+    'exact search';
 
 export type Preferences = {
     [k in PreferenceKey]: string;
