@@ -70,7 +70,7 @@ export const useStore = create<OrchardState>()(
         }),
         {
             name: 'orchard_persist',
-            version: 5,
+            version: 6,
             partialize: (state) => ({
                 preferences: state.preferences,
                 filters: {
