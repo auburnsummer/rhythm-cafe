@@ -1,5 +1,5 @@
 import create from 'zustand';
-import {enableMapSet, enablePatches} from 'immer';
+import {enableMapSet} from 'immer';
 import { immer } from "zustand/middleware/immer";
 import { persist } from "zustand/middleware";
 import { WritableDraft } from 'immer/dist/types/types-external';
@@ -57,7 +57,7 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
     };
 }), {
     name: "orchard_persist",
-    version: 6,
+    version: 7,
     partialize: state => ({
         preferences: state.preferences,
         filters: {
