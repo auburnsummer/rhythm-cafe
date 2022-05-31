@@ -39,7 +39,7 @@ export default defineConfig(({command, mode}) => {
     };
 
     const server: UserConfig['server'] = 
-        'GITPOD_WORKSPACE_ID' in process.env
+        'CODESPACES' in process.env
             ? {
                 port: 3000,
                 hmr: {

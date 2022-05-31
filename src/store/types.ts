@@ -44,7 +44,8 @@ export type PreferenceKey =
     'use cf cache' | 
     'row view' |
     'search as you type' |
-    'exact search';
+    'exact search' |
+    'force codex urls';
 
 export type Preferences = {
     [k in PreferenceKey]: string;

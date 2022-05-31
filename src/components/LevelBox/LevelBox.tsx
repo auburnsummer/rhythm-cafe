@@ -35,7 +35,6 @@ type LevelBoxProps = {
 export function LevelBox({level, 'class': _class}: LevelBoxProps) {
     const {id, song, artist, authors, tags, thumb, min_bpm, max_bpm, seizure_warning, approval} = level;
 
-    const canonicalUrl = level.url || level.url2;
     const bpmText = min_bpm === max_bpm ? `${min_bpm} BPM` : `${min_bpm}-${max_bpm} BPM`;
     const sourceText = 'Rhythm Doctor Lounge';
     const UsersIcon = authors.length > 1 ? Users : User;
@@ -45,6 +44,9 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
     const setTagFilter = useSetFilter('tags');
 
     const [rowView] = usePreference('row view', As.BOOLEAN);
+    const [forceCodex] = usePreference('force codex urls', As.BOOLEAN);
+
+    const canonicalUrl = forceCodex ? level.url2 : (level.url || level.url2);
 
     const setAuthor = (s: string) => {
         setAuthorFilter(d => {

@@ -48,7 +48,8 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
             'use cf cache': 'true',
             'row view': 'false',
             'search as you type': 'false',
-            'exact search': 'false'
+            'exact search': 'false',
+            'force codex urls': 'false'
         },
         setPreference: (pref: PreferenceKey, value: string) => set(draft => {
             draft.preferences[pref] = value;

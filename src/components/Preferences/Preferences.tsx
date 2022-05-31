@@ -7,6 +7,7 @@ import { useRef, useState } from 'preact/hooks';
 import { useClickAway } from '@orchard/hooks/useClickAway';
 import { As, usePreference } from '@orchard/store';
 import { useSearchParam } from 'react-use';
+import { CloudDownload } from '@orchard/icons/CloudDownload';
 
 type PreferenceSelectProps = JSX.HTMLAttributes<HTMLSelectElement>
 function PreferenceSelect({children, ...props}: PreferenceSelectProps) {
@@ -50,8 +51,8 @@ export function Preferences({'class': _class} : PreferencesProps) {
     const [useCfCache, setUseCfCache] = usePreference('use cf cache', As.STRING);
     const [rowView, setRowView] = usePreference('row view', As.STRING);
     const [liveSearch, setLiveSearch] = usePreference('search as you type', As.STRING);
-
     const [exactSearch, setExactSearch] = usePreference('exact search', As.STRING);
+    const [forceCodex, setForceCodex] = usePreference('force codex urls', As.STRING);
 
     return (
         <div class={cc(_class, 'pr')}>
@@ -146,6 +147,22 @@ export function Preferences({'class': _class} : PreferencesProps) {
                             >
                                 <option value="false">close results</option>
                                 <option value="true">only exact results</option>
+                            </PreferenceSelect>
+                        </div>
+                    </li>
+
+                    <li class="pr_row">
+                        <CloudDownload class="pr_icon" />
+                        <div class="pr_textline">
+                            <span>Level URLs from</span>
+                            <PreferenceSelect
+                                value={forceCodex}
+                                onChange={(e) =>
+                                    setForceCodex(e.currentTarget.value)
+                                }
+                            >
+                                <option value="false">Original source</option>
+                                <option value="true">Codex</option>
                             </PreferenceSelect>
                         </div>
                     </li>
