@@ -14,7 +14,6 @@
     "immer": "^9.0.12",
     "lodash-es": "^4.17.21",
     "preact": "^10.7.1",
-    "ramda": "^0.28.0",
     "react-use": "^17.3.2",
     "react-virtual": "^2.10.4",
     "redaxios": "^0.4.1",
