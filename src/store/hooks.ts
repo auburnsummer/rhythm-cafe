@@ -25,7 +25,6 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
         setPage: n => set(draft => {
             draft.page = n;
         }),
-        facetBy: ['authors', 'tags', 'source', 'difficulty', 'artist'],
         filters: {
             difficulty: {type: 'in', active: true, values: new Set([])},
             authors: {type: 'all', active: true, values: new Set([])},

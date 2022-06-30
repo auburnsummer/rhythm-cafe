@@ -56,7 +56,6 @@ export type OrchardState = {
     setQuery: (to: string) => void;
     page: number;
     setPage: (to: number) => void;
-    facetBy: string[];
     filters: FilterMap;
     setFilter: <T extends FilterKey>(cat: T, d: VoidFunc<WritableDraft<FilterMap>[T]>) => void;
     preferences: Preferences;
