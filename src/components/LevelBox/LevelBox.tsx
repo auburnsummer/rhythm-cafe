@@ -9,8 +9,6 @@ import { Level } from '@orchard/hooks/useLevels/types';
 import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
 import { Discord } from '@orchard/icons/Discord';
 import { As, usePreference, useSetFilter } from '@orchard/store';
-import { useLog } from '@orchard/hooks/useLog';
-import { useState } from 'preact/hooks';
 import { useExcite } from '@orchard/hooks/useExcite';
 
 
@@ -76,7 +74,7 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
                         <DescriptionText description={level.description} />
                     </div>
                     <div class="lb_buttons">
-                        <button onClick={onCopyClick} class={cc("lb_button lb_copy", {"clicked!lb_copy": copyEffect})}>
+                        <button onClick={onCopyClick} class={cc('lb_button lb_copy', {'clicked!lb_copy': copyEffect})}>
                             <ClipboardCopy class="lb_overlayicon" />
                         </button>
                         <a href={canonicalUrl} class="lb_button lb_download">

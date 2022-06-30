@@ -18,11 +18,13 @@ function useFilterByString() {
                 return prev;
             }
             if (filter.type === 'in' && filter.values.size > 0) {
-                const next = `${key}:=[${Array.from(filter.values).join(',')}]`;
+                const values = [...filter.values];
+                const next = `${key}:=[${values.join(',')}]`;
                 return [...prev, next];
             }
             if (filter.type === 'all' && filter.values.size > 0) {
-                const nexts = Array.from(filter.values).map(v => `${key}:=${v}`);
+                const values = [...filter.values];
+                const nexts = values.map(v => `${key}:=${v}`);
                 return [...prev, ...nexts];
             }
             // special handling of bpm...
@@ -54,7 +56,7 @@ type useLevelsProps = {
 
 export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const q = useStore(state => state.q);
-    const facetBy = useStore(state => state.facetBy);
+    const facetBy = ['authors', 'tags', 'source', 'difficulty', 'artist'];
     const [page] = usePage();
     const filterByString = useFilterByString();
 

@@ -3,9 +3,9 @@ A variable which starts at false. use the excite function to temporarily change 
 goes back to false after a timeout.
 */
 
-import { tuple } from "@orchard/utils/grabbag";
-import { useState } from "preact/hooks";
-import { useTimeoutFn } from "react-use";
+import { tuple } from '@orchard/utils/grabbag';
+import { useState } from 'preact/hooks';
+import { useTimeoutFn } from 'react-use';
 
 export function useExcite(timeout: number) {
     const [state, setState] = useState(false);

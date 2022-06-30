@@ -13,9 +13,6 @@ export function Announcements({'class': _class} : AnnouncementsProps) {
             <li class="an_announcement">
                 <a href="https://rhythm-doctor.gitbook.io/level-editor/">Level editor tutorial</a> by Klyzx et al
             </li>
-            <li class="an_announcement">
-                Please message me @auburnsummer if you notice anything off
-            </li>
         </ul>
     );
 

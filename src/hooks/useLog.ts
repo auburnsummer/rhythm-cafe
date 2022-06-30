@@ -1,7 +1,7 @@
-import { useEffect } from "preact/hooks";
+import { useEffect } from 'preact/hooks';
 
-export function useLog<T extends unknown>(s: T) {
+export function useLog<T>(s: T) {
     useEffect(() => {
         console.log(s);
-    }, [s])
-};
+    }, [s]);
+}
