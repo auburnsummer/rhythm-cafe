@@ -4,7 +4,7 @@ import './SlidySelect.css';
 import cc from 'clsx';
 import { useState } from 'preact/hooks';
 import { clamp } from '@orchard/utils/grabbag';
-import { FilterMap, RangeFilter, useFilter } from '@orchard/store';
+import { RangeFilter } from '@orchard/store';
 
 type SlidySelectProps = {
     facetName: KeyOfType<FilterMap, RangeFilter>;
@@ -17,6 +17,7 @@ type SlidySelectProps = {
 // version 1 of SlidySelect is just two number boxes lol
 // eventually I want to have an actual slidy thing
 export function SlidySelect({'class': _class, facetName, min, max, step, humanName}: SlidySelectProps) {
+    return null;
     const [filter, setFilter] = useFilter(facetName);
 
     const isActive = filter.active;

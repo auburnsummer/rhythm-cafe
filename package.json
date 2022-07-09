@@ -12,6 +12,7 @@
     "clipboard-copy": "^4.0.1",
     "clsx": "^1.1.1",
     "immer": "^9.0.12",
+    "jotai": "^1.7.3",
     "lodash-es": "^4.17.21",
     "preact": "^10.7.1",
     "react-use": "^17.3.2",
@@ -34,6 +35,6 @@
     "eslint-plugin-import": "^2.26.0",
     "rollup-plugin-analyzer": "^4.0.0",
     "typescript": "^4.6.3",
-    "vite": "^2.9.1"
+    "vite": "^2.9.14"
   }
 }

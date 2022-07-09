@@ -5,18 +5,21 @@ import { useLevels } from '@orchard/hooks/useLevels';
 
 import { FacetSelect } from '@orchard/components/FacetSelect';
 import { SlidySelect } from '@orchard/components/SlidySelect';
-import { As, usePreference } from '@orchard/store';
+import { usePreference } from '@orchard/store';
 import { SimplePeerReviewSelect } from '@orchard/components/SimplePeerReviewSelect';
 
 type SidebarProps = WithClass;
 export function Sidebar({'class': _class}: SidebarProps) {
+    return (
+        <></>
+    );
     const { data: resp } = useLevels();
 
     const facets = resp?.data.facet_counts;
 
     const difficultyName = (v: string) => ['Easy', 'Medium', 'Tough', 'Very Tough'][parseInt(v)];
 
-    const [advancedFilters] = usePreference('show advanced filters', As.BOOLEAN);
+    const [advancedFilters] = usePreference('show advanced filters');
 
     return (
         <aside class={cc('sb', _class)}>

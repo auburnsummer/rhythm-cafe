@@ -3,32 +3,35 @@ import { TYPESENSE_API_KEY, TYPESENSE_URL } from '@orchard/utils/constants';
 import Axios, { Response } from 'redaxios';
 import useSWR from 'swr';
 import usePrevious from '@orchard/hooks/usePrevious';
-import { As, useFilter, usePage, usePreference, useStore } from '@orchard/store';
-import { getKeys } from '@orchard/utils/grabbag';
+import { useApprovalFilter, useFilters, usePage, usePreference, useQuery } from '@orchard/store';
 
 function useFilterByString() {
-    const filters = useStore(state => state.filters);
-    return getKeys(filters)
-        .reduce((prev, key) => {
-            const filter = filters[key];
+    const [filters] = useFilters();
+    return filters
+        .reduce((prev, filter) => {
             if (!filter) {
                 return prev;
             } 
             if (!filter.active) {
                 return prev;
             }
-            if (filter.type === 'in' && filter.values.size > 0) {
-                const values = [...filter.values];
-                const next = `${key}:=[${values.join(',')}]`;
-                return [...prev, next];
-            }
-            if (filter.type === 'all' && filter.values.size > 0) {
-                const values = [...filter.values];
-                const nexts = values.map(v => `${key}:=${v}`);
-                return [...prev, ...nexts];
+            if (filter.type === 'set') {
+                if (filter.values.size === 0) {
+                    return prev;
+                }
+                if (filter.op === 'and') {
+                    const values = [...filter.values];
+                    const nexts = values.map(v => `${filter.name}:=${v}`);
+                    return [...prev, ...nexts];    
+                }
+                if (filter.op === 'or') {
+                    const values = [...filter.values];
+                    const next = `${filter.name}:=[${values.join(',')}]`;
+                    return [...prev, next];
+                }
             }
             // special handling of bpm...
-            if (filter.type === 'range' && key === 'bpm') {
+            if (filter.type === 'range' && filter.name === 'bpm') {
                 const { min, max } = filter;
                 // both the min_bpm and the max_bpm need to be within specified range.
                 // mostly because the "or" version requires typesense to do funky stuff i'm not sure yet...
@@ -40,8 +43,8 @@ function useFilterByString() {
             }
             // other range filters.
             if (filter.type === 'range') {
-                const { min, max } = filter;
-                const next = `${key}:=[${min}..${max}]`;
+                const { min, max, name } = filter;
+                const next = `${name}:=[${min}..${max}]`;
                 return [...prev, next];
             }
             return prev;
@@ -55,16 +58,16 @@ type useLevelsProps = {
 }
 
 export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
-    const q = useStore(state => state.q);
+    const [q] = useQuery();
     const facetBy = ['authors', 'tags', 'source', 'difficulty', 'artist'];
     const [page] = usePage();
     const filterByString = useFilterByString();
 
-    const [numberOfLevels] = usePreference('levels per page', As.NUMBER);
-    const [useCfCache] = usePreference('use cf cache', As.BOOLEAN);
+    const [numberOfLevels] = usePreference('levels per page');
+    const [useCfCache] = usePreference('use cf cache');
 
-    const [prFilter] = useFilter('approval');
-    const [exactSearch] = usePreference('exact search', As.BOOLEAN);
+    const [prFilter] = useApprovalFilter();
+    const [exactSearch] = usePreference('exact search');
 
     const showingNonPRLevels = prFilter.min <= -1;
 
@@ -110,6 +113,6 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const dataOrPrevious = data === undefined ? previousData : data;
     const isLagging = data === undefined && previousData !== undefined;
 
-
+ 
     return { data: dataOrPrevious, error, isLagging, resetPreviousData};
 }

@@ -1,63 +1,66 @@
-import { VoidFunc } from '@orchard/utils/types';
-import { WritableDraft } from 'immer/dist/types/types-external';
+export {};
+// import { VoidFunc } from '@orchard/utils/types';
+// import { WritableDraft } from 'immer/dist/types/types-external';
+// import { Atom } from 'jotai';
+// import { atomWithImmer } from 'jotai/immer';
 
-export type BaseFilter = {
-    type: string;
-    active: boolean;
-}
+// export type BaseFilter = {
+//     type: string;
+//     active: boolean;
+// }
 
-export type InFilter = BaseFilter & {
-    type: 'in',
-    values: Set<string | number>
-};
+// export type InFilter = BaseFilter & {
+//     type: 'in',
+//     values: Set<string | number>
+// };
 
-export type AllFilter = BaseFilter & {
-    type: 'all',
-    values: Set<string | number>
-}
+// export type AllFilter = BaseFilter & {
+//     type: 'all',
+//     values: Set<string | number>
+// }
 
-export type RangeFilter = BaseFilter & {
-    type: 'range',
-    min: number,
-    max: number
-}
+// export type RangeFilter = BaseFilter & {
+//     type: 'range',
+//     min: number,
+//     max: number
+// }
 
-export type FacetFilter = InFilter | AllFilter;
-export type Filter = FacetFilter | RangeFilter;
+// export type FacetFilter = InFilter | AllFilter;
+// export type Filter = FacetFilter | RangeFilter;
 
 
-export type FilterMap = {
-    difficulty: FacetFilter,
-    authors: FacetFilter,
-    tags: FacetFilter,
-    artist: FacetFilter,
-    bpm: RangeFilter,
-    approval: RangeFilter
-};
+// export type FilterMap = {
+//     difficulty: FacetFilter,
+//     authors: FacetFilter,
+//     tags: FacetFilter,
+//     artist: FacetFilter,
+//     bpm: RangeFilter,
+//     approval: RangeFilter
+// };
 
-export type FilterKey = keyof FilterMap;
+// export type FilterMap2 = Atom<{
+//     [K in keyof FilterMap]: typeof atomWithImmer<FilterMap[K]>
+// }>;
 
-export type PreferenceKey =
-    'show advanced filters' | 
-    'show more level details' | 
-    'levels per page' |
-    'use cf cache' | 
-    'row view' |
-    'search as you type' |
-    'exact search' |
-    'force codex urls';
+// export type FilterKey = keyof FilterMap;
 
-export type Preferences = {
-    [k in PreferenceKey]: string;
-};
+// export type PreferenceKey =
+//     'show advanced filters' | 
+//     'show more level details' | 
+//     'levels per page' |
+//     'use cf cache' | 
+//     'row view' |
+//     'search as you type' |
+//     'exact search' |
+//     'force codex urls';
 
-export type OrchardState = {
-    q: string;
-    setQuery: (to: string) => void;
-    page: number;
-    setPage: (to: number) => void;
-    filters: FilterMap;
-    setFilter: <T extends FilterKey>(cat: T, d: VoidFunc<WritableDraft<FilterMap>[T]>) => void;
-    preferences: Preferences;
-    setPreference: (pref: PreferenceKey, value: string) => void;
-}
+// export type Preferences = {
+//     [k in PreferenceKey]: string;
+// };
+
+// export type OrchardState = {
+//     filters: FilterMap;
+//     setFilter: <T extends FilterKey>(cat: T, d: VoidFunc<WritableDraft<FilterMap>[T]>) => void;
+//     preferences: Preferences;
+//     setPreference: (pref: PreferenceKey, value: string) => void;
+// }

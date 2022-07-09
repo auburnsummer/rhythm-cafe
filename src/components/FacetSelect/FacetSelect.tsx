@@ -1,6 +1,7 @@
+
 import { Level, SearchResponseFacetCountSchema, useLevels } from '@orchard/hooks/useLevels';
 import { Spinny } from '@orchard/icons';
-import { As, FacetFilter, FilterMap, useFilter, usePreference } from '@orchard/store';
+import { usePreference } from '@orchard/store';
 import { KeyOfType, WithClass } from '@orchard/utils/types';
 import cc from 'clsx';
 import { useMemo, useState } from 'preact/hooks';
@@ -28,6 +29,9 @@ export function FacetSelect(
         valueTransformFunc = s => `${s}`,
         sortByFunc = identity
     }: FacetSelectProps) {
+    return (
+        <></>
+    );
     const [input, setInput] = useState('');
     const { data: resp, isLagging } = useLevels(
         {
