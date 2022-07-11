@@ -3,7 +3,7 @@ import { TYPESENSE_API_KEY, TYPESENSE_URL } from '@orchard/utils/constants';
 import Axios, { Response } from 'redaxios';
 import useSWR from 'swr';
 import usePrevious from '@orchard/hooks/usePrevious';
-import { As, useFilter, usePage, usePreference, useStore } from '@orchard/store';
+import { As, useFilter, usePage, usePreference, useQuery, useStore } from '@orchard/store';
 import { getKeys } from '@orchard/utils/grabbag';
 
 function useFilterByString() {
@@ -55,7 +55,7 @@ type useLevelsProps = {
 }
 
 export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
-    const q = useStore(state => state.q);
+    const [q] = useQuery();
     const facetBy = ['authors', 'tags', 'source', 'difficulty', 'artist'];
     const [page] = usePage();
     const filterByString = useFilterByString();

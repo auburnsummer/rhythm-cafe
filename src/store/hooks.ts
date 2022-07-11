@@ -16,15 +16,6 @@ enableMapSet();
 
 export const useStore = create<OrchardState>()(persist(immer(set => {
     return {
-        q: '',
-        setQuery: s => set(draft => {
-            draft.q = s;
-            draft.page = 1;
-        }),
-        page: 1,
-        setPage: n => set(draft => {
-            draft.page = n;
-        }),
         filters: {
             difficulty: {type: 'in', active: true, values: new Set([])},
             authors: {type: 'all', active: true, values: new Set([])},
@@ -37,7 +28,7 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
             const toChange = draft.filters[cat];
             if (toChange) {
                 func(toChange);
-                draft.page = 1;
+                // draft.page = 1;
             }
         }),
         preferences: {
@@ -68,17 +59,7 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
     merge: (per, curr) => merge(curr, per)
 }));
 
-export const useQuery = () => {
-    const q = useStore(state => state.q);
-    const setQuery = useStore(state => state.setQuery);
-    return tuple(q, setQuery);
-};
-
-export const usePage = () => {
-    const page = useStore(state => state.page);
-    const setPage = useStore(state => state.setPage);
-    return tuple(page, setPage);
-};
+export * from "./queryAndPage";
 
 export const useFilter = <T extends FilterKey>(name: T) => {
     const filter = useStore(state => state.filters[name]);
