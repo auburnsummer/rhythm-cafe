@@ -9,7 +9,7 @@ import { useVirtual } from 'react-virtual';
 import { useCallback, useMemo, useRef } from 'preact/hooks';
 import { useMeasure } from 'react-use';
 import { useForkRef } from '@orchard/hooks/useForkRef';
-import { As, usePage, usePreference } from '@orchard/store';
+import { usePage, usePreference } from '@orchard/store';
 import { Announcements } from '@orchard/components/Announcements';
 
 
@@ -27,7 +27,7 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
     // @ts-ignore this is bc of type differences between React and Preact refs, but it works in practice
     const whatIsEvenHappeningNowRef = useForkRef<HTMLDivElement>(parentRef, ref);
 
-    const [rowView] = usePreference('row view', As.BOOLEAN);
+    const [rowView] = usePreference('row view');
 
     // now we have the width, we can calculate how many columns to put in...
     const columns = useMemo(() => {
@@ -108,7 +108,7 @@ type LevelControlsProps = WithClass;
 function LevelHeader({'class': _class}: LevelControlsProps) {
     const { data: resp } = useLevels();
     const [page, setPage] = usePage();
-    const [levelsPerPage] = usePreference('levels per page', As.NUMBER);
+    const [levelsPerPage] = usePreference('levels per page');
     const hasPreviousPage = page > 1;
     const hasNextPage = resp && ((page) * levelsPerPage) < resp.data.found;
 

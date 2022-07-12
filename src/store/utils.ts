@@ -29,7 +29,7 @@ export const persistAtom = <T>(
     let shouldUseStoredValue = false;
     const storedValue = localStorage.getItem(key);
     if (storedValue != null) {
-        const parsedValue: Persisted = JSON.parse(storedValue);
+        const parsedValue: Persisted = JSON.parse(storedValue).value;
         if (parsedValue.version >= version) {
             shouldUseStoredValue = true;
         }

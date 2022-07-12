@@ -54,6 +54,4 @@ export type Preferences = {
 export type OrchardState = {
     filters: FilterMap;
     setFilter: <T extends FilterKey>(cat: T, d: VoidFunc<WritableDraft<FilterMap>[T]>) => void;
-    preferences: Preferences;
-    setPreference: (pref: PreferenceKey, value: string) => void;
 }

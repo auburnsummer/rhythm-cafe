@@ -30,26 +30,12 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
                 func(toChange);
                 // draft.page = 1;
             }
-        }),
-        preferences: {
-            'levels per page': '25',
-            'show advanced filters': 'false',
-            'show more level details': 'false',
-            'use cf cache': 'true',
-            'row view': 'false',
-            'search as you type': 'false',
-            'exact search': 'false',
-            'force codex urls': 'false'
-        },
-        setPreference: (pref: PreferenceKey, value: string) => set(draft => {
-            draft.preferences[pref] = value;
         })
     };
 }), {
     name: "orchard_persist",
     version: 7,
     partialize: state => ({
-        preferences: state.preferences,
         filters: {
             approval: state.filters.approval
         }
@@ -60,6 +46,7 @@ export const useStore = create<OrchardState>()(persist(immer(set => {
 }));
 
 export * from "./queryAndPage";
+export * from "./preferences";
 
 export const useFilter = <T extends FilterKey>(name: T) => {
     const filter = useStore(state => state.filters[name]);
@@ -73,16 +60,16 @@ export const useSetFilter = <T extends FilterKey>(name: T) => {
     return setFilter;
 };
 
-// api is like this: [pref, setPref] = usePreference(key, As.BOOLEAN)
-export const usePreference = <T,>(key: PreferenceKey, func: (s: string) => T) => {
-    const pref = useStore(state => state.preferences[key]);
-    const _setPreference = useStore(state => state.setPreference);
-    const setPreference = (s: string) => _setPreference(key, s);
-    return tuple(func(pref), setPreference);
-};
+// // api is like this: [pref, setPref] = usePreference(key, As.BOOLEAN)
+// export const usePreference = <T,>(key: PreferenceKey, func: (s: string) => T) => {
+//     const pref = useStore(state => state.preferences[key]);
+//     const _setPreference = useStore(state => state.setPreference);
+//     const setPreference = (s: string) => _setPreference(key, s);
+//     return tuple(func(pref), setPreference);
+// };
 
-export const As = {
-    STRING  : (s: string) => s,
-    NUMBER : (s: string) => parseInt(s),
-    BOOLEAN : (s: string) => s === 'true'
-};
+// export const As = {
+//     STRING  : (s: string) => s,
+//     NUMBER : (s: string) => parseInt(s),
+//     BOOLEAN : (s: string) => s === 'true'
+// };

@@ -1,7 +1,6 @@
 import './App.css';
 import { Header } from '@orchard/components/Header';
 import { Levels } from '@orchard/components/Levels';
-import { Sidebar } from '@orchard/components/Sidebar';
 import { useState } from 'preact/hooks';
 
 import cc from 'clsx';
@@ -17,7 +16,6 @@ export function App() {
                 <Filter class="ap_togglesidebaricon" />
             </button>
             <div class="ap_layout">
-                <Sidebar class={cc('ap_sidebar', {'visible!ap_sidebar' : showSidebar})} />
                 <Levels class="ap_levels" />
             </div>
         </div>

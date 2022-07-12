@@ -3,7 +3,7 @@ import { TYPESENSE_API_KEY, TYPESENSE_URL } from '@orchard/utils/constants';
 import Axios, { Response } from 'redaxios';
 import useSWR from 'swr';
 import usePrevious from '@orchard/hooks/usePrevious';
-import { As, useFilter, usePage, usePreference, useQuery, useStore } from '@orchard/store';
+import { useFilter, usePage, usePreference, useQuery, useStore } from '@orchard/store';
 import { getKeys } from '@orchard/utils/grabbag';
 
 function useFilterByString() {
@@ -60,11 +60,11 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const [page] = usePage();
     const filterByString = useFilterByString();
 
-    const [numberOfLevels] = usePreference('levels per page', As.NUMBER);
-    const [useCfCache] = usePreference('use cf cache', As.BOOLEAN);
+    const [numberOfLevels] = usePreference('levels per page');
+    const [useCfCache] = usePreference('use cf cache');
 
     const [prFilter] = useFilter('approval');
-    const [exactSearch] = usePreference('exact search', As.BOOLEAN);
+    const [exactSearch] = usePreference('exact search');
 
     const showingNonPRLevels = prFilter.min <= -1;
 
