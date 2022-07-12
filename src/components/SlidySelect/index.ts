@@ -1,1 +1,0 @@
-export { SlidySelect } from './SlidySelect';

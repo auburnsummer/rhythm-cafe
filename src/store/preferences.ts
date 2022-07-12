@@ -1,5 +1,5 @@
 import { atom, ExtractAtomValue, ExtractAtomUpdate, SetStateAction, useAtom } from "jotai";
-import { persistAtom } from "./utils";
+import { persistAtom } from "./customAtoms";
 
 const makePreferenceAtom = <T>(name: string, initialValue: T, version: number) => {
     return persistAtom<T>(initialValue, `preference: ${name}`, version, JSON.stringify, JSON.parse);

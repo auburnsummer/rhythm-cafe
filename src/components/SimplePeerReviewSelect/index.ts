@@ -1,1 +1,0 @@
-export { SimplePeerReviewSelect } from './SimplePeerReviewSelect';

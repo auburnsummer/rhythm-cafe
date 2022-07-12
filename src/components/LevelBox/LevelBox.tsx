@@ -8,7 +8,7 @@ import { WithClass } from '@orchard/utils/types';
 import { Level } from '@orchard/hooks/useLevels/types';
 import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
 import { Discord } from '@orchard/icons/Discord';
-import { usePreference, useSetFilter } from '@orchard/store';
+import { useAuthorsFilter, usePreference, useTagsFilter } from '@orchard/store';
 import { useExcite } from '@orchard/hooks/useExcite';
 
 
@@ -38,8 +38,8 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
     const UsersIcon = authors.length > 1 ? Users : User;
 
     const [showMoreLevelDetails] = usePreference('show more level details');
-    const setAuthorFilter = useSetFilter('authors');
-    const setTagFilter = useSetFilter('tags');
+    const [, setAuthorFilter] = useAuthorsFilter();
+    const [, setTagFilter] = useTagsFilter();
 
     const [rowView] = usePreference('row view');
     const [forceCodex] = usePreference('force codex urls');

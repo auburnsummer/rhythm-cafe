@@ -1,6 +1,6 @@
 import produce from "immer";
 import { WritableDraft } from "immer/dist/types/types-external";
-import { Atom, atom, WritableAtom } from "jotai";
+import { atom, WritableAtom } from "jotai";
 
 export const immerAtom = <T>(base: WritableAtom<T, T, void>) => {
     const wrapper = atom(
