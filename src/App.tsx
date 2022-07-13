@@ -5,6 +5,7 @@ import { useState } from 'preact/hooks';
 
 import cc from 'clsx';
 import { Filter } from './icons';
+import { Sidebar } from './components/Sidebar';
 
 export function App() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -16,6 +17,7 @@ export function App() {
                 <Filter class="ap_togglesidebaricon" />
             </button>
             <div class="ap_layout">
+                <Sidebar class={cc('ap_sidebar', {'visible!ap_sidebar' : showSidebar})} />
                 <Levels class="ap_levels" />
             </div>
         </div>

@@ -2,6 +2,8 @@ import produce from "immer";
 import { WritableDraft } from "immer/dist/types/types-external";
 import { atom, WritableAtom } from "jotai";
 
+export type ImmerAtom<T> = ReturnType<typeof immerAtom<T>>;
+
 export const immerAtom = <T>(base: WritableAtom<T, T, void>) => {
     const wrapper = atom(
         (get) => get(base),

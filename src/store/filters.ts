@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai";
-import { immerAtom, persistAtom } from "./customAtoms";
+import { ImmerAtom, immerAtom, persistAtom } from "./customAtoms";
 
 type FilterType = 
     "set" |   // the value is in a set.
@@ -26,11 +26,12 @@ export type RangeFilter = BaseFilter & {
 // immerAtom takes an atom as an argument, and creates a new atom that wraps that with immer.
 // we have two factory methods to produce these.
 
+
 // create an atom with immer that does not persist its value.
-const notPersistedFilterAtom = <T>(t: T) => immerAtom<T>(atom<T>(t));
+const notPersistedFilterAtom = <T>(t: T): ImmerAtom<T> => immerAtom<T>(atom<T>(t));
 // create an atom with immer that persists its value. arguments are from "persistAtom"
 type PersistAtom<T> = typeof persistAtom<T>;
-const persistedFilterAtom = <T>(...a: Parameters<PersistAtom<T>>) => immerAtom<T>(persistAtom<T>(...a));
+const persistedFilterAtom = <T>(...a: Parameters<PersistAtom<T>>): ImmerAtom<T> => immerAtom<T>(persistAtom<T>(...a));
 
 export const difficultyFilterAtom = notPersistedFilterAtom<SetFilter>({
     name: 'difficulty',

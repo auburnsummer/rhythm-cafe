@@ -1,0 +1,117 @@
+.fs {
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.fs_depo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.fs_name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.fs_total, .fs_count{
+    color: var(--blueGray-500);
+    font-size: 0.75rem;
+    margin-left: 0.125rem;
+}
+
+.fs_spacer {
+    flex-grow: 1;
+}
+
+.fs_switch {
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+}
+
+.fs_switchbutton {
+    font-variant: small-caps;
+    font-size: 0.75rem;
+    font-weight: 300;
+    transform: translate(0, -0.125rem);
+    padding-left: 0.125rem;
+    padding-right: 0.125rem;
+    border-radius: 0.25rem;
+}
+
+.fs_switchbutton:hover {
+    cursor: pointer;
+    background-color: var(--blueGray-200);
+}
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+
+.fs_spinny {
+    margin-left: 0.25rem;
+    color: var(--blueGray-700);
+    width: 1rem;
+    height: 1rem;
+    animation: spin 2s linear infinite;
+}
+
+.fs_input  {
+    background-color: var(--blueGray-50);
+    color: var(--blueGray-800);
+    padding-left: 0.25rem;
+    font-size: 0.875rem;
+    font-style: italic;
+    border-radius: 0.25rem;
+}
+
+.fs_list {
+    margin-top: 0.25rem;
+}
+
+.fs_item {
+    display: flex;
+}
+
+.fs_control {
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;  
+    align-items: center;
+}
+
+.fs_checkbox {
+    width: 1.15rem;
+    height: 1.15rem;
+    background-color: var(--violet-200);
+    font: inherit;
+    color: var(--violet-500);
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.1em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.1em);
+    display: grid;
+    place-content: center;
+}
+
+.fs_checkbox::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    box-shadow: inset 1em 1em var(--violet-500);
+}
+
+.fs_checkbox:checked::before {
+    transform: scale(1);
+  }
+  
