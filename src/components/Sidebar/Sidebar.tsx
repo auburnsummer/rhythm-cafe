@@ -37,7 +37,7 @@ export function Sidebar({'class': _class}: SidebarProps) {
                         />
                         <SlidySelect class="sb_facet" humanName="BPM" atom={bpmFilterAtom} min={0} max={1000} step={10} />
                         {
-                            advancedFilters
+                            !advancedFilters
                                 ? <SimplePeerReviewSelect class="sb_facet" />
                                 : <SlidySelect class="sb_facet" humanName="Peer Review" atom={approvalFilterAtom} min={-10} max={20} step={1}/>
                         }
