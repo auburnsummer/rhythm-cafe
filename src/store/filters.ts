@@ -1,9 +1,9 @@
-import { atom, useAtom } from "jotai";
-import { ImmerAtom, immerAtom, persistAtom } from "./customAtoms";
+import { atom, useAtom } from 'jotai';
+import { ImmerAtom, immerAtom, persistAtom } from './customAtoms';
 
 type FilterType = 
-    "set" |   // the value is in a set.
-    "range";  // the value is in the specified numerical range.
+    'set' |   // the value is in a set.
+    'range';  // the value is in the specified numerical range.
 
 export type BaseFilter = {
     name: string;
@@ -75,13 +75,13 @@ export const bpmFilterAtom = notPersistedFilterAtom<RangeFilter>({
 
 export const approvalFilterAtom = persistedFilterAtom<RangeFilter>(
     {
-        name: "approval",
-        type: "range",
+        name: 'approval',
+        type: 'range',
         active: true,
         min: 10,
         max: 20
     },
-    "approval_filter",
+    'approval_filter',
     1,
     JSON.stringify,
     JSON.parse
@@ -107,4 +107,4 @@ const allOfThem = atom(
 
 export const useFilters = () => {
     return useAtom(allOfThem);
-}
+};

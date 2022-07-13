@@ -72,7 +72,7 @@ export function Preferences({'class': _class} : PreferencesProps) {
                             <span>Display levels as</span>
                             <PreferenceSelect
                                 value={`${rowView}`}
-                                onChange={e => setRowView(e.currentTarget.value === "true")}
+                                onChange={e => setRowView(e.currentTarget.value === 'true')}
                             >
                                 <option value="false">cards</option>
                                 <option value="true">rows</option>
@@ -101,7 +101,7 @@ export function Preferences({'class': _class} : PreferencesProps) {
                             <span>Search style:</span>
                             <PreferenceSelect
                                 value={`${liveSearch}`}
-                                onChange={e => setLiveSearch(e.currentTarget.value === "true")}
+                                onChange={e => setLiveSearch(e.currentTarget.value === 'true')}
                             >
                                 <option value="false">with a button</option>
                                 <option value="true">as I type</option>
@@ -113,7 +113,7 @@ export function Preferences({'class': _class} : PreferencesProps) {
                         <div class="pr_textline">
                             <PreferenceSelect
                                 value={`${advancedFilters}`}
-                                onChange={e => setAdvancedFilters(e.currentTarget.value === "true")}
+                                onChange={e => setAdvancedFilters(e.currentTarget.value === 'true')}
                             >
                                 <option value="false">Hide</option>
                                 <option value="true">Show</option>
@@ -126,7 +126,7 @@ export function Preferences({'class': _class} : PreferencesProps) {
                         <div class="pr_textline">
                             <PreferenceSelect
                                 value={`${levelDetails}`}
-                                onChange={e => setLevelDetails(e.currentTarget.value === "true")}
+                                onChange={e => setLevelDetails(e.currentTarget.value === 'true')}
                             >
                                 <option value="false">Hide</option>
                                 <option value="true">Show</option>
@@ -142,7 +142,7 @@ export function Preferences({'class': _class} : PreferencesProps) {
                             <PreferenceSelect
                                 value={`${exactSearch}`}
                                 onChange={(e) =>
-                                    setExactSearch(e.currentTarget.value === "true")
+                                    setExactSearch(e.currentTarget.value === 'true')
                                 }
                             >
                                 <option value="false">close results</option>
@@ -158,7 +158,7 @@ export function Preferences({'class': _class} : PreferencesProps) {
                             <PreferenceSelect
                                 value={`${forceCodex}`}
                                 onChange={(e) =>
-                                    setForceCodex(e.currentTarget.value === "true")
+                                    setForceCodex(e.currentTarget.value === 'true')
                                 }
                             >
                                 <option value="false">Original source</option>
@@ -172,7 +172,7 @@ export function Preferences({'class': _class} : PreferencesProps) {
                             <div class="pr_textline">
                                 <PreferenceSelect
                                     value={`${useCfCache}`}
-                                    onChange={e => setUseCfCache(e.currentTarget.value === "true")}
+                                    onChange={e => setUseCfCache(e.currentTarget.value === 'true')}
                                 >
                                     <option value="false">Disable</option>
                                     <option value="true">Enable</option>

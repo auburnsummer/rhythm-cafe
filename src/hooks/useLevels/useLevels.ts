@@ -3,7 +3,7 @@ import { TYPESENSE_API_KEY, TYPESENSE_URL } from '@orchard/utils/constants';
 import Axios, { Response } from 'redaxios';
 import useSWR from 'swr';
 import usePrevious from '@orchard/hooks/usePrevious';
-import { useApprovalFilter, useDifficultyFilter, useFilters, usePage, usePreference, useQuery } from '@orchard/store';
+import { useApprovalFilter, useFilters, usePage, usePreference, useQuery } from '@orchard/store';
 
 function useFilterByString() {
     const [filters] = useFilters();

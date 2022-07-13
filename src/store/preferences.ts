@@ -1,9 +1,9 @@
-import { atom, ExtractAtomValue, ExtractAtomUpdate, SetStateAction, useAtom } from "jotai";
-import { persistAtom } from "./customAtoms";
+import { ExtractAtomValue, SetStateAction, useAtom } from 'jotai';
+import { persistAtom } from './customAtoms';
 
 const makePreferenceAtom = <T>(name: string, initialValue: T, version: number) => {
     return persistAtom<T>(initialValue, `preference: ${name}`, version, JSON.stringify, JSON.parse);
-}
+};
 
 const preferences = {
     'show advanced filters': makePreferenceAtom('show advanced filters', false, 1),
@@ -21,5 +21,6 @@ type Preferences = typeof preferences;
 export const usePreference = <T extends keyof Preferences>(key: T) => {
     type V = ExtractAtomValue<Preferences[T]>
     const a = preferences[key];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return useAtom(a as any) as [V, (update: SetStateAction<V>) => void];
 }; 

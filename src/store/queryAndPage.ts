@@ -1,4 +1,4 @@
-import { atom, useAtom } from "jotai";
+import { atom, useAtom } from 'jotai';
 
 const queryAtom = atom('', (_get, set, by: string) => {
     set(queryAtom, by);

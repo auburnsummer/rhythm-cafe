@@ -1,13 +1,12 @@
 import { Level, SearchResponseFacetCountSchema, useLevels } from '@orchard/hooks/useLevels';
 import { Spinny } from '@orchard/icons';
 import { SetFilter, usePreference } from '@orchard/store';
-import { KeyOfType, WithClass } from '@orchard/utils/types';
+import { WithClass } from '@orchard/utils/types';
 import cc from 'clsx';
 import { useMemo, useState } from 'preact/hooks';
 import './FacetSelect.css';
 import { identity, sortBy } from 'lodash-es';
-import { Atom, useAtom, WritableAtom } from 'jotai';
-import { WritableDraft } from 'immer/dist/types/types-external';
+import { useAtom } from 'jotai';
 import { ImmerAtom } from '@orchard/store/customAtoms';
 
 type SortableValue = string | number;
