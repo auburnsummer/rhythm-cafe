@@ -1,16 +1,18 @@
 import { Level, SearchResponseFacetCountSchema, useLevels } from '@orchard/hooks/useLevels';
 import { Spinny } from '@orchard/icons';
-import { As, FacetFilter, FilterMap, useFilter, usePreference } from '@orchard/store';
-import { KeyOfType, WithClass } from '@orchard/utils/types';
+import { SetFilter, usePreference } from '@orchard/store';
+import { WithClass } from '@orchard/utils/types';
 import cc from 'clsx';
 import { useMemo, useState } from 'preact/hooks';
 import './FacetSelect.css';
 import { identity, sortBy } from 'lodash-es';
+import { useAtom } from 'jotai';
+import { ImmerAtom } from '@orchard/store/customAtoms';
 
 type SortableValue = string | number;
 
 type FacetSelectProps = {
-    facetName: KeyOfType<FilterMap, FacetFilter>;
+    atom: ImmerAtom<SetFilter>;
     humanName: string;
     showSwitch?: boolean;
     showFilter?: boolean;
@@ -21,30 +23,34 @@ type FacetSelectProps = {
 export function FacetSelect(
     {
         'class': _class,
-        facetName,
+        atom,
         humanName,
         'showSwitch': _showSwitch = true,
         showFilter = true,
         valueTransformFunc = s => `${s}`,
         sortByFunc = identity
     }: FacetSelectProps) {
+    const [filter, setFilter] = useAtom(atom);
+
+    const facetName = filter.name;
     const [input, setInput] = useState('');
+
     const { data: resp, isLagging } = useLevels(
         {
             maxFacetValues: 10,
             facetQuery: input ? `${facetName}:${input.trim()}` : undefined
         }
     );
+
     const facet = useMemo(() => {
         return resp?.data.facet_counts?.find(v => v.field_name === facetName);
     }, [resp]);
 
-    const [filter, setFilter] = useFilter(facetName);
-    const [advancedFilters] = usePreference('show advanced filters', As.BOOLEAN);
+    const [advancedFilters] = usePreference('show advanced filters');
     const showSwitch = advancedFilters && _showSwitch;
 
-    const selected = filter.values || new Set([]);
-    const filterType = filter.type;
+    const selected = filter.values;
+    const filterOp = filter.op;
     const total = facet?.stats.total_values || 0;
 
     const toggle = (value: string) => {
@@ -60,10 +66,10 @@ export function FacetSelect(
         }
     };
 
-    const toggleType = () => {
-        const newType = filterType === 'in' ? 'all' : 'in';
+    const toggleOp = () => {
+        const newOp = filterOp === 'and' ? 'and' : 'or';
         setFilter(d => {
-            d.type = newType;
+            d.op = newOp;
         });
     };
 
@@ -75,13 +81,13 @@ export function FacetSelect(
                 {isLagging && <Spinny class="fs_spinny" />}
                 <div class="fs_spacer" />
                 {
-                    filterType && showSwitch && (
+                    filterOp && showSwitch && (
                         <div class="fs_switch">
                             <button
                                 class="fs_switchbutton"
-                                onClick={toggleType}
+                                onClick={toggleOp}
                             >
-                                {filterType === 'in' ? 'or' : 'and'}
+                                {filterOp === 'or' ? 'or' : 'and'}
                             </button>
                         </div>
                     )

@@ -1,13 +1,15 @@
-import { KeyOfType, WithClass } from '@orchard/utils/types';
+import { WithClass } from '@orchard/utils/types';
 import './SlidySelect.css';
 
 import cc from 'clsx';
 import { useState } from 'preact/hooks';
 import { clamp } from '@orchard/utils/grabbag';
-import { FilterMap, RangeFilter, useFilter } from '@orchard/store';
+import { RangeFilter } from '@orchard/store';
+import { ImmerAtom } from '@orchard/store/customAtoms';
+import { useAtom } from 'jotai';
 
 type SlidySelectProps = {
-    facetName: KeyOfType<FilterMap, RangeFilter>;
+    atom: ImmerAtom<RangeFilter>;
     humanName: string;
     min: number;
     max: number;
@@ -16,8 +18,8 @@ type SlidySelectProps = {
 
 // version 1 of SlidySelect is just two number boxes lol
 // eventually I want to have an actual slidy thing
-export function SlidySelect({'class': _class, facetName, min, max, step, humanName}: SlidySelectProps) {
-    const [filter, setFilter] = useFilter(facetName);
+export function SlidySelect({'class': _class, atom, min, max, step, humanName}: SlidySelectProps) {
+    const [filter, setFilter] = useAtom(atom);
 
     const isActive = filter.active;
 

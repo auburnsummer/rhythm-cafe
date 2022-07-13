@@ -1,5 +1,5 @@
 import { Search } from '@orchard/icons';
-import { As, usePreference, useQuery } from '@orchard/store';
+import { usePreference, useQuery } from '@orchard/store';
 import { WithClass } from '@orchard/utils/types';
 import cc from 'clsx';
 import { useState } from 'preact/hooks';
@@ -11,7 +11,7 @@ type SearchBarProps = WithClass;
 export function SearchBar({'class': _class}: SearchBarProps) {
     const [q, setQuery] = useQuery();
     const [text, setText] = useState(q);
-    const [liveSearch] = usePreference('search as you type', As.BOOLEAN);
+    const [liveSearch] = usePreference('search as you type');
 
     const doSearch = (e: Event) => {
         e.preventDefault();

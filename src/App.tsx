@@ -1,11 +1,11 @@
 import './App.css';
 import { Header } from '@orchard/components/Header';
 import { Levels } from '@orchard/components/Levels';
-import { Sidebar } from '@orchard/components/Sidebar';
 import { useState } from 'preact/hooks';
 
 import cc from 'clsx';
 import { Filter } from './icons';
+import { Sidebar } from './components/Sidebar';
 
 export function App() {
     const [showSidebar, setShowSidebar] = useState(false);
