@@ -2,13 +2,7 @@ import { WithClass } from '@orchard/utils/types';
 import { Level } from '@orchard/hooks/useLevels/types';
 import cc from 'clsx';
 import './DifficultyDecorator.css';
-
-const DIFFICULTY_STRINGS = [
-    'Easy',
-    'Medium',
-    'Tough',
-    'Very Tough'
-];
+import { DIFFICULTY_STRINGS } from '@orchard/utils/constants';
 
 const DIFFICULTY_CLASSES = [
     'easy!dd',

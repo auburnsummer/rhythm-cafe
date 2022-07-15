@@ -76,6 +76,10 @@
     padding-right: 2rem;
 }
 
+.le_list {
+    width: 100%;
+}
+
 .laggy\!le_loaded > .le_list {
     opacity: 0.6;
 }

@@ -54,6 +54,7 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
         estimateSize
     });
 
+    // we're trying a """table""" HTML semantics to see if we can snipe the featured snippet from indienova
 
     return (
         <div
@@ -64,19 +65,29 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
                 overflow: 'auto'
             }}
         >
-            <ul
+            <table
                 class="le_list"
                 style={{
                     height: totalSize,
                     position: 'relative'
                 }}
             >
+                <caption class="sr-only">Rhythm Doctor Custom Levels</caption>
+                <thead class="sr-only">
+                    <tr>
+                        <th>Song</th>
+                        <th>Artist</th>
+                        <th>Creator</th>
+                        <th>Difficulty</th>
+                        <th>Download URL</th>
+                    </tr>
+                </thead>
                 {
                     virtualItems.map(virtualRow => (
-                        <li
+                        <tbody
                             key={virtualRow.index}
                             ref={virtualRow.measureRef}
-                            class="le_vrow"
+                            class="le_vrow le_row"
                             style={{
                                 position: 'absolute',
                                 top: 0,
@@ -85,22 +96,19 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
                                 transform: `translateY(${virtualRow.start}px)`,
                             }}
                         >
-                            <div class="le_row">
-                                {
-                                    hits.slice(
-                                        virtualRow.index * columns,
-                                        virtualRow.index * columns + columns
-                                    ).map(hit => (
-                                        <LevelBox level={hit.document} class="le_levelbox" />
-                                    ))
-                                }
-                            </div>
-                            
-                        </li>
+                            {
+                                hits.slice(
+                                    virtualRow.index * columns,
+                                    virtualRow.index * columns + columns
+                                ).map(hit => (
+                                    <LevelBox level={hit.document} class="le_levelbox" />
+                                ))
+                            }
+                        </tbody>
                     ))
 
                 }
-            </ul>
+            </table>
         </div>
     );
 }

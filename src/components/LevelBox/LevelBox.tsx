@@ -10,6 +10,7 @@ import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Use
 import { Discord } from '@orchard/icons/Discord';
 import { useAuthorsFilter, usePreference, useTagsFilter } from '@orchard/store';
 import { useExcite } from '@orchard/hooks/useExcite';
+import { DIFFICULTY_STRINGS } from '@orchard/utils/constants';
 
 
 function DescriptionText({description}: Pick<Level, 'description'>) {
@@ -28,6 +29,23 @@ function DescriptionText({description}: Pick<Level, 'description'>) {
 type LevelBoxProps = {
     level: Level
 } & WithClass;
+
+function LevelTh({level}: {level: Level}) { 
+    return (
+        <>
+            {
+                (["song", "artist", "authors", "difficulty"] as const).map(s => (
+                    <td class="sr-only">
+                        {s === 'difficulty' ? DIFFICULTY_STRINGS[level[s]] : level[s]}
+                    </td>
+                ))
+            }
+            <td class="sr-only">
+                <a href={level.url || level.url2}>{level.url || level.url2}</a>
+            </td>
+        </>
+    )
+}
 
 
 export function LevelBox({level, 'class': _class}: LevelBoxProps) {
@@ -65,113 +83,117 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
         exciteCopyEffect();
     };
 
+    // cursed html for table experiment. I'm hoping that by putting aria-hidden on the divs, google will parse it as a table. we'll see...
     return (
-        <article class={cc(_class, 'lb', {'row!lb': rowView})}>
-            <div class="lb_imagebox">
-                <img class="lb_image" src={thumb} />
-                <div class="lb_overlay">
-                    <div class="lb_description">
-                        <DescriptionText description={level.description} />
-                    </div>
-                    <div class="lb_buttons">
-                        <button onClick={onCopyClick} class={cc('lb_button lb_copy', {'clicked!lb_copy': copyEffect})}>
-                            <ClipboardCopy class="lb_overlayicon" />
-                        </button>
-                        <a href={canonicalUrl} class="lb_button lb_download">
-                            <Download class="lb_overlayicon" />
-                        </a>
+        <>
+            <tr class={cc(_class, 'lb', {'row!lb': rowView})}>
+                <LevelTh level={level} />
+                <div class="lb_imagebox" aria-hidden>
+                    <img class="lb_image" src={thumb} />
+                    <div class="lb_overlay">
+                        <div class="lb_description">
+                            <DescriptionText description={level.description} />
+                        </div>
+                        <div class="lb_buttons">
+                            <button onClick={onCopyClick} class={cc('lb_button lb_copy', {'clicked!lb_copy': copyEffect})}>
+                                <ClipboardCopy class="lb_overlayicon" />
+                            </button>
+                            <a href={canonicalUrl} class="lb_button lb_download">
+                                <Download class="lb_overlayicon" />
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="lb_info">
-                <DifficultyDecorator {...level} class="lb_decorator" />
-                <div class="lb_cast">
-                    <h1 class="lb_song">{song}</h1>
-                    <h2 class="lb_artist">{artist}</h2>
-                </div>
-                <div class="lb_metadata">
-                    <div class="lb_metaitem lb_authors">
-                        <UsersIcon class="lb_metaicon" />
-                        <ConjunctionList
-                            class="lb_author-list"
-                            elementRender={(v) => 
-                                typeof v === 'string' 
-                                    ? <button
-                                        onClick={() => setAuthor(v)}
-                                        class="lb_metabutton"
-                                    >
-                                        {v}
-                                    </button> : <></>
-                            }
-                            literalRender={(v) => <span class="lb_metatext">{v}</span>}
+                <div class="lb_info" aria-hidden>
+                    <DifficultyDecorator {...level} class="lb_decorator" />
+                    <div class="lb_cast">
+                        <h1 class="lb_song">{song}</h1>
+                        <h2 class="lb_artist">{artist}</h2>
+                    </div>
+                    <div class="lb_metadata">
+                        <div class="lb_metaitem lb_authors">
+                            <UsersIcon class="lb_metaicon" />
+                            <ConjunctionList
+                                class="lb_author-list"
+                                elementRender={(v) => 
+                                    typeof v === 'string' 
+                                        ? <button
+                                            onClick={() => setAuthor(v)}
+                                            class="lb_metabutton"
+                                        >
+                                            {v}
+                                        </button> : <></>
+                                }
+                                literalRender={(v) => <span class="lb_metatext">{v}</span>}
+                            >
+                                {authors}
+                            </ConjunctionList>
+                        </div>
+                        <div class="lb_metaitem lb_bpm">
+                            <HeartPulse class="lb_metaicon" />
+                            <span class="lb_metatext lb_bpm-text">{bpmText}</span>
+                        </div>
+                        <div class="lb_metaitem lb_source">
+                            <Discord class="lb_metaicon" />
+                            <button disabled class="lb_metabutton lb_source-button">{sourceText}</button>
+                        </div>
+                        <div
+                            class={cc(
+                                'lb_metaitem lb_approval',
+                                { 'yay!lb_approval' : approval >= 10,
+                                    'nope!lb_approval' : approval < 0,
+                                    'umm!lb_approval' : approval === 0
+                                }
+                            )}
                         >
-                            {authors}
-                        </ConjunctionList>
-                    </div>
-                    <div class="lb_metaitem lb_bpm">
-                        <HeartPulse class="lb_metaicon" />
-                        <span class="lb_metatext lb_bpm-text">{bpmText}</span>
-                    </div>
-                    <div class="lb_metaitem lb_source">
-                        <Discord class="lb_metaicon" />
-                        <button disabled class="lb_metabutton lb_source-button">{sourceText}</button>
-                    </div>
-                    <div
-                        class={cc(
-                            'lb_metaitem lb_approval',
-                            { 'yay!lb_approval' : approval >= 10,
-                                'nope!lb_approval' : approval < 0,
-                                'umm!lb_approval' : approval === 0
+                            {
+                                approval >= 10 ? (
+                                    <span title={'Peer-Reviewed: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability.'}>
+                                        <BadgeCheck class="lb_metaicon" />
+                                    </span>
+                                ) : approval < 0 ? (
+                                    <span title={'Non-Referred: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability, and has found that this level does not meet standards.'}>
+                                        <XIcon class="lb_metaicon" />
+                                    </span>
+                                ) : null
                             }
-                        )}
-                    >
-                        {
-                            approval >= 10 ? (
-                                <span title={'Peer-Reviewed: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability.'}>
-                                    <BadgeCheck class="lb_metaicon" />
-                                </span>
-                            ) : approval < 0 ? (
-                                <span title={'Non-Referred: a trusted member of the community has checked for correct BPM/offset, metadata, and cues to ensure playability, and has found that this level does not meet standards.'}>
-                                    <XIcon class="lb_metaicon" />
-                                </span>
-                            ) : null
-                        }
+                        </div>
                     </div>
-                </div>
-                <div class="lb_spacer">
+                    <div class="lb_spacer">
 
-                </div>
-                <ul class="lb_tags">
+                    </div>
+                    <ul class="lb_tags">
+                        {
+                            seizure_warning && (
+                                <li>
+                                    <button class="caution!lb_tag lb_tag" disabled>
+                                        <Exclamation class="lb_metaicon" />
+                                        <span title="ayaya seizure warning">Seizure warning</span>
+                                    </button>
+                                </li>
+                            )
+                        }
+                        {
+                            tags.map(tag => (
+                                <li>
+                                    <button
+                                        onClick={() => setTag(tag)}
+                                        class="lb_tag">
+                                        {tag}
+                                    </button>
+                                </li>
+                            ))
+                        }
+                    </ul>
                     {
-                        seizure_warning && (
-                            <li>
-                                <button class="caution!lb_tag lb_tag" disabled>
-                                    <Exclamation class="lb_metaicon" />
-                                    <span title="ayaya seizure warning">Seizure warning</span>
-                                </button>
-                            </li>
+                        showMoreLevelDetails && (
+                            <span class="lb_id">{id}</span>
                         )
                     }
-                    {
-                        tags.map(tag => (
-                            <li>
-                                <button
-                                    onClick={() => setTag(tag)}
-                                    class="lb_tag">
-                                    {tag}
-                                </button>
-                            </li>
-                        ))
-                    }
-                </ul>
-                {
-                    showMoreLevelDetails && (
-                        <span class="lb_id">{id}</span>
-                    )
-                }
-            </div>
-        </article>
+                </div>
+            </tr>
+        </>
     );
 }
 
