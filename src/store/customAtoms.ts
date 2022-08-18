@@ -28,16 +28,18 @@ export const persistAtom = <T>(
     serialize: (t: T) => string,
     deserialize: (s: string) => T
 ) => {
-    let shouldUseStoredValue = false;
-    const storedValue = localStorage.getItem(key);
-    if (storedValue != null) {
-        const parsedValue: Persisted = JSON.parse(storedValue).value;
-        if (parsedValue.version >= version) {
-            shouldUseStoredValue = true;
+    const atomInitialValue = (() => {
+        const storedValue = localStorage.getItem(key);
+        if (storedValue != null) {
+            const parsedValue : Persisted = JSON.parse(storedValue);
+            if (parsedValue.version >= version) {
+                return deserialize(parsedValue.value)
+            }
         }
-    }
+        return initialValue;
+    })();
     const innerAtom = atom(
-        shouldUseStoredValue && storedValue != null ? deserialize(storedValue) : initialValue,
+        atomInitialValue,
         (_get, set, by: T) => {
             const value = serialize(by);
             localStorage.setItem(key, JSON.stringify({version, value}));
