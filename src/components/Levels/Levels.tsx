@@ -53,9 +53,6 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
         parentRef,
         estimateSize
     });
-
-    // we're trying a """table""" HTML semantics to see if we can snipe the featured snippet from indienova
-
     return (
         <div
             class={cc('le_loaded', {'laggy!le_loaded': isLagging})}
@@ -72,16 +69,6 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
                     position: 'relative'
                 }}
             >
-                <caption class="sr-only">Rhythm Doctor Custom Levels</caption>
-                <thead class="sr-only">
-                    <tr>
-                        <th>Song</th>
-                        <th>Artist</th>
-                        <th>Creator</th>
-                        <th>Difficulty</th>
-                        <th>Download URL</th>
-                    </tr>
-                </thead>
                 {
                     virtualItems.map(virtualRow => (
                         <li
