@@ -65,7 +65,7 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
                 overflow: 'auto'
             }}
         >
-            <table
+            <ul
                 class="le_list"
                 style={{
                     height: totalSize,
@@ -84,7 +84,7 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
                 </thead>
                 {
                     virtualItems.map(virtualRow => (
-                        <tbody
+                        <li
                             key={virtualRow.index}
                             ref={virtualRow.measureRef}
                             class="le_vrow le_row"
@@ -104,11 +104,11 @@ function LevelsList({hits, isLagging}: LevelsListProps) {
                                     <LevelBox level={hit.document} class="le_levelbox" />
                                 ))
                             }
-                        </tbody>
+                        </li>
                     ))
 
                 }
-            </table>
+            </ul>
         </div>
     );
 }

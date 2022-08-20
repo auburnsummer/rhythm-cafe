@@ -30,23 +30,6 @@ type LevelBoxProps = {
     level: Level
 } & WithClass;
 
-function LevelTh({level}: {level: Level}) { 
-    return (
-        <>
-            {
-                (["song", "artist", "authors", "difficulty"] as const).map(s => (
-                    <td class="sr-only">
-                        {s === 'difficulty' ? DIFFICULTY_STRINGS[level[s]] : level[s]}
-                    </td>
-                ))
-            }
-            <td class="sr-only">
-                <a href={level.url || level.url2}>{level.url || level.url2}</a>
-            </td>
-        </>
-    )
-}
-
 
 export function LevelBox({level, 'class': _class}: LevelBoxProps) {
     const {id, song, artist, authors, tags, thumb, min_bpm, max_bpm, seizure_warning, approval} = level;
@@ -83,11 +66,9 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
         exciteCopyEffect();
     };
 
-    // cursed html for table experiment. I'm hoping that by putting aria-hidden on the divs, google will parse it as a table. we'll see...
     return (
-        <tr class={cc(_class, 'lb', {'row!lb': rowView})}>
-            <LevelTh level={level} />
-            <div class="lb_imagebox" aria-hidden>
+        <article class={cc(_class, 'lb', {'row!lb': rowView})}>
+            <div class="lb_imagebox">
                 <img class="lb_image" src={thumb} />
                 <div class="lb_overlay">
                     <div class="lb_description">
@@ -104,7 +85,7 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
                 </div>
             </div>
 
-            <div class="lb_info" aria-hidden>
+            <div class="lb_info">
                 <DifficultyDecorator {...level} class="lb_decorator" />
                 <div class="lb_cast">
                     <h1 class="lb_song">{song}</h1>
@@ -191,7 +172,7 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
                     )
                 }
             </div>
-        </tr>
+        </article>
     );
 }
 
