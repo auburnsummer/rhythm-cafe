@@ -1,5 +1,5 @@
 {
-    "onCreateCommand": [
+    "postCreateCommand": [
         "git lfs install",
         "git lfs pull"
     ]
