@@ -1,0 +1,16 @@
+.ll_row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.ll_row ~ .ll_row {
+    padding-top: 1rem;
+}
+
+
+.ll_list {
+    width: 100%;
+}

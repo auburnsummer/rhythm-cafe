@@ -11,7 +11,9 @@ writers (I want to add the ability to add custom stylesheets at some point.)
  - `FacetSelect`: `fs`
  - `Header`: `he`
  - `LevelBox`: `lb`
- - `Levels`: `le`
+ - `Levels`: `lv`
+ - `LevelsControls`: `le`
+ - `LevelsList`: `ll`
  - `Preferences`: `pr`
  - `SearchBar`: `se`
  - `Sidebar`: `sb`

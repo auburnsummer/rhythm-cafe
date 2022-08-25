@@ -10,8 +10,6 @@ import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Use
 import { Discord } from '@orchard/icons/Discord';
 import { useAuthorsFilter, usePreference, useTagsFilter } from '@orchard/store';
 import { useExcite } from '@orchard/hooks/useExcite';
-import { DIFFICULTY_STRINGS } from '@orchard/utils/constants';
-
 
 function DescriptionText({description}: Pick<Level, 'description'>) {
     // match either an opening color tag or an ending color tag.

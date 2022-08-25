@@ -2,7 +2,7 @@ import { WithClass } from '@orchard/utils/types';
 import './SlidySelect.css';
 
 import cc from 'clsx';
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { clamp } from '@orchard/utils/grabbag';
 import { RangeFilter } from '@orchard/store';
 import { ImmerAtom } from '@orchard/store/customAtoms';
@@ -23,30 +23,26 @@ export function SlidySelect({'class': _class, atom, min, max, step, humanName}: 
 
     const isActive = filter.active;
 
-    const [showingPlaceholders, setShowingPlaceholders] = useState(!isActive); // show placeholders at beginning.
+    const [currMin, setCurrMin] = useState(filter.min);
+    const [currMax, setCurrMax] = useState(filter.max);
 
-    const [currMin, setCurrMin] = useState(isActive ? filter.min : min);
-    const [currMax, setCurrMax] = useState(isActive ? filter.max : max);
-
-    const onMinInput = (n: number) => {
-        if (!Object.is(NaN, n)) {
-            setShowingPlaceholders(false);
-            setCurrMin(clamp(n, min, currMax));
+    useEffect(() => {
+        if (!filter.active) {
+            setCurrMin(NaN);
+            setCurrMax(NaN);
         }
-    };
-
-    const onMaxInput = (n: number) => {
-        if (!Object.is(NaN, n)) {
-            setShowingPlaceholders(false);
-            setCurrMax(clamp(n, currMin, max));
+        else {
+            setCurrMin(filter.min);
+            setCurrMax(filter.max);
         }
-    };
+
+    }, [filter]);
 
     const onClick: JSX.MouseEventHandler<HTMLButtonElement> = _ => {
         setFilter(draft => {
             draft.active = true;
-            draft.min = currMin;
-            draft.max = currMax;
+            draft.min = clamp(currMin, min, currMax);
+            draft.max = clamp(currMax, currMin, max);
         });
     };
 
@@ -55,6 +51,7 @@ export function SlidySelect({'class': _class, atom, min, max, step, humanName}: 
             draft.active = false;
         });
     };
+
 
     return (
         <div class={cc(_class, 'ss')}>
@@ -68,28 +65,33 @@ export function SlidySelect({'class': _class, atom, min, max, step, humanName}: 
                     type="number"
                     step={step}
                     min={min}
-                    max={currMax}
-                    value={!showingPlaceholders ? currMin : undefined}
+                    max={max}
+                    value={currMin}
                     placeholder={`${min}`}
-                    onInput={evt => onMinInput(parseInt(evt.currentTarget.value))}
+                    onInput={evt => {
+                        setCurrMin(parseInt(evt.currentTarget.value));
+                    }}
                 />
+                
                 <span class="ss_to">to</span>
                 <input
                     class="ss_input"
                     type="number"
                     step={step}
-                    min={currMin}
+                    min={min}
                     max={max}
-                    value={!showingPlaceholders ? currMax : undefined}
-                    placeholder={`${500}`}
-                    onInput={evt => onMaxInput(parseInt(evt.currentTarget.value))}
+                    value={currMax}
+                    placeholder={`${max}`}
+                    onInput={evt => {
+                        setCurrMax(parseInt(evt.currentTarget.value));
+                    }}
                 />
                 <button
                     onClick={onClick}
                     class="ss_go"
                 >
                     Go
-                </button>
+                </button> 
             </div>
         </div>
     );

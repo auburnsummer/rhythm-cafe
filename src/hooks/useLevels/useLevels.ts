@@ -69,7 +69,7 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const [prFilter] = useApprovalFilter();
     const [exactSearch] = usePreference('exact search');
 
-    const showingNonPRLevels = prFilter.min <= -1;
+    const showingNonPRLevels = prFilter.min <= -1 || !prFilter.active;
 
     const processed: SearchParams = {
         q: q.trim(),

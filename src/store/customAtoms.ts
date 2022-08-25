@@ -33,7 +33,7 @@ export const persistAtom = <T>(
         if (storedValue != null) {
             const parsedValue : Persisted = JSON.parse(storedValue);
             if (parsedValue.version >= version) {
-                return deserialize(parsedValue.value)
+                return deserialize(parsedValue.value);
             }
         }
         return initialValue;
