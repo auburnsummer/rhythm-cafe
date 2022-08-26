@@ -9,7 +9,7 @@ this repo is just the frontend.
 
 # Installation
 
-`npm install` 
+`yarn install` 
 
-`npm run dev`
+`yarn dev`
 
