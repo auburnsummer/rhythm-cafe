@@ -2,11 +2,11 @@ import { sample } from 'lodash-es';
 
 const EBOOKS = [
     'Klyzx: CV why are you streaming a green line for the entire day',
+    '9thCore: most levels arent gonna have the entirety of bad apple recreated with 4x4 pixel bean decos',
     'fizzd: banana detection',
     'Nocallia: the macarena is syncopation',
     'giacomo: ok, that\'s good news\ngiacomo: i have no idea whats going on',
     'fizzd: gamedev is like: we announce game, sleep for 1 year and then wake up and press the release button',
-    'KyleLab: im trying to make fake virtual CARDS, you FOOLS',
     'fizzd: by fixed i mean "off" has been changed to "oof"',
     'Maddy: i only know how to make a box that says fuck in javascript but ok',
     'DNH: just use -- snap\nDNH: dont be a coward',
