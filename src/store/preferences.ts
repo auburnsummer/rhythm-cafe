@@ -10,7 +10,6 @@ const preferences = {
     'show advanced filters': makePreferenceAtom('show advanced filters', false, 1),
     'show more level details': makePreferenceAtom('show more level details', false, 1),
     'levels per page': makePreferenceAtom('levels per page', 25, 1),
-    'use cf cache': makePreferenceAtom('use cf cache', true, 1),
     'row view': makePreferenceAtom('row view', false, 1),
     'search as you type': makePreferenceAtom('search as you type', false, 1),
     'exact search': makePreferenceAtom('exact search', false, 1),

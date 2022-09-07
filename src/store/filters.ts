@@ -29,7 +29,7 @@ export type RangeFilter = BaseFilter & {
 
 
 // create an atom with immer that does not persist its value.
-const notPersistedFilterAtom = <T>(t: T): ImmerAtom<T> => immerAtom<T>(atom<T>(t));
+const notPersistedFilterAtom = <T>(t: T): ImmerAtom<T> => immerAtom<T>(atom<T>(t));  // t is my favourite letter
 // create an atom with immer that persists its value. arguments are from "persistAtom"
 type PersistAtom<T> = typeof persistAtom<T>;
 const persistedFilterAtom = <T>(...a: Parameters<PersistAtom<T>>): ImmerAtom<T> => immerAtom<T>(persistAtom<T>(...a));
