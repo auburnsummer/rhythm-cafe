@@ -17,4 +17,5 @@ writers (I want to add the ability to add custom stylesheets at some point.)
  - `Preferences`: `pr`
  - `SearchBar`: `se`
  - `Sidebar`: `sb`
+ - `SimplePeerReviewSelect`: `sp`
  - `SlidySelect`: `ss`

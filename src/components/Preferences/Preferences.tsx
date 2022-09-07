@@ -24,7 +24,7 @@ type PreferencesProps = WithClass;
 export function Preferences({ 'class': _class } : PreferencesProps) {
     const panelRef = useRef<HTMLDivElement>(null);
     const [expanded, setExpanded] = useState(false);
-
+ 
     const onClick = (_: Event) => {
         setExpanded(prev => !prev);
     };
