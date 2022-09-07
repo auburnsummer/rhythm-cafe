@@ -95,7 +95,7 @@ export const useArtistFilter = () => useAtom(artistFilterAtom);
 export const useBPMFilter = () => useAtom(bpmFilterAtom);
 export const useApprovalFilter = () => useAtom(approvalFilterAtom);
 
-const allOfThem = atom(
+export const allFilters = atom(
     (get) => [
         get(difficultyFilterAtom),
         get(authorsFilterAtom),
@@ -107,5 +107,5 @@ const allOfThem = atom(
 );
 
 export const useFilters = () => {
-    return useAtom(allOfThem);
+    return useAtom(allFilters);
 };

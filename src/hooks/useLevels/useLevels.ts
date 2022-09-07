@@ -4,54 +4,10 @@ import type { Response } from 'redaxios';
 import Axios from 'redaxios';
 import useSWR from 'swr';
 import usePrevious from '@orchard/hooks/usePrevious';
-import { useApprovalFilter, useFilters, usePage, usePreference, useQuery } from '@orchard/store';
+import { useApprovalFilter, usePage, usePreference, useQuery } from '@orchard/store';
+import { useFilterByString } from '@orchard/store/filterByString';
 
-function useFilterByString() {
-    const [filters] = useFilters();
-    return filters
-        .reduce((prev, filter) => {
-            if (!filter) {
-                return prev;
-            } 
-            if (!filter.active) {
-                return prev;
-            }
-            if (filter.type === 'set') {
-                if (filter.values.size === 0) {
-                    return prev;
-                }
-                if (filter.op === 'and') {
-                    const values = [...filter.values];
-                    const nexts = values.map(v => `${filter.name}:=${v}`);
-                    return [...prev, ...nexts];    
-                }
-                if (filter.op === 'or') {
-                    const values = [...filter.values];
-                    const next = `${filter.name}:=[${values.join(',')}]`;
-                    return [...prev, next];
-                }
-            }
-            // special handling of bpm...
-            if (filter.type === 'range' && filter.name === 'bpm') {
-                const { min, max } = filter;
-                // both the min_bpm and the max_bpm need to be within specified range.
-                // mostly because the "or" version requires typesense to do funky stuff i'm not sure yet...
-                const nexts = [
-                    `max_bpm:=[${min}..${max}]`,
-                    `min_bpm:=[${min}..${max}]`
-                ];
-                return [...prev, ...nexts];
-            }
-            // other range filters.
-            if (filter.type === 'range') {
-                const { min, max, name } = filter;
-                const next = `${name}:=[${min}..${max}]`;
-                return [...prev, next];
-            }
-            return prev;
-        }, [] as string[])
-        .join(' && ');
-}
+
 
 type useLevelsProps = {
     facetQuery?: string;
@@ -62,7 +18,7 @@ export function useLevels({ facetQuery, maxFacetValues }: useLevelsProps = {}) {
     const [q] = useQuery();
     const facetBy = ['authors', 'tags', 'source', 'difficulty', 'artist'];
     const [page] = usePage();
-    const filterByString = useFilterByString();
+    const [filterByString] = useFilterByString();
 
     const [numberOfLevels] = usePreference('levels per page');
     const [useCfCache] = usePreference('use cf cache');
