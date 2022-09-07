@@ -1,5 +1,6 @@
 import { atom, useAtom } from 'jotai';
-import { artistFilterAtom, authorsFilterAtom, bpmFilterAtom, difficultyFilterAtom, SetFilter, tagsFilterAtom } from './filters';
+import type { SetFilter } from './filters';
+import { artistFilterAtom, authorsFilterAtom, bpmFilterAtom, difficultyFilterAtom, tagsFilterAtom } from './filters';
 
 const clearSetFilter = (f: SetFilter) => {
     f.values.clear();

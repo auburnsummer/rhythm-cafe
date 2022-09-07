@@ -1,6 +1,7 @@
 import produce from 'immer';
-import { WritableDraft } from 'immer/dist/types/types-external';
-import { atom, WritableAtom } from 'jotai';
+import type { WritableDraft } from 'immer/dist/types/types-external';
+import type { WritableAtom } from 'jotai';
+import { atom } from 'jotai';
 
 export type ImmerAtom<T> = ReturnType<typeof immerAtom<T>>;
 
@@ -42,7 +43,7 @@ export const persistAtom = <T>(
         atomInitialValue,
         (_get, set, by: T) => {
             const value = serialize(by);
-            localStorage.setItem(key, JSON.stringify({version, value}));
+            localStorage.setItem(key, JSON.stringify({ version, value }));
             set(innerAtom, by);
         }
     );

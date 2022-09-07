@@ -1,6 +1,6 @@
 import './Sidebar.css';
 import cc from 'clsx';
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 import { useLevels } from '@orchard/hooks/useLevels';
 
 import { approvalFilterAtom, artistFilterAtom, authorsFilterAtom, bpmFilterAtom, difficultyFilterAtom, tagsFilterAtom, usePreference } from '@orchard/store';
@@ -9,7 +9,7 @@ import { SimplePeerReviewSelect } from '@orchard/components/SimplePeerReviewSele
 import { SlidySelect } from '@orchard/components/SlidySelect';
 
 type SidebarProps = WithClass;
-export function Sidebar({'class': _class}: SidebarProps) {
+export function Sidebar({ 'class': _class }: SidebarProps) {
     const { data: resp } = useLevels();
 
     const facets = resp?.data.facet_counts;

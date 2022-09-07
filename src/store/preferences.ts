@@ -1,4 +1,5 @@
-import { ExtractAtomValue, SetStateAction, useAtom } from 'jotai';
+import type { ExtractAtomValue, SetStateAction } from 'jotai';
+import { useAtom } from 'jotai';
 import { persistAtom } from './customAtoms';
 
 const makePreferenceAtom = <T>(name: string, initialValue: T, version: number) => {

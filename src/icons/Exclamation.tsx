@@ -1,4 +1,4 @@
-import { IconProps } from './types';
+import type { IconProps } from './types';
 
 export function Exclamation(props: IconProps) {
     return (

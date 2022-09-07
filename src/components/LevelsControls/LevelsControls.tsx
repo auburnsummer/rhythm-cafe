@@ -1,11 +1,11 @@
 import { useLevels } from '@orchard/hooks/useLevels';
 import { usePage, usePreference, useQuery } from '@orchard/store';
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 import './LevelsControls.css';
 import cc from 'clsx';
 
 type LevelsControlsProps = WithClass;
-export function LevelsControls({'class': _class}: LevelsControlsProps) {
+export function LevelsControls({ 'class': _class }: LevelsControlsProps) {
     const { data: resp, isLagging } = useLevels();
     const [page, setPage] = usePage();
     const [levelsPerPage] = usePreference('levels per page');

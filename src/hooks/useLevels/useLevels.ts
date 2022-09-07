@@ -1,6 +1,7 @@
-import { Level, SearchParams, SearchResponse } from '@orchard/hooks/useLevels/types';
+import type { Level, SearchParams, SearchResponse } from '@orchard/hooks/useLevels/types';
 import { TYPESENSE_API_KEY, TYPESENSE_URL } from '@orchard/utils/constants';
-import Axios, { Response } from 'redaxios';
+import type { Response } from 'redaxios';
+import Axios from 'redaxios';
 import useSWR from 'swr';
 import usePrevious from '@orchard/hooks/usePrevious';
 import { useApprovalFilter, useFilters, usePage, usePreference, useQuery } from '@orchard/store';
@@ -57,7 +58,7 @@ type useLevelsProps = {
     maxFacetValues?: number;
 }
 
-export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
+export function useLevels({ facetQuery, maxFacetValues }: useLevelsProps = {}) {
     const [q] = useQuery();
     const facetBy = ['authors', 'tags', 'source', 'difficulty', 'artist'];
     const [page] = usePage();
@@ -95,7 +96,7 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     }
 
 
-    const {data, error} = useSWR<Response<SearchResponse<Level>>, Response<unknown>>(processed, (params: SearchParams) => {
+    const { data, error } = useSWR<Response<SearchResponse<Level>>, Response<unknown>>(processed, (params: SearchParams) => {
         if (!useCfCache) {
             // set it in here to avoid SWR cache miss.
             params.__fake_value_for_cache = `${Date.now()}`;
@@ -114,5 +115,5 @@ export function useLevels({facetQuery, maxFacetValues}: useLevelsProps = {}) {
     const isLagging = data === undefined && previousData !== undefined;
 
  
-    return { data: dataOrPrevious, error, isLagging, resetPreviousData};
+    return { data: dataOrPrevious, error, isLagging, resetPreviousData };
 }

@@ -10,6 +10,7 @@ parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: latest
   sourceType: module
+  project: './tsconfig.json'
 plugins:
   - '@typescript-eslint'
   - 'import'
@@ -28,6 +29,9 @@ rules:
   semi:
     - error
     - always
+  object-curly-spacing:
+    - error
+    - always
   '@typescript-eslint/no-unused-vars':
     - error
     - argsIgnorePattern: '^_'
@@ -38,6 +42,10 @@ rules:
     - error
     - selector: ImportDeclaration[source.value=/\.\./]
       message: Relative parent imports not allowed; please use @orchard root.
+  '@typescript-eslint/consistent-type-imports':
+    - error
+  '@typescript-eslint/consistent-type-exports':
+    - error
 
 settings:
   "import/parsers":

@@ -1,4 +1,4 @@
-import { RefObject } from 'preact';
+import type { RefObject } from 'preact';
 import { useEffect } from 'preact/hooks';
 
 const EVENT = 'mousedown';

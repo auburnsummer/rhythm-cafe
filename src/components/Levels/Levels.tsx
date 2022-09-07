@@ -1,4 +1,4 @@
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 import { useLevels } from '@orchard/hooks/useLevels';
 import cc from 'clsx';
 
@@ -11,7 +11,7 @@ import { LevelsList } from '@orchard/components/LevelsList';
 
 
 type LevelsProps = WithClass;
-export function Levels({'class': _class}: LevelsProps) {
+export function Levels({ 'class': _class }: LevelsProps) {
     const { data: resp, error, isLagging } = useLevels();
     const [ page ] = usePage();
 
@@ -32,7 +32,7 @@ export function Levels({'class': _class}: LevelsProps) {
                         <LevelsControls class="lv_controls" />
                         <LevelsList
                             hits={resp.data.hits}
-                            class={['lv_loaded', {'laggy!lv_loaded': isLagging}]}
+                            class={['lv_loaded', { 'laggy!lv_loaded': isLagging }]}
                         />
                     </>
                 )

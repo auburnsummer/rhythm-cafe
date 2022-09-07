@@ -1,7 +1,7 @@
 import preact from '@preact/preset-vite'
 import analyze from 'rollup-plugin-analyzer'
 import * as path from 'path'
-
+import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vitejs.dev/config/
 
@@ -30,6 +30,7 @@ export default defineConfig(({command, mode}) => {
             ]
             : [
                 analyze(),
+                visualizer()
             ],
         preact()
     ]

@@ -1,5 +1,6 @@
 import { atom, useAtom } from 'jotai';
-import { ImmerAtom, immerAtom, persistAtom } from './customAtoms';
+import type { ImmerAtom } from './customAtoms';
+import { immerAtom, persistAtom } from './customAtoms';
 
 type FilterType = 
     'set' |   // the value is in a set.

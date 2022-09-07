@@ -1,5 +1,5 @@
 import cc from 'clsx';
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 import './Header.css';
 import { SearchBar } from '@orchard/components/SearchBar';
 import { Preferences } from '@orchard/components/Preferences';
@@ -9,7 +9,7 @@ import { useClickAway } from '@orchard/hooks/useClickAway';
 
 type HeaderProps = WithClass;
 
-export function Header({'class': _class}: HeaderProps) {
+export function Header({ 'class': _class }: HeaderProps) {
 
     const ebook = useEbooks();
     const [showLinks, setShowLinks] = useState(false);
@@ -39,7 +39,7 @@ export function Header({'class': _class}: HeaderProps) {
             <button class="he_linktoggle" onClick={onClick} onMouseDown={e => e.stopPropagation()} ref={buttonRef}>
                 Links
             </button>
-            <ul class={cc('he_links', {'visible!he_links' : showLinks})} onMouseDown={e => e.stopPropagation()}>
+            <ul class={cc('he_links', { 'visible!he_links' : showLinks })} onMouseDown={e => e.stopPropagation()}>
                 <a class="he_link" href="https://rhythmdr.com/">Get RD</a>
                 <a class="he_link" href="https://giacomopc.itch.io/rdle">Standalone editor</a>
                 <a class="he_link" href="https://discord.gg/rhythmdr">Discord</a>

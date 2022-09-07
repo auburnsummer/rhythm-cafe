@@ -1,10 +1,10 @@
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 import cc from 'clsx';
 import './Announcements.css';
 
 type AnnouncementsProps = WithClass;
 
-export function Announcements({'class': _class} : AnnouncementsProps) {
+export function Announcements({ 'class': _class } : AnnouncementsProps) {
     return (
         <ul class={cc(_class, 'an')}>
             <li class="an_announcement"> {/* an announcement lol */}

@@ -1,4 +1,4 @@
-import { SearchResponseHit, Level } from '@orchard/hooks/useLevels';
+import type { SearchResponseHit, Level } from '@orchard/hooks/useLevels';
 import { usePreference } from '@orchard/store';
 import { useRef, useMemo, useCallback } from 'preact/hooks';
 import { useMeasure } from 'react-use';
@@ -8,16 +8,16 @@ import { useForkRef } from '@orchard/hooks/useForkRef';
 import './LevelsList.css';
 
 import cc from 'clsx';
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 
 type LevelsListProps = {
     hits: SearchResponseHit<Level>[];
 } & WithClass;
 
-export function LevelsList({hits, 'class': _class}: LevelsListProps) {
+export function LevelsList({ hits, 'class': _class }: LevelsListProps) {
 
     const parentRef = useRef<HTMLDivElement>(null);
-    const [ref, {width}] = useMeasure<HTMLDivElement>();
+    const [ref, { width }] = useMeasure<HTMLDivElement>();
 
     // @ts-ignore this is bc of type differences between React and Preact refs, but it works in practice
     const whatIsEvenHappeningNowRef = useForkRef<HTMLDivElement>(parentRef, ref);

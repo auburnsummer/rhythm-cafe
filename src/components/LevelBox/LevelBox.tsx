@@ -4,14 +4,14 @@ import { ConjunctionList } from '@orchard/components/ConjunctionList';
 import { DifficultyDecorator } from '@orchard/components/DifficultyDecorator';
 
 import './LevelBox.css';
-import { WithClass } from '@orchard/utils/types';
-import { Level } from '@orchard/hooks/useLevels/types';
+import type { WithClass } from '@orchard/utils/types';
+import type { Level } from '@orchard/hooks/useLevels/types';
 import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Users, XIcon } from '@orchard/icons';
 import { Discord } from '@orchard/icons/Discord';
 import { useAuthorsFilter, usePreference, useTagsFilter } from '@orchard/store';
 import { useExcite } from '@orchard/hooks/useExcite';
 
-function DescriptionText({description}: Pick<Level, 'description'>) {
+function DescriptionText({ description }: Pick<Level, 'description'>) {
     // match either an opening color tag or an ending color tag.
     // rhythm doctor doesn't require ending color tags, so you can't rely on
     // there always being a matching end tag.
@@ -29,8 +29,8 @@ type LevelBoxProps = {
 } & WithClass;
 
 
-export function LevelBox({level, 'class': _class}: LevelBoxProps) {
-    const {id, song, artist, authors, tags, thumb, min_bpm, max_bpm, seizure_warning, approval} = level;
+export function LevelBox({ level, 'class': _class }: LevelBoxProps) {
+    const { id, song, artist, authors, tags, thumb, min_bpm, max_bpm, seizure_warning, approval } = level;
 
     const bpmText = min_bpm === max_bpm ? `${min_bpm} BPM` : `${min_bpm}-${max_bpm} BPM`;
     const sourceText = 'Rhythm Doctor Lounge';
@@ -65,7 +65,7 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
     };
 
     return (
-        <article class={cc(_class, 'lb', {'row!lb': rowView})}>
+        <article class={cc(_class, 'lb', { 'row!lb': rowView })}>
             <div class="lb_imagebox">
                 <img class="lb_image" src={thumb} />
                 <div class="lb_overlay">
@@ -73,7 +73,7 @@ export function LevelBox({level, 'class': _class}: LevelBoxProps) {
                         <DescriptionText description={level.description} />
                     </div>
                     <div class="lb_buttons">
-                        <button onClick={onCopyClick} class={cc('lb_button lb_copy', {'clicked!lb_copy': copyEffect})}>
+                        <button onClick={onCopyClick} class={cc('lb_button lb_copy', { 'clicked!lb_copy': copyEffect })}>
                             <ClipboardCopy class="lb_overlayicon" />
                         </button>
                         <a href={canonicalUrl} class="lb_button lb_download">

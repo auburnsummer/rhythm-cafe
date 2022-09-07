@@ -1,13 +1,15 @@
-import { Level, SearchResponseFacetCountSchema, useLevels } from '@orchard/hooks/useLevels';
+import type { Level, SearchResponseFacetCountSchema } from '@orchard/hooks/useLevels';
+import { useLevels } from '@orchard/hooks/useLevels';
 import { Spinny } from '@orchard/icons';
-import { SetFilter, usePreference } from '@orchard/store';
-import { WithClass } from '@orchard/utils/types';
+import type { SetFilter } from '@orchard/store';
+import { usePreference } from '@orchard/store';
+import type { WithClass } from '@orchard/utils/types';
 import cc from 'clsx';
 import { useMemo, useState } from 'preact/hooks';
 import './FacetSelect.css';
-import { identity, sortBy } from 'lodash-es';
+import sortBy from 'just-sort-by';
 import { useAtom } from 'jotai';
-import { ImmerAtom } from '@orchard/store/customAtoms';
+import type { ImmerAtom } from '@orchard/store/customAtoms';
 
 type SortableValue = string | number;
 
@@ -28,7 +30,7 @@ export function FacetSelect(
         'showSwitch': _showSwitch = true,
         showFilter = true,
         valueTransformFunc = s => `${s}`,
-        sortByFunc = identity
+        sortByFunc = s => s.count * -1
     }: FacetSelectProps) {
     const [filter, setFilter] = useAtom(atom);
 
@@ -74,7 +76,7 @@ export function FacetSelect(
     };
 
     return (
-        <div class={cc(_class, 'fs', {'laggy!fs': isLagging})}>
+        <div class={cc(_class, 'fs', { 'laggy!fs': isLagging })}>
             <div class="fs_depo">
                 <span class="fs_name">{humanName}</span>
                 {total > 0 && <span class="fs_total">({total})</span>}

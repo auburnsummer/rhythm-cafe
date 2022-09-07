@@ -5,3 +5,7 @@ export const clamp = (n: number, min: number, max: number) => Math.max(min, Math
 export function tuple<T extends unknown[]>(...elements: T) {
     return elements;
 }
+
+export function identity<T>(a: T) {
+    return a;
+}

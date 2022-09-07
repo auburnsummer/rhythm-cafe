@@ -1,6 +1,6 @@
 import { Search } from '@orchard/icons';
 import { usePreference, useQuery } from '@orchard/store';
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 import cc from 'clsx';
 import { useState } from 'preact/hooks';
 import { useDebounce } from 'react-use';
@@ -8,7 +8,7 @@ import './SearchBar.css';
 
 type SearchBarProps = WithClass;
 
-export function SearchBar({'class': _class}: SearchBarProps) {
+export function SearchBar({ 'class': _class }: SearchBarProps) {
     const [q, setQuery] = useQuery();
     const [text, setText] = useState(q);
     const [liveSearch] = usePreference('search as you type');
@@ -31,7 +31,7 @@ export function SearchBar({'class': _class}: SearchBarProps) {
 
     return (
         <div class={cc(_class, 'se')}>
-            <form class={cc('se_bar', {'live!se_bar': liveSearch})} onSubmit={doSearch}>
+            <form class={cc('se_bar', { 'live!se_bar': liveSearch })} onSubmit={doSearch}>
                 <input
                     value={text}
                     onInput={evt => setText(evt.currentTarget.value)}

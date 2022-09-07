@@ -1,4 +1,4 @@
-import { sample } from 'lodash-es';
+import sample from 'just-random';
 
 const EBOOKS = [
     'Klyzx: CV why are you streaming a green line for the entire day',

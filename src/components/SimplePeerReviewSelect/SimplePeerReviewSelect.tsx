@@ -1,12 +1,12 @@
 import './SimplePeerReviewSelect.css';
 import cc from 'clsx';
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 
 import { useApprovalFilter } from '@orchard/store';
 import { useMemo } from 'preact/hooks';
 
 type SimplePeerReviewSelectProps = WithClass;
-export function SimplePeerReviewSelect({'class': _class}: SimplePeerReviewSelectProps) {
+export function SimplePeerReviewSelect({ 'class': _class }: SimplePeerReviewSelectProps) {
     const [filter, setFilter] = useApprovalFilter();
 
     type PRState = 'only peer reviewed levels' | 'all levels' | 'unknown';

@@ -1,6 +1,6 @@
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 import cc from 'clsx';
-import { JSX } from 'preact';
+import type { JSX } from 'preact';
 import { useMemo } from 'preact/hooks';
 
 import './ConjunctionList.css';

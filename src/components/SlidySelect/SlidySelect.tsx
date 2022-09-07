@@ -1,11 +1,11 @@
-import { WithClass } from '@orchard/utils/types';
+import type { WithClass } from '@orchard/utils/types';
 import './SlidySelect.css';
 
 import cc from 'clsx';
 import { useEffect, useState } from 'preact/hooks';
 import { clamp } from '@orchard/utils/grabbag';
-import { RangeFilter } from '@orchard/store';
-import { ImmerAtom } from '@orchard/store/customAtoms';
+import type { RangeFilter } from '@orchard/store';
+import type { ImmerAtom } from '@orchard/store/customAtoms';
 import { useAtom } from 'jotai';
 
 type SlidySelectProps = {
@@ -18,7 +18,7 @@ type SlidySelectProps = {
 
 // version 1 of SlidySelect is just two number boxes lol
 // eventually I want to have an actual slidy thing
-export function SlidySelect({'class': _class, atom, min, max, step, humanName}: SlidySelectProps) {
+export function SlidySelect({ 'class': _class, atom, min, max, step, humanName }: SlidySelectProps) {
     const [filter, setFilter] = useAtom(atom);
 
     const isActive = filter.active;
