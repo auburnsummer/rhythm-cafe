@@ -1,5 +1,9 @@
 # Rhythm Cafe
 
+![GitHub deployments](https://img.shields.io/github/deployments/auburnsummer/rhythm-cafe/production?label=vercel)
+![Discord](https://img.shields.io/discord/296802696243970049)
+![GitHub](https://img.shields.io/github/license/auburnsummer/rhythm-cafe)
+
 A website that catalogs Rhythm Doctor custom levels.
 
 [link to the site here](https://rhythm.cafe)
