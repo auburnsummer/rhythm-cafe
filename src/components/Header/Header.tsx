@@ -44,7 +44,7 @@ export function Header({ 'class': _class }: HeaderProps) {
                 <a class="he_link" href="https://giacomopc.itch.io/rdle">Standalone editor</a>
                 <a class="he_link" href="https://discord.gg/rhythmdr">Discord</a>
                 <a class="he_link" href="https://wiki.rhythm.cafe">Wiki</a>
-                <a class="he_link" href="https://chorus.fightthe.pw/">chorus</a>
+                <a class="he_link" href="https://github.com/auburnsummer/rhythm-cafe">GitHub</a>
             </ul>
             <Preferences />
         </header>
