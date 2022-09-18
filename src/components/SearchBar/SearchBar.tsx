@@ -4,7 +4,6 @@ import type { WithClass } from '@orchard/utils/types';
 import { useDebouncedEffect } from '@react-hookz/web/esnext';
 import cc from 'clsx';
 import { useState } from 'preact/hooks';
-import { useDebounce } from 'react-use';
 import './SearchBar.css';
 
 type SearchBarProps = WithClass;
