@@ -4,13 +4,13 @@ goes back to false after a timeout.
 */
 
 import { tuple } from '@orchard/utils/grabbag';
+import { useTimeoutEffect } from '@react-hookz/web/esnext';
 import { useState } from 'preact/hooks';
-import { useTimeoutFn } from 'react-use';
 
 export function useExcite(timeout: number) {
     const [state, setState] = useState(false);
 
-    const [, , reset] = useTimeoutFn(() => setState(false), timeout);
+    const [, reset] = useTimeoutEffect(() => setState(false), timeout);
 
     const excite = () => {
         if (!state) {

@@ -1,7 +1,7 @@
 import type { SearchResponseHit, Level } from '@orchard/hooks/useLevels';
 import { usePreference } from '@orchard/store';
 import { useRef, useMemo, useCallback } from 'preact/hooks';
-import { useMeasure } from 'react-use';
+import { useMeasure } from '@react-hookz/web/esnext';
 import { useVirtual } from 'react-virtual';
 import { LevelBox } from '@orchard/components/LevelBox';
 import { useForkRef } from '@orchard/hooks/useForkRef';
@@ -17,9 +17,12 @@ type LevelsListProps = {
 export function LevelsList({ hits, 'class': _class }: LevelsListProps) {
 
     const parentRef = useRef<HTMLDivElement>(null);
-    const [ref, { width }] = useMeasure<HTMLDivElement>();
+    const [rect, ref] = useMeasure<HTMLDivElement>();
 
-    // @ts-ignore this is bc of type differences between React and Preact refs, but it works in practice
+    const width = useMemo(() => {
+        return rect ? rect.width : 0;
+    }, [rect]);
+
     const whatIsEvenHappeningNowRef = useForkRef<HTMLDivElement>(parentRef, ref);
 
     const [rowView] = usePreference('row view');

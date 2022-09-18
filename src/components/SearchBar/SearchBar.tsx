@@ -1,6 +1,7 @@
 import { Search } from '@orchard/icons';
 import { usePreference, useQuery } from '@orchard/store';
 import type { WithClass } from '@orchard/utils/types';
+import { useDebouncedEffect } from '@react-hookz/web/esnext';
 import cc from 'clsx';
 import { useState } from 'preact/hooks';
 import { useDebounce } from 'react-use';
@@ -20,13 +21,14 @@ export function SearchBar({ 'class': _class }: SearchBarProps) {
         }
     };
 
-    useDebounce(() => {
+    useDebouncedEffect(() => {
         if (liveSearch) {
             setQuery(text);
         }
     },
-    100,
-    [text]
+    [text],
+    200,
+    500
     );
 
     return (
