@@ -4,9 +4,9 @@ import type { WithClass } from '@orchard/utils/types';
 import { useLevels } from '@orchard/hooks/useLevels';
 
 import { approvalFilterAtom, artistFilterAtom, authorsFilterAtom, bpmFilterAtom, difficultyFilterAtom, tagsFilterAtom, usePreference } from '@orchard/store';
-import { FacetSelect } from '@orchard/components/FacetSelect';
-import { SimplePeerReviewSelect } from '@orchard/components/SimplePeerReviewSelect';
-import { SlidySelect } from '@orchard/components/SlidySelect';
+import { FacetSelect } from '@orchard/components/Sidebar/FacetSelect';
+import { SimplePeerReviewSelect } from '@orchard/components/Sidebar/SimplePeerReviewSelect';
+import { SlidySelect } from '@orchard/components/Sidebar/SlidySelect';
 
 type SidebarProps = WithClass;
 export function Sidebar({ 'class': _class }: SidebarProps) {

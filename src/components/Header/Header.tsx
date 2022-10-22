@@ -1,7 +1,7 @@
 import cc from 'clsx';
 import type { WithClass } from '@orchard/utils/types';
 import './Header.css';
-import { SearchBar } from '@orchard/components/SearchBar';
+import { SearchBar } from '@orchard/components/Header/SearchBar';
 import { Preferences } from '@orchard/components/Preferences';
 import { useEbooks } from '@orchard/hooks/useEbooks';
 import { useRef, useState } from 'preact/hooks';
