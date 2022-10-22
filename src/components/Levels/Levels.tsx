@@ -6,8 +6,8 @@ import cc from 'clsx';
 import './Levels.css';
 import { usePage } from '@orchard/store';
 import { Announcements } from '@orchard/components/Announcements';
-import { LevelsControls } from '@orchard/components/LevelsControls';
-import { LevelsList } from '@orchard/components/LevelsList';
+import { LevelsControls } from '@orchard/components/Levels/LevelsControls';
+import { LevelsList } from '@orchard/components/Levels/LevelsList';
 
 
 type LevelsProps = WithClass;

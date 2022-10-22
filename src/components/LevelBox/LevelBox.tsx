@@ -1,7 +1,7 @@
 import cc from 'clsx';
 import copy from 'clipboard-copy';
-import { ConjunctionList } from '@orchard/components/ConjunctionList';
-import { DifficultyDecorator } from '@orchard/components/DifficultyDecorator';
+import { ConjunctionList } from '@orchard/components/LevelBox/ConjunctionList';
+import { DifficultyDecorator } from '@orchard/components/LevelBox/DifficultyDecorator';
 
 import './LevelBox.css';
 import type { WithClass } from '@orchard/utils/types';
@@ -10,19 +10,6 @@ import { BadgeCheck, ClipboardCopy, Download, Exclamation, HeartPulse, User, Use
 import { Discord } from '@orchard/icons/Discord';
 import { useAuthorsFilter, usePreference, useTagsFilter } from '@orchard/store';
 import { useExcite } from '@orchard/hooks/useExcite';
-
-function DescriptionText({ description }: Pick<Level, 'description'>) {
-    // match either an opening color tag or an ending color tag.
-    // rhythm doctor doesn't require ending color tags, so you can't rely on
-    // there always being a matching end tag.
-
-    // TODO: instead of stripping out the color tags, actually use them
-    const re = /<color=#[0-9a-fA-F]+?>|<\/color>/g;
-
-    const colorFiltered = description.replaceAll(re, '');
-    
-    return <>{colorFiltered.split('\n').map(p => <p>{p}</p>)}</>;
-}
 
 type LevelBoxProps = {
     level: Level
@@ -46,7 +33,7 @@ export function LevelBox({ level, 'class': _class }: LevelBoxProps) {
     const canonicalUrl = forceCodex ? level.url2 : (level.url || level.url2);
 
     const setAuthor = (s: string) => {
-        setAuthorFilter(d => {
+        setAuthorFilter(d => {  
             d.values.add(s);
         });
     };
@@ -70,7 +57,9 @@ export function LevelBox({ level, 'class': _class }: LevelBoxProps) {
                 <img class="lb_image" src={thumb} />
                 <div class="lb_overlay">
                     <div class="lb_description">
-                        <DescriptionText description={level.description} />
+                        {
+                            level.description.split("\n").map(p => <p>{p}</p>)
+                        }
                     </div>
                     <div class="lb_buttons">
                         <button onClick={onCopyClick} class={cc('lb_button lb_copy', { 'clicked!lb_copy': copyEffect })}>
