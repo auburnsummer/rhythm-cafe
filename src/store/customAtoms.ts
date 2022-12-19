@@ -32,9 +32,14 @@ export const persistAtom = <T>(
     const atomInitialValue = (() => {
         const storedValue = localStorage.getItem(key);
         if (storedValue != null) {
-            const parsedValue : Persisted = JSON.parse(storedValue);
-            if (parsedValue.version >= version) {
-                return deserialize(parsedValue.value);
+            try {
+                const parsedValue : Persisted = JSON.parse(storedValue);
+                if (parsedValue.version >= version) {
+                    return deserialize(parsedValue.value);
+                }
+            }
+            catch (SyntaxError) {
+                return initialValue;
             }
         }
         return initialValue;

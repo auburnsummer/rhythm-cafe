@@ -1,4 +1,5 @@
 import { atom, useAtom } from 'jotai';
+import { is, isBoolean, isNumber, isOfShape } from 'type-guards';
 import type { ImmerAtom } from './customAtoms';
 import { immerAtom, persistAtom } from './customAtoms';
 
@@ -23,6 +24,10 @@ export type RangeFilter = BaseFilter & {
     min: number;
     max: number;
 };
+
+export type ApprovalFilter = RangeFilter & {
+    name: "approval";
+}
 
 // immerAtom takes an atom as an argument, and creates a new atom that wraps that with immer.
 // we have two factory methods to produce these.
@@ -74,18 +79,42 @@ export const bpmFilterAtom = notPersistedFilterAtom<RangeFilter>({
     max: 0
 });
 
+const isApprovalFilter = (a: unknown): ApprovalFilter | undefined => {
+    const guard = isOfShape({
+        "name": is("approval" as const),
+        "type": is("range" as const),
+        "active": isBoolean,
+        "min": isNumber,
+        "max": isNumber
+    });
+    if (guard(a)) {
+        if (a.max >= a.min) {
+            return a
+        }
+    }
+    return undefined
+}
+
+const defaultApproval = {
+    name: 'approval' as const,
+    type: 'range' as const,
+    active: true,
+    min: 10,
+    max: 20
+};
 export const approvalFilterAtom = persistedFilterAtom<RangeFilter>(
-    {
-        name: 'approval',
-        type: 'range',
-        active: true,
-        min: 10,
-        max: 20
-    },
+    defaultApproval,
     'approval_filter',
-    1,
+    2,
     JSON.stringify,
-    JSON.parse
+    (s) => {
+        try {
+            let a: unknown = JSON.parse(s);
+            return isApprovalFilter(a) || defaultApproval
+        } catch (SyntaxError) {
+            return defaultApproval
+        }
+    }
 );
 
 export const useDifficultyFilter = () => useAtom(difficultyFilterAtom);
