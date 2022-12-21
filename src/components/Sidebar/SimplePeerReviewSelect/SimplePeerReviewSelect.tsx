@@ -33,6 +33,7 @@ export function SimplePeerReviewSelect({ 'class': _class }: SimplePeerReviewSele
                     onChange={_ => setFilter(d => {
                         d.min = 10;
                         d.max = 20;
+                        d.active = true;
                     })}
                 />
                 <span>Only peer-reviewed levels</span>
@@ -45,6 +46,7 @@ export function SimplePeerReviewSelect({ 'class': _class }: SimplePeerReviewSele
                     onChange={_ => setFilter(d => {
                         d.min = -1;
                         d.max = 20;
+                        d.active = true;
                     })}
                 />
                 <span>All levels</span>
