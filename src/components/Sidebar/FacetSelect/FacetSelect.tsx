@@ -1,15 +1,14 @@
 import type { Level, SearchResponseFacetCountSchema } from '@orchard/hooks/useLevels';
 import { useLevels } from '@orchard/hooks/useLevels';
 import { Spinny } from '@orchard/icons';
-import type { SetFilter } from '@orchard/store';
+import type { ImmerAtom, SetFilter } from '@orchard/store';
 import { usePreference } from '@orchard/store';
 import type { WithClass } from '@orchard/utils/types';
 import cc from 'clsx';
 import { useMemo, useState } from 'preact/hooks';
 import './FacetSelect.css';
 import sortBy from 'just-sort-by';
-import { useAtom } from 'jotai';
-import type { ImmerAtom } from '@orchard/store/customAtoms';
+import { useAtom } from 'jotai/react';
 
 type SortableValue = string | number;
 
@@ -108,6 +107,10 @@ export function FacetSelect(
             <ul class="fs_list">
                 {
                     facet && sortBy(facet.counts, sortByFunc).map(f => {
+                        { /* temp hack: https://github.com/typesense/typesense/issues/832 */ }
+                        if (facet.field_name == "tags" && f.value == "as you can tell I'm a master at writing relevant tags") {
+                            return null;
+                        }
                         return (
                             <li class="fs_item" key={f.value}>
                                 <label class="fs_control">

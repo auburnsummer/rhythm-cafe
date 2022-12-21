@@ -4,9 +4,8 @@ import './SlidySelect.css';
 import cc from 'clsx';
 import { useEffect, useState } from 'preact/hooks';
 import { clamp } from '@orchard/utils/grabbag';
-import type { RangeFilter } from '@orchard/store';
-import type { ImmerAtom } from '@orchard/store/customAtoms';
-import { useAtom } from 'jotai';
+import type { RangeFilter, ImmerAtom } from '@orchard/store';
+import { useAtom } from 'jotai/react';
 
 type SlidySelectProps = {
     atom: ImmerAtom<RangeFilter>;

@@ -1,27 +1,44 @@
-import produce from 'immer';
-import type { WritableDraft } from 'immer/dist/types/types-external';
-import type { WritableAtom } from 'jotai';
-import { atom } from 'jotai';
-
-export type ImmerAtom<T> = ReturnType<typeof immerAtom<T>>;
-
-export const immerAtom = <T>(base: WritableAtom<T, T, void>) => {
-    const wrapper = atom(
-        (get) => get(base),
-        (get, set, by: (draft: WritableDraft<T>) => void) => {
-            const a = get(base);
-            const b = produce(a, by);
-            set(base, b);
-        }
-    );
-    return wrapper;
-};
+import { atom } from 'jotai/vanilla';
+import { isNumber, isOfShape, isString } from 'type-guards';
 
 type Persisted = {
     version: number;
     value: string;
 };
 
+const isPersisted = isOfShape<Persisted>({
+    "version": isNumber,
+    "value": isString
+})
+
+function getAtomInitialValue<T>(initialValue: T, key: string, version: number, deserialize: (s: string) => T) {
+    const storedValue = localStorage.getItem(key);
+    if (storedValue == null) {
+        return initialValue;
+    }
+    try {
+        const parsedValue : unknown = JSON.parse(storedValue);
+        if (isPersisted(parsedValue)) {
+            if (parsedValue.version >= version) {
+                return deserialize(parsedValue.value);
+            }
+        }
+        return initialValue;
+    }
+    catch (SyntaxError) {
+        return initialValue;
+    }
+}
+
+/**
+ * An atom that persists its value in localStorage
+ * @param initialValue 
+ * @param key - localStorage key for this atom. must be unique
+ * @param version - if the version in localStorage is less than this, stored value is ignored.
+ * @param serialize - function to serialize to a string
+ * @param deserialize - function to deserialize back
+ * @returns 
+ */
 export const persistAtom = <T>(
     initialValue: T,
     key: string,
@@ -29,23 +46,8 @@ export const persistAtom = <T>(
     serialize: (t: T) => string,
     deserialize: (s: string) => T
 ) => {
-    const atomInitialValue = (() => {
-        const storedValue = localStorage.getItem(key);
-        if (storedValue != null) {
-            try {
-                const parsedValue : Persisted = JSON.parse(storedValue);
-                if (parsedValue.version >= version) {
-                    return deserialize(parsedValue.value);
-                }
-            }
-            catch (SyntaxError) {
-                return initialValue;
-            }
-        }
-        return initialValue;
-    })();
     const innerAtom = atom(
-        atomInitialValue,
+        getAtomInitialValue(initialValue, key, version, deserialize),
         (_get, set, by: T) => {
             const value = serialize(by);
             localStorage.setItem(key, JSON.stringify({ version, value }));
