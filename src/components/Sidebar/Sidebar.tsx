@@ -3,7 +3,7 @@ import cc from 'clsx';
 import type { WithClass } from '@orchard/utils/types';
 import { useLevels } from '@orchard/hooks/useLevels';
 
-import { approvalFilterAtom, artistFilterAtom, authorsFilterAtom, bpmFilterAtom, difficultyFilterAtom, tagsFilterAtom, usePreference } from '@orchard/store';
+import { approvalFilterAtom, artistFilterAtom, authorsFilterAtom, difficultyFilterAtom, tagsFilterAtom, usePreference } from '@orchard/store';
 import { FacetSelect } from '@orchard/components/Sidebar/FacetSelect';
 import { SimplePeerReviewSelect } from '@orchard/components/Sidebar/SimplePeerReviewSelect';
 import { SlidySelect } from '@orchard/components/Sidebar/SlidySelect';
@@ -35,7 +35,7 @@ export function Sidebar({ 'class': _class }: SidebarProps) {
                             showSwitch={false}
                             showFilter={false}
                         />
-                        <SlidySelect class="sb_facet" humanName="BPM" atom={bpmFilterAtom} min={0} max={1000} step={10} />
+                        {/* <SlidySelect class="sb_facet" humanName="BPM" atom={bpmFilterAtom} min={0} max={1000} step={10} /> */}
                         {
                             !advancedFilters
                                 ? <SimplePeerReviewSelect class="sb_facet" />
