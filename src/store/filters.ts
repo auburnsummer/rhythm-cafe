@@ -1,7 +1,9 @@
-import { atom, useAtom } from 'jotai';
+import { atom } from 'jotai/vanilla';
+import { useAtom } from 'jotai/react';
 import { is, isBoolean, isNumber, isOfShape } from 'type-guards';
-import type { ImmerAtom } from './customAtoms';
-import { immerAtom, persistAtom } from './customAtoms';
+import { persistAtom } from './customAtoms';
+import { atomWithImmer, withImmer } from 'jotai-immer';
+import { pageAtom } from './queryAndPage';
 
 type FilterType = 
     'set' |   // the value is in a set.
@@ -29,17 +31,21 @@ export type ApprovalFilter = RangeFilter & {
     name: "approval";
 }
 
-// immerAtom takes an atom as an argument, and creates a new atom that wraps that with immer.
-// we have two factory methods to produce these.
+export type ImmerAtom<T> = ReturnType<typeof atomWithImmer<T>>;
 
+// when a filter is set, the page is reset to 1. this is common behaviour across all filters.
+const filterAtom = <T>(initialValue: T) => {
+    const innerAtom = atom(
+        initialValue,
+        (_get, set, by: T) => {
+            set(innerAtom, by);
+            set(pageAtom, 1);
+        }
+    );
+    return withImmer(innerAtom);
+}
 
-// create an atom with immer that does not persist its value.
-const notPersistedFilterAtom = <T>(t: T): ImmerAtom<T> => immerAtom<T>(atom<T>(t));  // t is my favourite letter
-// create an atom with immer that persists its value. arguments are from "persistAtom"
-type PersistAtom<T> = typeof persistAtom<T>;
-const persistedFilterAtom = <T>(...a: Parameters<PersistAtom<T>>): ImmerAtom<T> => immerAtom<T>(persistAtom<T>(...a));
-
-export const difficultyFilterAtom = notPersistedFilterAtom<SetFilter>({
+export const difficultyFilterAtom = filterAtom<SetFilter>({
     name: 'difficulty',
     type: 'set',
     op: 'or',
@@ -47,7 +53,7 @@ export const difficultyFilterAtom = notPersistedFilterAtom<SetFilter>({
     values: new Set<number>([])
 });
 
-export const authorsFilterAtom = notPersistedFilterAtom<SetFilter>({
+export const authorsFilterAtom = filterAtom<SetFilter>({
     name: 'authors',
     type: 'set',
     op: 'and',
@@ -55,7 +61,7 @@ export const authorsFilterAtom = notPersistedFilterAtom<SetFilter>({
     values: new Set<string>([])
 });
 
-export const tagsFilterAtom = notPersistedFilterAtom<SetFilter>({
+export const tagsFilterAtom = filterAtom<SetFilter>({
     name: 'tags',
     type: 'set',
     op: 'and',
@@ -63,7 +69,7 @@ export const tagsFilterAtom = notPersistedFilterAtom<SetFilter>({
     values: new Set<string>([])
 });
 
-export const artistFilterAtom = notPersistedFilterAtom<SetFilter>({
+export const artistFilterAtom = filterAtom<SetFilter>({
     name: 'artist',
     type: 'set',
     op: 'or',
@@ -71,7 +77,7 @@ export const artistFilterAtom = notPersistedFilterAtom<SetFilter>({
     values: new Set<string>([])
 });
 
-export const bpmFilterAtom = notPersistedFilterAtom<RangeFilter>({
+export const bpmFilterAtom = filterAtom<RangeFilter>({
     name: 'bpm',
     type: 'range',
     active: false,
@@ -102,7 +108,7 @@ const defaultApproval = {
     min: 10,
     max: 20
 };
-export const approvalFilterAtom = persistedFilterAtom<RangeFilter>(
+export const approvalFilterAtom = withImmer(persistAtom<RangeFilter>(
     defaultApproval,
     'approval_filter',
     2,
@@ -115,7 +121,7 @@ export const approvalFilterAtom = persistedFilterAtom<RangeFilter>(
             return defaultApproval
         }
     }
-);
+));
 
 export const useDifficultyFilter = () => useAtom(difficultyFilterAtom);
 export const useAuthorsFilter = () => useAtom(authorsFilterAtom);
