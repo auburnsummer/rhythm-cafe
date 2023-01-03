@@ -2,7 +2,8 @@ import { atom } from 'jotai/vanilla';
 import { useAtom } from 'jotai/react';
 import { is, isBoolean, isNumber, isOfShape } from 'type-guards';
 import { persistAtom } from './customAtoms';
-import { atomWithImmer, withImmer } from 'jotai-immer';
+import type { atomWithImmer } from 'jotai-immer';
+import { withImmer } from 'jotai-immer';
 import { pageAtom } from './queryAndPage';
 
 type FilterType = 
@@ -28,7 +29,7 @@ export type RangeFilter = BaseFilter & {
 };
 
 export type ApprovalFilter = RangeFilter & {
-    name: "approval";
+    name: 'approval';
 }
 
 export type ImmerAtom<T> = ReturnType<typeof atomWithImmer<T>>;
@@ -43,7 +44,7 @@ const filterAtom = <T>(initialValue: T) => {
         }
     );
     return withImmer(innerAtom);
-}
+};
 
 export const difficultyFilterAtom = filterAtom<SetFilter>({
     name: 'difficulty',
@@ -87,19 +88,19 @@ export const bpmFilterAtom = filterAtom<RangeFilter>({
 
 const isApprovalFilter = (a: unknown): ApprovalFilter | undefined => {
     const guard = isOfShape({
-        "name": is("approval" as const),
-        "type": is("range" as const),
-        "active": isBoolean,
-        "min": isNumber,
-        "max": isNumber
+        'name': is('approval' as const),
+        'type': is('range' as const),
+        'active': isBoolean,
+        'min': isNumber,
+        'max': isNumber
     });
     if (guard(a)) {
         if (a.max >= a.min) {
-            return a
+            return a;
         }
     }
-    return undefined
-}
+    return undefined;
+};
 
 const defaultApproval = {
     name: 'approval' as const,
@@ -115,10 +116,10 @@ export const approvalFilterAtom = withImmer(persistAtom<RangeFilter>(
     JSON.stringify,
     (s) => {
         try {
-            let a: unknown = JSON.parse(s);
-            return isApprovalFilter(a) || defaultApproval
+            const a: unknown = JSON.parse(s);
+            return isApprovalFilter(a) || defaultApproval;
         } catch (SyntaxError) {
-            return defaultApproval
+            return defaultApproval;
         }
     }
 ));

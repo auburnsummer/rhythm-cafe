@@ -58,7 +58,7 @@ export function LevelBox({ level, 'class': _class }: LevelBoxProps) {
                 <div class="lb_overlay">
                     <div class="lb_description">
                         {
-                            level.description.split("\n").map(p => <p>{p}</p>)
+                            level.description.split('\n').map(p => <p>{p}</p>)
                         }
                     </div>
                     <div class="lb_buttons">
