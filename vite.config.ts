@@ -42,12 +42,12 @@ export default defineConfig(({command, mode}) => {
     const server: UserConfig['server'] = 
         'CODESPACES' in process.env
             ? {
-                port: 3000,
+                port: 5173,
                 hmr: {
                     clientPort: 443
                 }
             } : {
-                port: 3001
+                port: 5173
             };
 
     return {
