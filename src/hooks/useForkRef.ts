@@ -4,6 +4,9 @@ import type { Ref } from 'preact';
 import { useCallback } from 'preact/hooks';
 
 function setRef<T extends Element>(ref: Ref<T>, value: T | null): void {
+    if (ref == null) {
+        return;
+    }
     if (typeof ref === 'object') {
         ref.current = value;
     } else {

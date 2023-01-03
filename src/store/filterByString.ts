@@ -13,7 +13,7 @@ export const filterByStringAtom = atom(get => {
             if (!filter.active) {
                 return prev;
             }
-            if (filter.type === 'set') {
+            if (filter.type === "set") {
                 if (filter.values.size === 0) {
                     return prev;
                 }
