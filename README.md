@@ -43,7 +43,7 @@ yarn install
 To start the local dev environment, run
 
 ```
-yarn start
+yarn dev
 ```
 
 By default, this will use the production backend at `api.rhythm.cafe`. Since
