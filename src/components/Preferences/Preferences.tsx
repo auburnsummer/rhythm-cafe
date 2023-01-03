@@ -31,7 +31,6 @@ export function Preferences({ 'class': _class } : PreferencesProps) {
 
     const onMouseDown = (e: Event) => {
         e.stopPropagation();
-        console.log('mouse downnnnnnn');
     };
 
     useClickAway(panelRef, _ => {
