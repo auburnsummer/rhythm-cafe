@@ -17,12 +17,15 @@ type LevelsListProps = {
 export function LevelsList({ hits, 'class': _class }: LevelsListProps) {
 
     const parentRef = useRef<HTMLDivElement>(null);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const [rect, ref] = useMeasure<HTMLDivElement>();
 
     const width = useMemo(() => {
         return rect ? rect.width : 0;
     }, [rect]);
 
+    // todo: work out how to fix these TS errors, and the one above...
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const whatIsEvenHappeningNowRef = useForkRef<HTMLDivElement>(parentRef, ref);
 
     const [rowView] = usePreference('row view');

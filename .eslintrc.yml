@@ -47,6 +47,10 @@ rules:
     - error
   '@typescript-eslint/consistent-type-exports':
     - error
+  '@typescript-eslint/restrict-template-expressions':
+    - error
+    - allowNumber: true
+      allowBoolean: true
 
 settings:
   "import/parsers":

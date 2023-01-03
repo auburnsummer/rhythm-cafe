@@ -47,8 +47,7 @@ export function LevelBox({ level, 'class': _class }: LevelBoxProps) {
     const [copyEffect, exciteCopyEffect] = useExcite(1000);
 
     const onCopyClick = () => {
-        copy(canonicalUrl);
-        exciteCopyEffect();
+        void copy(canonicalUrl).then(exciteCopyEffect);
     };
 
     return (
