@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn add eslint @microsoft/eslint-formatter-sarif
 
       - name: Run ESLint
         run: npx eslint src
