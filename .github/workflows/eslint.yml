@@ -32,11 +32,7 @@ jobs:
         run: yarn add eslint @microsoft/eslint-formatter-sarif
 
       - name: Run ESLint
-        run: npx eslint src
-          --config .eslintrc.yml
-          --ext .js,.jsx,.ts,.tsx
-          --format @microsoft/eslint-formatter-sarif
-          --output-file eslint-results.sarif
+        run: npx eslint src --config .eslintrc.yml --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
         continue-on-error: true
 
       - name: Upload analysis results to GitHub

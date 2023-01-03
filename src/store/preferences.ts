@@ -21,6 +21,6 @@ type Preferences = typeof preferences;
 export const usePreference = <T extends keyof Preferences>(key: T) => {
     type V = ExtractAtomValue<Preferences[T]>
     const a = preferences[key];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- workaround for jotai 
     return useAtom(a as any) as [V, (update: SetStateAction<V>) => void];
 }; 
