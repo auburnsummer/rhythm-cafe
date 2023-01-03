@@ -3,7 +3,7 @@ import { usePreference } from '@orchard/store';
 import { useRef, useMemo, useCallback } from 'preact/hooks';
 import { useVirtual } from 'react-virtual';
 import { LevelBox } from '@orchard/components/LevelBox';
-import useResizeObserver from "use-resize-observer";
+import useResizeObserver from 'use-resize-observer';
 import './LevelsList.css';
 
 import cc from 'clsx';
