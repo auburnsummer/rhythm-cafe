@@ -21,7 +21,8 @@ jobs:
     name: runner / eslint
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+      security-events: write
       pull-requests: write 
     steps:
       - uses: actions/checkout@v3
@@ -32,8 +33,3 @@ jobs:
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
-
-permissions:
-    id-token: write
-    contents: write              # This is required for actions/checkout@v1
-    security-events: write   # To upload sarif files
