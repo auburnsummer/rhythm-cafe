@@ -9,7 +9,6 @@
     "lint": "eslint src"
   },
   "dependencies": {
-    "@microsoft/eslint-formatter-sarif": "^3.0.0",
     "@react-hookz/web": "^15.1.0",
     "clipboard-copy": "^4.0.1",
     "clsx": "^1.2.1",
@@ -27,6 +26,7 @@
     "use-resize-observer": "^9.1.0"
   },
   "devDependencies": {
+    "@microsoft/eslint-formatter-sarif": "^3.0.0",
     "@preact/preset-vite": "^2.5.0",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
