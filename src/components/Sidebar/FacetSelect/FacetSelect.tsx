@@ -36,7 +36,7 @@ export function FacetSelect(
     const facetName = filter.name;
     const [input, setInput] = useState('');
 
-    const { data: resp, isLagging } = useLevels(
+    const { data: resp, isLoading } = useLevels(
         {
             maxFacetValues: 10,
             facetQuery: input ? `${facetName}:${input.trim()}` : undefined
@@ -75,11 +75,11 @@ export function FacetSelect(
     };
 
     return (
-        <div class={cc(_class, 'fs', { 'laggy!fs': isLagging })}>
+        <div class={cc(_class, 'fs', { 'laggy!fs': isLoading })}>
             <div class="fs_depo">
                 <span class="fs_name">{humanName}</span>
                 {total > 0 && <span class="fs_total">({total})</span>}
-                {isLagging && <Spinny class="fs_spinny" />}
+                {isLoading && <Spinny class="fs_spinny" />}
                 <div class="fs_spacer" />
                 {
                     filterOp && showSwitch && (
