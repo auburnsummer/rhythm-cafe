@@ -6,7 +6,7 @@ import cc from 'clsx';
 
 type LevelsControlsProps = WithClass;
 export function LevelsControls({ 'class': _class }: LevelsControlsProps) {
-    const { data: resp, isLagging } = useLevels();
+    const { data: resp, isLoading } = useLevels();
     const [page, setPage] = usePage();
     const [levelsPerPage] = usePreference('levels per page');
     const [q] = useQuery();
@@ -18,7 +18,7 @@ export function LevelsControls({ 'class': _class }: LevelsControlsProps) {
     return (
         <div class={cc(_class, 'le')}>
             {
-                q && resp?.data.found && !isLagging && (
+                q && resp?.data.found && !isLoading && (
                     <div class="le_results">
                         <p>{resp?.data.found} levels found for {q} </p>
                     </div>

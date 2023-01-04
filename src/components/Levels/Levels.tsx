@@ -12,7 +12,7 @@ import { LevelsList } from '@orchard/components/Levels/LevelsList';
 
 type LevelsProps = WithClass;
 export function Levels({ 'class': _class }: LevelsProps) {
-    const { data: resp, error, isLagging } = useLevels();
+    const { data: resp, error, isLoading } = useLevels();
     const [ page ] = usePage();
 
     return (
@@ -32,7 +32,7 @@ export function Levels({ 'class': _class }: LevelsProps) {
                         <LevelsControls class="lv_controls" />
                         <LevelsList
                             hits={resp.data.hits}
-                            class={['lv_loaded', { 'laggy!lv_loaded': isLagging }]}
+                            class={['lv_loaded', { 'laggy!lv_loaded': isLoading }]}
                         />
                     </>
                 )

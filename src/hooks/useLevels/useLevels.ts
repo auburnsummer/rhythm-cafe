@@ -3,7 +3,6 @@ import { TYPESENSE_API_KEY, TYPESENSE_URL } from '@orchard/utils/constants';
 import type { Response } from 'redaxios';
 import Axios from 'redaxios';
 import useSWR from 'swr';
-import usePrevious from '@orchard/hooks/usePrevious';
 import { useApprovalFilter, usePage, usePreference, useQuery } from '@orchard/store';
 import { useFilterByString } from '@orchard/store/filterByString';
 
@@ -51,7 +50,7 @@ export function useLevels({ facetQuery, maxFacetValues }: useLevelsProps = {}) {
     }
 
 
-    const { data, error } = useSWR<Response<SearchResponse<Level>>, Response<unknown>>(processed, (params: SearchParams) => {
+    const { data, error, isLoading } = useSWR<Response<SearchResponse<Level>>, Response<unknown>>(processed, (params: SearchParams) => {
         return Axios({
             url: `${TYPESENSE_URL}/collections/levels/documents/search`,
             headers: {
@@ -59,12 +58,9 @@ export function useLevels({ facetQuery, maxFacetValues }: useLevelsProps = {}) {
             },
             params
         });
+    }, {
+        keepPreviousData: true
     });
-
-    const [previousData, resetPreviousData] = usePrevious(data);
-    const dataOrPrevious = data === undefined ? previousData : data;
-    const isLagging = data === undefined && previousData !== undefined;
-
  
-    return { data: dataOrPrevious, error, isLagging, resetPreviousData };
+    return { data, error, isLoading };
 }
