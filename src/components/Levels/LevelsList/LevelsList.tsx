@@ -1,10 +1,9 @@
 import type { SearchResponseHit, Level } from '@orchard/hooks/useLevels';
 import { usePreference } from '@orchard/store';
 import { useRef, useMemo, useCallback } from 'preact/hooks';
-import { useMeasure } from '@react-hookz/web/esnext';
 import { useVirtual } from 'react-virtual';
 import { LevelBox } from '@orchard/components/LevelBox';
-import { useForkRef } from '@orchard/hooks/useForkRef';
+import useResizeObserver from 'use-resize-observer';
 import './LevelsList.css';
 
 import cc from 'clsx';
@@ -17,13 +16,8 @@ type LevelsListProps = {
 export function LevelsList({ hits, 'class': _class }: LevelsListProps) {
 
     const parentRef = useRef<HTMLDivElement>(null);
-    const [rect, ref] = useMeasure<HTMLDivElement>();
 
-    const width = useMemo(() => {
-        return rect ? rect.width : 0;
-    }, [rect]);
-
-    const whatIsEvenHappeningNowRef = useForkRef<HTMLDivElement>(parentRef, ref);
+    const { width } = useResizeObserver({ ref: parentRef });
 
     const [rowView] = usePreference('row view');
 
@@ -32,7 +26,7 @@ export function LevelsList({ hits, 'class': _class }: LevelsListProps) {
         if (rowView) {
             return 1;
         }
-        if (width === 0) {
+        if (width === 0 || width == undefined) {
             return 1;
         }
         // blaze it
@@ -54,7 +48,7 @@ export function LevelsList({ hits, 'class': _class }: LevelsListProps) {
     return (
         <div
             class={cc(_class, 'll')}
-            ref={whatIsEvenHappeningNowRef}
+            ref={parentRef}
             style={{
                 height: '100%',
                 overflow: 'auto'

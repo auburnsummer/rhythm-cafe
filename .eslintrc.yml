@@ -4,6 +4,7 @@ env:
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
   - plugin:import/recommended
   - plugin:import/typescript 
 parser: '@typescript-eslint/parser'
@@ -46,6 +47,10 @@ rules:
     - error
   '@typescript-eslint/consistent-type-exports':
     - error
+  '@typescript-eslint/restrict-template-expressions':
+    - error
+    - allowNumber: true
+      allowBoolean: true
 
 settings:
   "import/parsers":

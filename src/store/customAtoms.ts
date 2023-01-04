@@ -7,9 +7,9 @@ type Persisted = {
 };
 
 const isPersisted = isOfShape<Persisted>({
-    "version": isNumber,
-    "value": isString
-})
+    'version': isNumber,
+    'value': isString
+});
 
 function getAtomInitialValue<T>(initialValue: T, key: string, version: number, deserialize: (s: string) => T) {
     const storedValue = localStorage.getItem(key);

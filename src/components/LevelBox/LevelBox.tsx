@@ -47,8 +47,7 @@ export function LevelBox({ level, 'class': _class }: LevelBoxProps) {
     const [copyEffect, exciteCopyEffect] = useExcite(1000);
 
     const onCopyClick = () => {
-        copy(canonicalUrl);
-        exciteCopyEffect();
+        void copy(canonicalUrl).then(exciteCopyEffect);
     };
 
     return (
@@ -58,7 +57,7 @@ export function LevelBox({ level, 'class': _class }: LevelBoxProps) {
                 <div class="lb_overlay">
                     <div class="lb_description">
                         {
-                            level.description.split("\n").map(p => <p>{p}</p>)
+                            level.description.split('\n').map(p => <p>{p}</p>)
                         }
                     </div>
                     <div class="lb_buttons">

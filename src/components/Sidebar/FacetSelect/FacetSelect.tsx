@@ -108,7 +108,7 @@ export function FacetSelect(
                 {
                     facet && sortBy(facet.counts, sortByFunc).map(f => {
                         { /* temp hack: https://github.com/typesense/typesense/issues/832 */ }
-                        if (facet.field_name == "tags" && f.value == "as you can tell I'm a master at writing relevant tags") {
+                        if (facet.field_name == 'tags' && f.value == 'as you can tell I\'m a master at writing relevant tags') {
                             return null;
                         }
                         return (

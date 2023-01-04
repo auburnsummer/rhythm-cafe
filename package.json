@@ -22,9 +22,11 @@
     "redaxios": "^0.5.0",
     "swr": "^2.0.0",
     "the-new-css-reset": "^1.8.2",
-    "type-guards": "^0.15.0"
+    "type-guards": "^0.15.0",
+    "use-resize-observer": "^9.1.0"
   },
   "devDependencies": {
+    "@microsoft/eslint-formatter-sarif": "^3.0.0",
     "@preact/preset-vite": "^2.5.0",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.0",

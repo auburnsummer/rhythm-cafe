@@ -2,7 +2,7 @@ import { atom } from 'jotai/vanilla';
 import { useAtom } from 'jotai/react';
 import type { SetFilter } from './filters';
 import { artistFilterAtom, authorsFilterAtom, bpmFilterAtom, difficultyFilterAtom, tagsFilterAtom } from './filters';
-import { WritableDraft } from 'immer/dist/internal';
+import type { WritableDraft } from 'immer/dist/internal';
 
 const clearSetFilter = (f: WritableDraft<SetFilter>) => {
     f.values.clear();
