@@ -6,16 +6,14 @@ import useSWR from 'swr';
 import { useApprovalFilter, usePage, usePreference, useQuery } from '@orchard/store';
 import { useFilterByString } from '@orchard/store/filterByString';
 
-
-
 type useLevelsProps = {
     facetQuery?: string;
     maxFacetValues?: number;
 }
 
-export function useLevels({ facetQuery, maxFacetValues }: useLevelsProps = {}) {
+export function useLevelsSearchParams({ facetQuery, maxFacetValues }: useLevelsProps = {}) {
     const [q] = useQuery();
-    const facetBy = ['authors', 'tags', 'source', 'difficulty', 'artist'];
+    const facetBy = ['authors', 'tags', 'source', 'difficulty', 'artist'] as const;
     const [page] = usePage();
     const [filterByString] = useFilterByString();
 
@@ -49,16 +47,26 @@ export function useLevels({ facetQuery, maxFacetValues }: useLevelsProps = {}) {
         processed.facet_query = facetQuery;
     }
 
+    return processed;
+}
 
-    const { data, error, isLoading } = useSWR<Response<SearchResponse<Level>>, Response<unknown>>(processed, (params: SearchParams) => {
-        return Axios({
-            url: `${TYPESENSE_URL}/collections/levels/documents/search`,
-            headers: {
-                'x-typesense-api-key': TYPESENSE_API_KEY
-            },
-            params
-        });
-    }, {
+function fetcher(params: SearchParams) {
+    return Axios<SearchResponse<Level>>({
+        url: `${TYPESENSE_URL}/collections/levels/documents/search`,
+        headers: {
+            'x-typesense-api-key': TYPESENSE_API_KEY
+        },
+        params
+    });
+}
+
+type SWRReturnType = Response<SearchResponse<Level>>;
+type SWRErrorType = Response<unknown>;
+
+export function useLevels({ facetQuery, maxFacetValues }: useLevelsProps = {}) {
+    const processed = useLevelsSearchParams({facetQuery, maxFacetValues});
+
+    const { data, error, isLoading } = useSWR<SWRReturnType, SWRErrorType>(processed, fetcher, {
         keepPreviousData: true
     });
  

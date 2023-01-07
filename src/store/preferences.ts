@@ -6,7 +6,7 @@ const makePreferenceAtom = <T>(name: string, initialValue: T, version: number) =
     return persistAtom<T>(initialValue, `preference: ${name}`, version, JSON.stringify, JSON.parse);
 };
 
-const preferences = {
+export const preferences = {
     'show advanced filters': makePreferenceAtom('show advanced filters', false, 1),
     'show more level details': makePreferenceAtom('show more level details', false, 1),
     'levels per page': makePreferenceAtom('levels per page', 25, 1),

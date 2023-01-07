@@ -8,7 +8,7 @@ const clearSetFilter = (f: WritableDraft<SetFilter>) => {
     f.values.clear();
 };
 
-const queryAtom = atom('', (_get, set, by: string) => {
+export const queryAtom = atom('', (_get, set, by: string) => {
     set(queryAtom, by);
     set(pageAtom, 1);
     set(difficultyFilterAtom, clearSetFilter);
