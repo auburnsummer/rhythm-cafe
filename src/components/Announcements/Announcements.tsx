@@ -11,7 +11,7 @@ export function Announcements({ 'class': _class } : AnnouncementsProps) {
                 Not sure where to start? Try the <a href="https://docs.google.com/spreadsheets/d/1acZltH8MKs81Nu-BOsaupeWfjJVDiDVoVzbIKepPdYQ/edit?usp=sharing">RDL Setlists!</a>
             </li>
             <li class="an_announcement">
-                <a href="https://rhythm-doctor.gitbook.io/level-editor/">Level editor tutorial</a> by Klyzx et al
+                <a href="https://rd-editor-docs.github.io/intro/">Level editor tutorial</a> by Klyzx et al
             </li>
         </ul>
     );
