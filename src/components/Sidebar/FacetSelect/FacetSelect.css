@@ -39,6 +39,7 @@
     padding-left: 0.125rem;
     padding-right: 0.125rem;
     border-radius: 0.25rem;
+    user-select: none;
 }
 
 .fs_switchbutton:hover {

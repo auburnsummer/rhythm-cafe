@@ -17,13 +17,13 @@ export const filterByStringAtom = atom(get => {
                 if (filter.values.size === 0) {
                     return prev;
                 }
+                // backticks denote literal strings in Typesense
+                const values = [...filter.values].map(v => `\`${v}\``);
                 if (filter.op === 'and') {
-                    const values = [...filter.values];
                     const nexts = values.map(v => `${filter.name}:=${v}`);
                     return [...prev, ...nexts];    
                 }
                 if (filter.op === 'or') {
-                    const values = [...filter.values];
                     const next = `${filter.name}:=[${values.join(',')}]`;
                     return [...prev, next];
                 }
