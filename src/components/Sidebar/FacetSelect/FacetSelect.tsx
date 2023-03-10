@@ -9,7 +9,7 @@ import { useMemo, useState } from 'preact/hooks';
 import './FacetSelect.css';
 import sortBy from 'just-sort-by';
 import { useAtom } from 'jotai/react';
-import { castDraft, castImmutable } from 'immer';
+import { castDraft } from 'immer';
 
 type SortableValue = string | number;
 
