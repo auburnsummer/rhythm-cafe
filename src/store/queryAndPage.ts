@@ -4,7 +4,7 @@ import type { SetFilter } from './filters';
 import { artistFilterAtom, authorsFilterAtom, bpmFilterAtom, difficultyFilterAtom, tagsFilterAtom } from './filters';
 import type { WritableDraft } from 'immer/dist/internal';
 
-const clearSetFilter = (f: WritableDraft<SetFilter>) => {
+const clearSetFilter = (f: WritableDraft<SetFilter<string | number>>) => {
     f.values.clear();
 };
 
