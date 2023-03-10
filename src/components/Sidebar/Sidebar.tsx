@@ -7,6 +7,7 @@ import { approvalFilterAtom, artistFilterAtom, authorsFilterAtom, difficultyFilt
 import { FacetSelect } from '@orchard/components/Sidebar/FacetSelect';
 import { SimplePeerReviewSelect } from '@orchard/components/Sidebar/SimplePeerReviewSelect';
 import { SlidySelect } from '@orchard/components/Sidebar/SlidySelect';
+import { identity } from '@orchard/utils/grabbag';
 
 type SidebarProps = WithClass;
 export function Sidebar({ 'class': _class }: SidebarProps) {
@@ -14,7 +15,7 @@ export function Sidebar({ 'class': _class }: SidebarProps) {
 
     const facets = resp?.data.facet_counts;
 
-    const difficultyName = (v: string) => ['Easy', 'Medium', 'Tough', 'Very Tough'][parseInt(v)];
+    const difficultyName = (v: number) => ['Easy', 'Medium', 'Tough', 'Very Tough'][v];
 
     const [advancedFilters] = usePreference('show advanced filters');
 
@@ -23,14 +24,15 @@ export function Sidebar({ 'class': _class }: SidebarProps) {
             {
                 facets && (
                     <>
-                        <FacetSelect class="sb_facet" atom={tagsFilterAtom} humanName="Tags" />
-                        <FacetSelect class="sb_facet" atom={authorsFilterAtom} humanName="Authors" />
-                        <FacetSelect class="sb_facet" atom={artistFilterAtom} humanName="Artist" />
+                        <FacetSelect class="sb_facet" atom={tagsFilterAtom} stringToFacetFunc={identity} humanName="Tags" />
+                        <FacetSelect class="sb_facet" atom={authorsFilterAtom} stringToFacetFunc={identity} humanName="Authors" />
+                        <FacetSelect class="sb_facet" atom={artistFilterAtom} stringToFacetFunc={identity} humanName="Artist" />
                         <FacetSelect
                             class="sb_facet"
                             atom={difficultyFilterAtom}
                             humanName="Difficulty"
-                            valueTransformFunc={difficultyName}
+                            valueDisplayFunc={difficultyName}
+                            stringToFacetFunc={parseInt}
                             sortByFunc={s => s.value}
                             showSwitch={false}
                             showFilter={false}

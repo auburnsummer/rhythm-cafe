@@ -9,28 +9,60 @@ import { useMemo, useState } from 'preact/hooks';
 import './FacetSelect.css';
 import sortBy from 'just-sort-by';
 import { useAtom } from 'jotai/react';
+import { castDraft } from 'immer';
 
 type SortableValue = string | number;
 
-type FacetSelectProps = {
-    atom: ImmerAtom<SetFilter>;
+/**
+ * Configuration type for FacetSelect.
+ */
+type FacetSelectProps<T extends string | number> = {
+    /**
+     * The atom that's being controlled by this FacetSelect.
+     */
+    atom: ImmerAtom<SetFilter<T>>;
+    /**
+     * Name that appears above the selector.
+     */
     humanName: string;
+    /**
+     * Whether to show the ability to switch "and"/"or" modes.
+     * This isn't very functional at the moment.
+     */
     showSwitch?: boolean;
+    /**
+     * Whether to show the search bar at the top of the filter.
+     */
     showFilter?: boolean;
-    valueTransformFunc?: (s: string) => string;
+    /**
+     * An optional function that can be provided to change the displayed values
+     * of the facet. e.g. Difficulty's values are numbers from 0-3, but we want to show the words
+     * "Easy", "Medium", etc.
+     */
+    valueDisplayFunc?: (s: T) => string;
+    /**
+     * The facets that come from Typesense are always strings. If T is not string,
+     * a function must be provided to turn the values back.
+     */
+    stringToFacetFunc: (s: string) => T;
+    /**
+     * An optional function to sort the facet set. By default it sorts by count, descending.
+     */
     sortByFunc?: (s: SearchResponseFacetCountSchema<Level>['counts'][number]) => SortableValue;
 } & WithClass;
 
-export function FacetSelect(
+
+export function FacetSelect<T extends string | number>(
     {
         'class': _class,
         atom,
         humanName,
         'showSwitch': _showSwitch = true,
         showFilter = true,
-        valueTransformFunc = s => `${s}`,
+        valueDisplayFunc = s => `${s}`,
+        stringToFacetFunc,
         sortByFunc = s => s.count * -1
-    }: FacetSelectProps) {
+    }: FacetSelectProps<T>) {
     const [filter, setFilter] = useAtom(atom);
 
     const facetName = filter.name;
@@ -55,14 +87,16 @@ export function FacetSelect(
     const total = facet?.stats.total_values || 0;
 
     const toggle = (value: string) => {
-        const currentlySelected = selected.has(value);
+        const setValue = stringToFacetFunc(value);
+        const currentlySelected = selected.has(setValue);
+        const castValue = castDraft(setValue); // = setValue
         if (currentlySelected) {
             setFilter(d => {
-                d.values.delete(value);
+                d.values.delete(castValue);
             });
         } else {
             setFilter(d => {
-                d.values.add(value);
+                d.values.add(castValue);
             });
         }
     };
@@ -107,20 +141,16 @@ export function FacetSelect(
             <ul class="fs_list">
                 {
                     facet && sortBy(facet.counts, sortByFunc).map(f => {
-                        { /* temp hack: https://github.com/typesense/typesense/issues/832 */ }
-                        if (facet.field_name == 'tags' && f.value == 'as you can tell I\'m a master at writing relevant tags') {
-                            return null;
-                        }
                         return (
                             <li class="fs_item" key={f.value}>
                                 <label class="fs_control">
                                     <input
                                         class="fs_checkbox"
                                         type="checkbox"
-                                        checked={selected.has(f.value)}
+                                        checked={selected.has(stringToFacetFunc(f.value))}
                                         onClick={() => toggle(f.value)}
                                     />
-                                    {valueTransformFunc(f.value)}
+                                    {valueDisplayFunc(stringToFacetFunc(f.value))}
                                 </label>
                                 <span class="fs_count">({f.count})</span>
                             </li>

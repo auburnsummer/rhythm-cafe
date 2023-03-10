@@ -16,10 +16,10 @@ export type BaseFilter = {
     active: boolean;
 };
 
-export type SetFilter = BaseFilter & {
+export type SetFilter<T extends string | number> = BaseFilter & {
     type: 'set';
     op: 'and' | 'or';  // and: all the values must be in the set. or: only one value has to be in the set.
-    values: Set<string | number>;
+    values: Set<T>;
 };
 
 export type RangeFilter = BaseFilter & {
@@ -46,36 +46,36 @@ const filterAtom = <T>(initialValue: T) => {
     return withImmer(innerAtom);
 };
 
-export const difficultyFilterAtom = filterAtom<SetFilter>({
+export const difficultyFilterAtom = filterAtom<SetFilter<number>>({
     name: 'difficulty',
     type: 'set',
     op: 'or',
     active: true,
-    values: new Set<number>([])
+    values: new Set([])
 });
 
-export const authorsFilterAtom = filterAtom<SetFilter>({
+export const authorsFilterAtom = filterAtom<SetFilter<string>>({
     name: 'authors',
     type: 'set',
     op: 'and',
     active: true,
-    values: new Set<string>([])
+    values: new Set([])
 });
 
-export const tagsFilterAtom = filterAtom<SetFilter>({
+export const tagsFilterAtom = filterAtom<SetFilter<string>>({
     name: 'tags',
     type: 'set',
     op: 'and',
     active: true,
-    values: new Set<string>([])
+    values: new Set([])
 });
 
-export const artistFilterAtom = filterAtom<SetFilter>({
+export const artistFilterAtom = filterAtom<SetFilter<string>>({
     name: 'artist',
     type: 'set',
     op: 'or',
     active: true,
-    values: new Set<string>([])
+    values: new Set([])
 });
 
 export const bpmFilterAtom = filterAtom<RangeFilter>({
