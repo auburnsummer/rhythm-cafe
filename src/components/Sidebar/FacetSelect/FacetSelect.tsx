@@ -68,7 +68,7 @@ export function FacetSelect(
     };
 
     const toggleOp = () => {
-        const newOp = filterOp === 'and' ? 'or' : 'and';
+        const newOp = filterOp === 'and' ? 'and' : 'or';
         setFilter(d => {
             d.op = newOp;
         });
@@ -88,7 +88,7 @@ export function FacetSelect(
                                 class="fs_switchbutton"
                                 onClick={toggleOp}
                             >
-                                {filterOp}
+                                {filterOp === 'or' ? 'or' : 'and'}
                             </button>
                         </div>
                     )
@@ -107,6 +107,10 @@ export function FacetSelect(
             <ul class="fs_list">
                 {
                     facet && sortBy(facet.counts, sortByFunc).map(f => {
+                        { /* temp hack: https://github.com/typesense/typesense/issues/832 */ }
+                        if (facet.field_name == 'tags' && f.value == 'as you can tell I\'m a master at writing relevant tags') {
+                            return null;
+                        }
                         return (
                             <li class="fs_item" key={f.value}>
                                 <label class="fs_control">
