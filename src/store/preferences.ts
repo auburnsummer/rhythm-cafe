@@ -13,7 +13,7 @@ const preferences = {
     'row view': makePreferenceAtom('row view', false, 1),
     'search as you type': makePreferenceAtom('search as you type', false, 1),
     'exact search': makePreferenceAtom('exact search', false, 1),
-    'force codex urls': makePreferenceAtom('force codex urls', false, 1)
+    'force codex urls': makePreferenceAtom('force codex urls', true, 2)
 } as const;
 
 type Preferences = typeof preferences;
