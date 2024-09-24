@@ -17,7 +17,7 @@ The new version will include:
  - Log in with Discord!
  - Edit your levels!
  - A manual system for adding levels instead of the current automated scraper
-   - unfortunately the manual scraper is starting to fall over... a lot
+   - unfortunately the scraper is starting to fall over... a lot
 
 # Background
 
