@@ -8,6 +8,17 @@ A website that catalogs Rhythm Doctor custom levels.
 
 [link to the site here](https://rhythm.cafe)
 
+# NEW VERSION
+
+All future work is happening here: https://github.com/auburnsummer/orchard2
+
+The new version will include:
+
+ - Log in with Discord!
+ - Edit your levels!
+ - A manual system for adding levels instead of the current automated scraper
+   - unfortunately the manual scraper is starting to fall over... a lot
+
 # Background
 
 [Rhythm Doctor](https://rhythmdr.com) is a rhythm game by 7th Beat Games. It also
